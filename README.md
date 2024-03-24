@@ -1,1 +1,1 @@
-MonsterHunter Rise/Sunbreak damage calculator
+MonsterHunter Rise/Sunbreak damage calculator(WIP)
