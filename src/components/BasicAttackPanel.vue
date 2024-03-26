@@ -4,10 +4,12 @@ import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import baseLogic from '../scripts/logic/CalculateDmg'
 import weaponData from '../scripts/data/Weapons'
+import { WeaponType, allWeaponTypes, MotionType } from '../scripts/data/Weapons'
 
-function consoleName() {
-  console.log(weaponData.getWeaponName())
-}
+// function consoleName(wt: WeaponType) {
+// console.log(weaponData.getWeaponName(wt))
+// }
+const wt = ref<WeaponType>()
 </script>
 
 <template>
@@ -15,10 +17,16 @@ function consoleName() {
     <h1>武器基础信息</h1>
     <form>
       <label for="weaponType">武器类型</label>
-      <el-select id="weaponType" name="weaponType">
-        <el-option value="greatSword" key="大剑" label="大剑" />
+      <el-select id="weaponType" name="weaponType" v-model="wt" placeholder="请选择一种武器">
+        <el-option
+          v-for="t in allWeaponTypes"
+          :key="t"
+          :value="t"
+          :label="weaponData.getWeaponName(t)"
+        />
       </el-select>
+      <label for="motionType">动作</label>
     </form>
-    <button @click="consoleName">Button1</button>
+    <!-- <button @click="consoleName(wt)">Button1</button> -->
   </div>
 </template>
