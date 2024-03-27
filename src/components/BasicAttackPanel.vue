@@ -4,12 +4,20 @@ import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import baseLogic from '../scripts/logic/CalculateDmg'
 import weaponData from '../scripts/data/Weapons'
-import { WeaponType, allWeaponTypes, MotionType } from '../scripts/data/Weapons'
+import { WeaponType, allWeaponTypes, MotionType, allMotionTypes } from '../scripts/data/Weapons'
 
 // function consoleName(wt: WeaponType) {
 // console.log(weaponData.getWeaponName(wt))
 // }
 const wt = ref<WeaponType>()
+const mt = ref<number>()
+
+function out() {
+  console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
+}
+function onChange() {
+  console.info('This is test of onChange!')
+}
 </script>
 
 <template>
@@ -17,7 +25,13 @@ const wt = ref<WeaponType>()
     <h1>武器基础信息</h1>
     <form>
       <label for="weaponType">武器类型</label>
-      <el-select id="weaponType" name="weaponType" v-model="wt" placeholder="请选择一种武器">
+      <el-select
+        id="weaponType"
+        name="weaponType"
+        v-model="wt"
+        @change="onChange"
+        placeholder="请选择一种武器"
+      >
         <el-option
           v-for="t in allWeaponTypes"
           :key="t"
@@ -25,8 +39,16 @@ const wt = ref<WeaponType>()
           :label="weaponData.getWeaponName(t)"
         />
       </el-select>
-      <label for="motionType">动作</label>
+      <label for="motionType">武器动作</label>
+      <el-select id="motionType" name="motionType" v-model="mt" placeholder="请选择一种招式">
+        <el-option
+          v-for="m in weaponData.getWeaponMotionsByWeaponType(wt)"
+          :key="m.motionType"
+          :value="m.motionType"
+          :label="m.name"
+        />
+      </el-select>
     </form>
-    <!-- <button @click="consoleName(wt)">Button1</button> -->
+    <el-button @click="out" type="primary">Button1</el-button>
   </div>
 </template>

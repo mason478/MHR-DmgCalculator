@@ -5,7 +5,7 @@ export enum WeaponType {
   UNKNOWN = 0,
   GREAT_SWORD = 1,
   LONG_SWORD = 2,
-  BOW = 3,
+  BOW = 3
 }
 
 export enum MotionType {
@@ -19,7 +19,7 @@ export enum MotionType {
   STRONG_CHARGED_SLASH_LV0 = 6,
   STRONG_CHARGED_SLASH_LV1 = 7,
   STRONG_CHARGED_SLASH_LV2 = 8,
-  STRONG_CHARGED_SLASH_LV3 = 9,
+  STRONG_CHARGED_SLASH_LV3 = 9
 }
 
 interface WeaponMotion {
@@ -87,39 +87,39 @@ const greatSword: Weapon = {
       elementCorrection: 1.5,
       abnormalStatusCorrection: 1.5
     },
-    {      
-      motionType:MotionType.SIDE_BLOW,
-      name: "横拍",
-      motionValue:16,
-      faintValue:20,
+    {
+      motionType: MotionType.SIDE_BLOW,
+      name: '横拍',
+      motionValue: 16,
+      faintValue: 20,
       feeblenessValue: 15
     },
     {
-      motionType:MotionType.STRONG_CHARGED_SLASH_LV0,
-      name:"强蓄力斩Lv0",
-      motionValue:65,
+      motionType: MotionType.STRONG_CHARGED_SLASH_LV0,
+      name: '强蓄力斩Lv0',
+      motionValue: 65
     },
     {
-      motionType:MotionType.STRONG_CHARGED_SLASH_LV1,
-      name:"强蓄力斩Lv1",
-      motionValue:65,
-      elementCorrection:1.65,
-      abnormalStatusCorrection:1.65
+      motionType: MotionType.STRONG_CHARGED_SLASH_LV1,
+      name: '强蓄力斩Lv1',
+      motionValue: 65,
+      elementCorrection: 1.65,
+      abnormalStatusCorrection: 1.65
     },
     {
-      motionType:MotionType.STRONG_CHARGED_SLASH_LV2,
-      name:"强蓄力斩Lv2",
-      motionValue:90,
-      elementCorrection:1.8,
-      abnormalStatusCorrection:1.8
+      motionType: MotionType.STRONG_CHARGED_SLASH_LV2,
+      name: '强蓄力斩Lv2',
+      motionValue: 90,
+      elementCorrection: 1.8,
+      abnormalStatusCorrection: 1.8
     },
     {
-      motionType:MotionType.STRONG_CHARGED_SLASH_LV3,
-      name:"强蓄力斩Lv3",
-      motionValue:115,
-      elementCorrection:2.25,
-      abnormalStatusCorrection:2.25
-    },
+      motionType: MotionType.STRONG_CHARGED_SLASH_LV3,
+      name: '强蓄力斩Lv3',
+      motionValue: 115,
+      elementCorrection: 2.25,
+      abnormalStatusCorrection: 2.25
+    }
   ]
 }
 
@@ -145,7 +145,9 @@ const allWeaponsMap = new Map<WeaponType, Weapon>([
 ])
 
 export const allWeaponTypes: Array<WeaponType> = Array.from(allWeaponsMap.keys())
-export const allMotionTypes: Array<number> = Object.keys(MotionType).map((key) => MotionType[key])
+export const allMotionTypes: Array<MotionType> = Object.values(MotionType).filter(
+  (value) => typeof value === 'number'
+)
 export default {
   getWeaponName(wt: WeaponType): string {
     const weapon = allWeaponsMap.get(wt)
@@ -155,6 +157,30 @@ export default {
       const name = weapon.name
       return name
     }
+  },
+  getMotionName(mt: MotionType, wt: WeaponType): string {
+    const weapon = allWeaponsMap.get(wt)
+    let mName: string = 'UNKNOWN'
+    if (weapon != undefined) {
+      for (const m of weapon.motions) {
+        if (m.motionType == mt) {
+          mName = m.name
+          break
+        }
+      }
+    }
+    return mName
+  },
+  getWeaponMotionsByWeaponType(wt: WeaponType | undefined): Array<WeaponMotion> {
+    if (wt == undefined) {
+      return []
+    }
+
+    const weapon = allWeaponsMap.get(wt)
+    if (weapon == undefined) {
+      return []
+    }
+    return weapon.motions
   }
 }
 
