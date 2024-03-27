@@ -141,7 +141,7 @@ const longSword: Weapon = {
 
 // Weapons' sharpness, represented by color
 // Data resources: https://hyperwiki.jp/mhr/system-damage/ (in Japanese)
-enum Sharpness {
+export enum Sharpness {
   UNKNOWN = 0,
   RED = 1,
   ORANGE = 2,
@@ -152,19 +152,91 @@ enum Sharpness {
   PURPLE = 7
 }
 
-const SharpnessAttributes: Array<{
+// Sharpness --start--
+
+interface SharpnessAttributes {
   sharpness: Sharpness
   name: string
   physicCorrection: number
   elementCorrection: number
-}> = [
-  {
-    sharpness: Sharpness.RED,
-    name: '红',
-    physicCorrection: 0.5,
-    elementCorrection: 0.25
-  }
-]
+}
+
+const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
+  [
+    Sharpness.UNKNOWN,
+    {
+      sharpness: Sharpness.UNKNOWN,
+      name: '无',
+      physicCorrection: 0,
+      elementCorrection: 0
+    }
+  ],
+  [
+    Sharpness.RED,
+    {
+      sharpness: Sharpness.RED,
+      name: '红',
+      physicCorrection: 0.5,
+      elementCorrection: 0.25
+    }
+  ],
+  [
+    Sharpness.ORANGE,
+    {
+      sharpness: Sharpness.ORANGE,
+      name: '橙',
+      physicCorrection: 0.75,
+      elementCorrection: 0.5
+    }
+  ],
+  [
+    Sharpness.YELLOW,
+    {
+      sharpness: Sharpness.YELLOW,
+      name: '黄',
+      physicCorrection: 1.0,
+      elementCorrection: 0.75
+    }
+  ],
+  [
+    Sharpness.GREEN,
+    {
+      sharpness: Sharpness.GREEN,
+      name: '绿',
+      physicCorrection: 1.05,
+      elementCorrection: 1.0
+    }
+  ],
+  [
+    Sharpness.BLUE,
+    {
+      sharpness: Sharpness.BLUE,
+      name: '青',
+      physicCorrection: 1.2,
+      elementCorrection: 1.0625
+    }
+  ],
+  [
+    Sharpness.WHITE,
+    {
+      sharpness: Sharpness.WHITE,
+      name: '白',
+      physicCorrection: 1.32,
+      elementCorrection: 1.15
+    }
+  ],
+  [
+    Sharpness.PURPLE,
+    {
+      sharpness: Sharpness.PURPLE,
+      name: '紫',
+      physicCorrection: 1.39,
+      elementCorrection: 1.25
+    }
+  ]
+])
+
+// Sharpness --end--
 
 const allWeaponsMap = new Map<WeaponType, Weapon>([
   [WeaponType.GREAT_SWORD, greatSword],
@@ -175,6 +247,7 @@ export const allWeaponTypes: Array<WeaponType> = Array.from(allWeaponsMap.keys()
 export const allMotionTypes: Array<MotionType> = Object.values(MotionType).filter(
   (value) => typeof value === 'number'
 )
+export const allSharpness: Array<Sharpness> = Array.from(sharpnessAttributesMap.keys())
 export default {
   getWeaponName(wt: WeaponType): string {
     const weapon = allWeaponsMap.get(wt)
@@ -208,6 +281,13 @@ export default {
       return []
     }
     return weapon.motions
+  },
+  getSharpnessAttribute(sp: Sharpness): SharpnessAttributes {
+    const sa = sharpnessAttributesMap.get(sp)
+    if (sa == undefined) {
+      throw new TypeError('Unknown sharpness: ' + sp)
+    }
+    return sa
   }
 }
 

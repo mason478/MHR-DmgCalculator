@@ -4,19 +4,26 @@ import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import baseLogic from '../scripts/logic/CalculateDmg'
 import weaponData from '../scripts/data/Weapons'
-import { WeaponType, allWeaponTypes, MotionType } from '../scripts/data/Weapons'
+import {
+  WeaponType,
+  allWeaponTypes,
+  MotionType,
+  allSharpness,
+  Sharpness
+} from '../scripts/data/Weapons'
 
 // function consoleName(wt: WeaponType) {
 // console.log(weaponData.getWeaponName(wt))
 // }
 const wt = ref<WeaponType>()
 const mt = ref<MotionType>()
+const sp = ref<Sharpness>(Sharpness.UNKNOWN)
 
 function out() {
   console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
 }
 function onChange() {
-  console.info('This is test of onChange!')
+  console.info('This is a test of onChange!')
   mt.value = MotionType.UNKNOWN
 }
 </script>
@@ -40,6 +47,7 @@ function onChange() {
           :label="weaponData.getWeaponName(t)"
         />
       </el-select>
+
       <label for="motionType">武器动作</label>
       <el-select id="motionType" name="motionType" v-model="mt" placeholder="请选择一种招式">
         <el-option
@@ -49,7 +57,18 @@ function onChange() {
           :label="m.name"
         />
       </el-select>
+
+      <label for="sharpness">武器斩味（锋利度）</label>
+      <el-select id="sharpness" name="sharpness" v-model="sp" placeholder="请选择武器斩味（可选）">
+        <el-option
+          v-for="sp in allSharpness"
+          :key="sp"
+          :value="sp"
+          :label="weaponData.getSharpnessAttribute(sp).name"
+        />
+      </el-select>
     </form>
+
     <div>
       <el-button @click="out" type="primary">Button1</el-button>
     </div>
