@@ -86,6 +86,7 @@ const greatSword: Weapon = {
       motionValue: 105,
       elementCorrection: 1.5,
       abnormalStatusCorrection: 1.5
+      // TODO: extra correction
     },
     {
       motionType: MotionType.SIDE_BLOW,
@@ -167,8 +168,8 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.UNKNOWN,
       name: '无',
-      physicCorrection: 0,
-      elementCorrection: 0
+      physicCorrection: 1,
+      elementCorrection: 1
     }
   ],
   [
