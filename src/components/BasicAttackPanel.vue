@@ -25,6 +25,7 @@ const wt = ref<WeaponType>()
           :label="weaponData.getWeaponName(t)"
         />
       </el-select>
+      <label for="motionType">动作</label>
     </form>
     <!-- <button @click="consoleName(wt)">Button1</button> -->
   </div>
