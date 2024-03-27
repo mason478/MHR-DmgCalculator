@@ -4,6 +4,7 @@
 // ElementDamage = ElementValue * (HitRate/100) * ElementCorrection * CriticalElementCorrection * SharpnessCorrection * OtherCorrection;
 
 import { todo } from 'node:test'
+// TODO：definition by class
 
 // Physics damage calculation
 function calcAttack(): number {
@@ -21,6 +22,9 @@ function calcCriticalCorrection(): number {
 function calcOtherPhysicCorrection(): number {
   todo
 }
+function calcPhysicDamge(): number {
+  todo
+}
 
 // Element damage calculation
 function calcElementCorrection(): number {
@@ -35,6 +39,10 @@ function calcCriticalElementCorrection(): number {
 }
 
 function calcOtherElementCorrection(): number {
+  todo
+}
+
+function calcElementDamge(): number {
   todo
 }
 
