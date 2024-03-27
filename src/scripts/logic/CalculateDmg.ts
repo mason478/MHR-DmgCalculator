@@ -3,6 +3,41 @@
 // PhysicDamage = MotionValue * (Attack/100) * (HitRate/100) * SharpnessCorrection * CriticalCorrection * OtherCorrection;
 // ElementDamage = ElementValue * (HitRate/100) * ElementCorrection * CriticalElementCorrection * SharpnessCorrection * OtherCorrection;
 
+import { todo } from 'node:test'
+
+// Physics damage calculation
+function calcAttack(): number {
+  todo
+}
+
+function calcCriticalRate(): number {
+  todo
+}
+
+function calcCriticalCorrection(): number {
+  todo
+}
+
+function calcOtherPhysicCorrection(): number {
+  todo
+}
+
+// Element damage calculation
+function calcElementCorrection(): number {
+  todo
+}
+function calcCriticalElementRate(): number {
+  todo
+}
+
+function calcCriticalElementCorrection(): number {
+  todo
+}
+
+function calcOtherElementCorrection(): number {
+  todo
+}
+
 export default {
   /**
    * Calculate the total damage based on weapon attack power.

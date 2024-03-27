@@ -3,10 +3,10 @@
 // weapon's or motion's attack type
 export enum AttackType {
   UNKNOWN = 0,
-  // cut type, like long sword, great sword
-  CUT = 1,
-  // pound type, like hammer
-  POUND = 2,
+  // slashing type, like long sword, great sword
+  SLASHING = 1,
+  // hitting type, like hammer
+  HITTING = 2,
   // shooting type, like bow
   SHOTTING = 3
 }
