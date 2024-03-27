@@ -1,5 +1,5 @@
 // All the weapons data, including types, sharpness, motion value
-// Data source: https://hyperwiki.jp/mhr/ (in Japanese)
+// Data resources: https://hyperwiki.jp/mhr/ (in Japanese)
 
 export enum WeaponType {
   UNKNOWN = 0,
@@ -138,6 +138,33 @@ const longSword: Weapon = {
 }
 
 // All weapons --end--
+
+// Weapons' sharpness, represented by color
+// Data resources: https://hyperwiki.jp/mhr/system-damage/ (in Japanese)
+enum Sharpness {
+  UNKNOWN = 0,
+  RED = 1,
+  ORANGE = 2,
+  YELLOW = 3,
+  GREEN = 4,
+  BLUE = 5,
+  WHITE = 6,
+  PURPLE = 7
+}
+
+const SharpnessAttributes: Array<{
+  sharpness: Sharpness
+  name: string
+  physicCorrection: number
+  elementCorrection: number
+}> = [
+  {
+    sharpness: Sharpness.RED,
+    name: '红',
+    physicCorrection: 0.5,
+    elementCorrection: 0.25
+  }
+]
 
 const allWeaponsMap = new Map<WeaponType, Weapon>([
   [WeaponType.GREAT_SWORD, greatSword],

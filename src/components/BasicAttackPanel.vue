@@ -4,19 +4,20 @@ import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import baseLogic from '../scripts/logic/CalculateDmg'
 import weaponData from '../scripts/data/Weapons'
-import { WeaponType, allWeaponTypes, MotionType, allMotionTypes } from '../scripts/data/Weapons'
+import { WeaponType, allWeaponTypes, MotionType } from '../scripts/data/Weapons'
 
 // function consoleName(wt: WeaponType) {
 // console.log(weaponData.getWeaponName(wt))
 // }
 const wt = ref<WeaponType>()
-const mt = ref<number>()
+const mt = ref<MotionType>()
 
 function out() {
   console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
 }
 function onChange() {
   console.info('This is test of onChange!')
+  mt.value = MotionType.UNKNOWN
 }
 </script>
 
@@ -49,6 +50,8 @@ function onChange() {
         />
       </el-select>
     </form>
-    <el-button @click="out" type="primary">Button1</el-button>
+    <div>
+      <el-button @click="out" type="primary">Button1</el-button>
+    </div>
   </div>
 </template>
