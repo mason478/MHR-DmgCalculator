@@ -10,18 +10,20 @@ import { elementNamesMap, Element } from '../scripts/data/Common'
 // console.log(weaponData.getWeaponName(wt))
 // }
 const wt = ref<WeaponType>()
-const mt = ref<number>(0)
+// motion type
+const mt = ref<number>()
 const sp = ref<Sharpness>(Sharpness.UNKNOWN)
 const rawAttack = ref<number>(0)
 const element = ref<Element>(Element.UNKNOWN)
 const elementAttack = ref<number>(0)
+const criticalRate = ref<number>(0)
 
 function out() {
   console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
 }
 function onChange() {
   console.info('This is a test of onChange!')
-  mt.value = 0
+  mt.value = undefined
 }
 </script>
 
@@ -81,14 +83,31 @@ function onChange() {
           :label="elementNamesMap.get(e)"
         />
       </el-select>
+      <label for="elementAttack" v-if="element !== Element.UNKNOWN">武器属性攻击力</label>
       <el-input
+        id="elementAttack"
         v-if="element !== Element.UNKNOWN"
         v-model="elementAttack"
         placeholder="请输入武器属性攻击力"
       />
+      <label for="criticalRate">请输入武器会心率（%）</label>
+      <br />
+      <el-input
+        id="criticalRate"
+        type="number_percent"
+        max="100"
+        min="0"
+        name="criticalRate"
+        v-model="criticalRate"
+        validate-event="true"
+        placeholder="请输入武器会心率"
+      >
+        <template #append>%</template> </el-input
+      ><br /><br />
+      <el-input type="submit" value="Submit" />
     </form>
     <div>
-      <el-button @click="out" type="primary">Button1</el-button>
+      <!-- <el-button @click="out" type="primary">Button1</el-button> -->
     </div>
   </div>
 </template>
