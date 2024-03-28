@@ -20,3 +20,12 @@ export enum Element {
   ICE = 4,
   DRAGON = 5
 }
+
+export const elementNamesMap = new Map<Element, string>([
+  [Element.UNKNOWN, '无'],
+  [Element.FIRE, '火'],
+  [Element.WATER, '水'],
+  [Element.THUNDER, '雷'],
+  [Element.ICE, '冰'],
+  [Element.DRAGON, '龙']
+])

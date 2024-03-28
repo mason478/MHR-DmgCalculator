@@ -8,23 +8,9 @@ export enum WeaponType {
   BOW = 3
 }
 
-export enum MotionType {
-  UNKNOWN = 0,
-  // Great sword motions
-  OVERHEAD_SLASH = 1,
-  CHARGED_SLASH_LV1 = 2,
-  CHARGED_SLASH_LV2 = 3,
-  CHARGED_SLASH_LV3 = 4,
-  SIDE_BLOW = 5,
-  STRONG_CHARGED_SLASH_LV0 = 6,
-  STRONG_CHARGED_SLASH_LV1 = 7,
-  STRONG_CHARGED_SLASH_LV2 = 8,
-  STRONG_CHARGED_SLASH_LV3 = 9
-}
-
 interface WeaponMotion {
   // motion data reference: https://hyperwiki.jp/mhr/motion-value/
-  motionType: MotionType
+  id: number
   // motion name
   name: string
   motionValue: number
@@ -58,14 +44,14 @@ const greatSword: Weapon = {
   name: '大剑',
   motions: [
     {
-      motionType: MotionType.OVERHEAD_SLASH,
+      id: 1,
       //	Overhead Slash
       name: '直斩',
       motionValue: 48
     },
     {
       // Charged Slash level 1
-      motionType: MotionType.CHARGED_SLASH_LV1,
+      id: 2,
       name: '蓄力斩Lv1',
       motionValue: 48,
       elementCorrection: 1.1,
@@ -73,7 +59,7 @@ const greatSword: Weapon = {
     },
     {
       // Charged Slash level 2
-      motionType: MotionType.CHARGED_SLASH_LV2,
+      id: 3,
       name: '蓄力斩Lv2',
       motionValue: 77,
       elementCorrection: 1.2,
@@ -81,7 +67,7 @@ const greatSword: Weapon = {
     },
     {
       // Charged Slash level 3
-      motionType: MotionType.CHARGED_SLASH_LV3,
+      id: 4,
       name: '蓄力斩Lv3',
       motionValue: 105,
       elementCorrection: 1.5,
@@ -89,33 +75,38 @@ const greatSword: Weapon = {
       // TODO: extra correction
     },
     {
-      motionType: MotionType.SIDE_BLOW,
+      //SIDE_BLOW
+      id: 5,
       name: '横拍',
       motionValue: 16,
       faintValue: 20,
       feeblenessValue: 15
     },
     {
-      motionType: MotionType.STRONG_CHARGED_SLASH_LV0,
+      //STRONG_CHARGED_SLASH_LV0,
+      id: 6,
       name: '强蓄力斩Lv0',
       motionValue: 65
     },
     {
-      motionType: MotionType.STRONG_CHARGED_SLASH_LV1,
+      //STRONG_CHARGED_SLASH_LV1,
+      id: 7,
       name: '强蓄力斩Lv1',
       motionValue: 65,
       elementCorrection: 1.65,
       abnormalStatusCorrection: 1.65
     },
     {
-      motionType: MotionType.STRONG_CHARGED_SLASH_LV2,
+      //STRONG_CHARGED_SLASH_LV2,
+      id: 8,
       name: '强蓄力斩Lv2',
       motionValue: 90,
       elementCorrection: 1.8,
       abnormalStatusCorrection: 1.8
     },
     {
-      motionType: MotionType.STRONG_CHARGED_SLASH_LV3,
+      // STRONG_CHARGED_SLASH_LV3
+      id: 9,
       name: '强蓄力斩Lv3',
       motionValue: 115,
       elementCorrection: 2.25,
@@ -129,7 +120,7 @@ const longSword: Weapon = {
   name: '太刀',
   motions: [
     {
-      motionType: MotionType.UNKNOWN,
+      id: 1,
       name: '直斩',
       motionValue: 48,
       physicCorrection: 1,
@@ -152,8 +143,6 @@ export enum Sharpness {
   WHITE = 6,
   PURPLE = 7
 }
-
-// Sharpness --start--
 
 interface SharpnessAttributes {
   sharpness: Sharpness
@@ -245,9 +234,6 @@ const allWeaponsMap = new Map<WeaponType, Weapon>([
 ])
 
 export const allWeaponTypes: Array<WeaponType> = Array.from(allWeaponsMap.keys())
-export const allMotionTypes: Array<MotionType> = Object.values(MotionType).filter(
-  (value) => typeof value === 'number'
-)
 export const allSharpness: Array<Sharpness> = Array.from(sharpnessAttributesMap.keys())
 export default {
   getWeaponName(wt: WeaponType): string {
@@ -259,12 +245,12 @@ export default {
       return name
     }
   },
-  getMotionName(mt: MotionType, wt: WeaponType): string {
+  getMotionName(mId: number, wt: WeaponType): string {
     const weapon = allWeaponsMap.get(wt)
     let mName: string = 'UNKNOWN'
     if (weapon != undefined) {
       for (const m of weapon.motions) {
-        if (m.motionType == mt) {
+        if (m.id == mId) {
           mName = m.name
           break
         }

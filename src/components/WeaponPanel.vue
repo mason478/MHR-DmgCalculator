@@ -2,29 +2,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import 'element-plus/dist/index.css'
-import baseLogic from '../scripts/logic/CalculateDmg'
 import weaponData from '../scripts/data/Weapons'
-import {
-  WeaponType,
-  allWeaponTypes,
-  MotionType,
-  allSharpness,
-  Sharpness
-} from '../scripts/data/Weapons'
+import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
+import { elementNamesMap, Element } from '../scripts/data/Common'
 
 // function consoleName(wt: WeaponType) {
 // console.log(weaponData.getWeaponName(wt))
 // }
 const wt = ref<WeaponType>()
-const mt = ref<MotionType>()
+const mt = ref<number>(0)
 const sp = ref<Sharpness>(Sharpness.UNKNOWN)
+const rawAttack = ref<number>(0)
+const element = ref<Element>(Element.UNKNOWN)
+const elementAttack = ref<number>(0)
 
 function out() {
   console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
 }
 function onChange() {
   console.info('This is a test of onChange!')
-  mt.value = MotionType.UNKNOWN
+  mt.value = 0
 }
 </script>
 
@@ -52,8 +49,8 @@ function onChange() {
       <el-select id="motionType" name="motionType" v-model="mt" placeholder="请选择一种招式">
         <el-option
           v-for="m in weaponData.getWeaponMotionsByWeaponType(wt)"
-          :key="m.motionType"
-          :value="m.motionType"
+          :key="m.id"
+          :value="m.id"
           :label="m.name"
         />
       </el-select>
@@ -67,8 +64,29 @@ function onChange() {
           :label="weaponData.getSharpnessAttribute(sp).name"
         />
       </el-select>
+      <label for="rawAttack">武器原始攻击力</label>
+      <el-input
+        id="rawAttack"
+        name="rawAttack"
+        v-model="rawAttack"
+        placeholder="请输入武器原始攻击力"
+      />
+      <!-- <el-select> </el-select> -->
+      <label for="element">武器属性</label>
+      <el-select id="element" name="element" v-model="element" placeholder="">
+        <el-option
+          v-for="e in Array.from(elementNamesMap.keys())"
+          :key="e"
+          :value="e"
+          :label="elementNamesMap.get(e)"
+        />
+      </el-select>
+      <el-input
+        v-if="element !== Element.UNKNOWN"
+        v-model="elementAttack"
+        placeholder="请输入武器属性攻击力"
+      />
     </form>
-
     <div>
       <el-button @click="out" type="primary">Button1</el-button>
     </div>
