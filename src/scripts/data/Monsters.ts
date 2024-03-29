@@ -269,3 +269,13 @@ export const allMonstersMap = new Map<number, Monster>([
 ])
 
 export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())
+
+export default {
+  getMonsterPartsByMonsterId: (monsterId: number): Array<MonsterPart> => {
+    const monster = allMonstersMap.get(monsterId)
+    if (!monster) {
+      return []
+    }
+    return monster.parts
+  }
+}
