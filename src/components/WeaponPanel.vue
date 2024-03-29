@@ -30,7 +30,7 @@ function onChange() {
 <template>
   <div>
     <h1>武器基础信息</h1>
-    <form>
+    <form id="weaponForm">
       <label for="weaponType">武器类型</label>
       <el-select
         id="weaponType"
@@ -96,7 +96,7 @@ function onChange() {
         id="criticalRate"
         type="number_percent"
         max="100"
-        min="0"
+        min="-100"
         name="criticalRate"
         v-model="criticalRate"
         validate-event="true"
@@ -104,10 +104,11 @@ function onChange() {
       >
         <template #append>%</template> </el-input
       ><br /><br />
-      <el-input type="submit" value="Calculate!" />
+      <!-- <el-input type="submit" value="Calculate!" size="medium" /> -->
     </form>
     <div>
       <!-- <el-button @click="out" type="primary">Button1</el-button> -->
+      <el-button type="primary" form="weaponForm" value="Submit">Calculate!</el-button>
     </div>
   </div>
 </template>

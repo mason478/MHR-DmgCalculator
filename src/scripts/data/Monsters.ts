@@ -263,3 +263,9 @@ const Rathalos: Monster = {
 }
 
 // All monsters data --end--
+export const allMonstersMap = new Map<number, Monster>([
+  [1, Rathalos],
+  [2, Rathian]
+])
+
+export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())
