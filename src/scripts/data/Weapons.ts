@@ -1,5 +1,6 @@
 // All the weapons data, including types, sharpness, motion value
 // Data resources: https://hyperwiki.jp/mhr/ (in Japanese)
+import { AttackType } from './Common'
 
 export enum WeaponType {
   UNKNOWN = 0,
@@ -13,6 +14,7 @@ interface WeaponMotion {
   id: number
   // motion name
   name: string
+  attackType: AttackType
   motionValue: number
   // element attack value
   elementValue?: number
@@ -47,12 +49,14 @@ const greatSword: Weapon = {
       id: 1,
       //	Overhead Slash
       name: '直斩',
+      attackType: AttackType.SLASHING,
       motionValue: 48
     },
     {
       // Charged Slash level 1
       id: 2,
       name: '蓄力斩Lv1',
+      attackType: AttackType.SLASHING,
       motionValue: 48,
       elementCorrection: 1.1,
       abnormalStatusCorrection: 1.1
@@ -61,6 +65,7 @@ const greatSword: Weapon = {
       // Charged Slash level 2
       id: 3,
       name: '蓄力斩Lv2',
+      attackType: AttackType.SLASHING,
       motionValue: 77,
       elementCorrection: 1.2,
       abnormalStatusCorrection: 1.2
@@ -69,6 +74,7 @@ const greatSword: Weapon = {
       // Charged Slash level 3
       id: 4,
       name: '蓄力斩Lv3',
+      attackType: AttackType.SLASHING,
       motionValue: 105,
       elementCorrection: 1.5,
       abnormalStatusCorrection: 1.5
@@ -78,6 +84,7 @@ const greatSword: Weapon = {
       //SIDE_BLOW
       id: 5,
       name: '横拍',
+      attackType: AttackType.HITTING,
       motionValue: 16,
       faintValue: 20,
       feeblenessValue: 15
@@ -86,12 +93,14 @@ const greatSword: Weapon = {
       //STRONG_CHARGED_SLASH_LV0,
       id: 6,
       name: '强蓄力斩Lv0',
+      attackType: AttackType.SLASHING,
       motionValue: 65
     },
     {
       //STRONG_CHARGED_SLASH_LV1,
       id: 7,
       name: '强蓄力斩Lv1',
+      attackType: AttackType.SLASHING,
       motionValue: 65,
       elementCorrection: 1.65,
       abnormalStatusCorrection: 1.65
@@ -100,6 +109,7 @@ const greatSword: Weapon = {
       //STRONG_CHARGED_SLASH_LV2,
       id: 8,
       name: '强蓄力斩Lv2',
+      attackType: AttackType.SLASHING,
       motionValue: 90,
       elementCorrection: 1.8,
       abnormalStatusCorrection: 1.8
@@ -108,6 +118,7 @@ const greatSword: Weapon = {
       // STRONG_CHARGED_SLASH_LV3
       id: 9,
       name: '强蓄力斩Lv3',
+      attackType: AttackType.SLASHING,
       motionValue: 115,
       elementCorrection: 2.25,
       abnormalStatusCorrection: 2.25
@@ -122,6 +133,7 @@ const longSword: Weapon = {
     {
       id: 1,
       name: '直斩',
+      attackType: AttackType.SLASHING,
       motionValue: 48,
       physicCorrection: 1,
       elementCorrection: 1

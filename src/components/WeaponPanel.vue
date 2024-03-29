@@ -104,7 +104,7 @@ function onChange() {
       >
         <template #append>%</template> </el-input
       ><br /><br />
-      <el-input type="submit" value="Submit" />
+      <el-input type="submit" value="Calculate!" />
     </form>
     <div>
       <!-- <el-button @click="out" type="primary">Button1</el-button> -->

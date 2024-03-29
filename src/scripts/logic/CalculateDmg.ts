@@ -1,7 +1,7 @@
 // Logic of damage calculation,formula:
 // TotalDamage = ROUND(PhysicDamage) + ROUND(ElementDamage),
-// PhysicDamage = MotionValue * (Attack/100) * (HitRate/100) * SharpnessCorrection * CriticalCorrection * OtherCorrection;
-// ElementDamage = ElementValue * (HitRate/100) * ElementCorrection * CriticalElementCorrection * SharpnessCorrection * OtherCorrection;
+// PhysicDamage = MotionValue * (Attack/100) * (MonsterHitRate/100) * SharpnessCorrection * CriticalCorrection * OtherCorrection;
+// ElementDamage = ElementValue * (MonsterHitRate/100) * ElementCorrection * CriticalElementCorrection * SharpnessCorrection * OtherCorrection;
 
 import { todo } from 'node:test'
 // TODO：definition by class
