@@ -28,8 +28,96 @@ interface Monster {
 
 // All monsters data --start--
 
-const Rathian: Monster = {
+// the frog in the training ground
+const KarakuriFrog: Monster = {
   id: 1,
+  name: '神童蛙',
+  parts: [
+    {
+      id: 1,
+      name: '头',
+      hitRates: new Map([
+        [AttackType.SLASHING, 100],
+        [AttackType.HITTING, 100],
+        [AttackType.SHOTTING, 100]
+      ]),
+      elementHitRates: new Map([
+        [Element.FIRE, 30],
+        [Element.WATER, 30],
+        [Element.THUNDER, 30],
+        [Element.ICE, 30],
+        [Element.DRAGON, 30]
+      ])
+    },
+    {
+      id: 2,
+      name: '身体',
+      hitRates: new Map([
+        [AttackType.SLASHING, 60],
+        [AttackType.HITTING, 60],
+        [AttackType.SHOTTING, 60]
+      ]),
+      elementHitRates: new Map([
+        [Element.FIRE, 20],
+        [Element.WATER, 20],
+        [Element.THUNDER, 20],
+        [Element.ICE, 20],
+        [Element.DRAGON, 20]
+      ])
+    },
+    {
+      id: 3,
+      name: '手足',
+      hitRates: new Map([
+        [AttackType.SLASHING, 40],
+        [AttackType.HITTING, 40],
+        [AttackType.SHOTTING, 40]
+      ]),
+      elementHitRates: new Map([
+        [Element.FIRE, 15],
+        [Element.WATER, 15],
+        [Element.THUNDER, 15],
+        [Element.ICE, 15],
+        [Element.DRAGON, 15]
+      ])
+    },
+    {
+      id: 4,
+      name: '背',
+      hitRates: new Map([
+        [AttackType.SLASHING, 20],
+        [AttackType.HITTING, 20],
+        [AttackType.SHOTTING, 20]
+      ]),
+      elementHitRates: new Map([
+        [Element.FIRE, 5],
+        [Element.WATER, 5],
+        [Element.THUNDER, 5],
+        [Element.ICE, 5],
+        [Element.DRAGON, 5]
+      ])
+    },
+    {
+      id: 5,
+      name: '甲壳上部',
+      hitRates: new Map([
+        [AttackType.SLASHING, 80],
+        [AttackType.HITTING, 80],
+        [AttackType.SHOTTING, 80]
+      ]),
+      elementHitRates: new Map([
+        [Element.FIRE, 25],
+        [Element.WATER, 25],
+        [Element.THUNDER, 25],
+        [Element.ICE, 25],
+        [Element.DRAGON, 25]
+      ])
+    }
+  ]
+}
+
+const Rathian: Monster = {
+  id: 2,
   //Rathian (リオレイア, 雌火龙)
   name: '雌火龙',
   parts: [
@@ -145,7 +233,7 @@ const Rathian: Monster = {
 }
 
 const Rathalos: Monster = {
-  id: 2,
+  id: 3,
   // Rathalos (リオレウス,雄火龙)
   name: '雄火龙',
   parts: [
