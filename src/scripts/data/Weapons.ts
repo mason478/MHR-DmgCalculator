@@ -238,6 +238,8 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
   ]
 ])
 
+// TODO：考虑是否拔刀
+
 // Sharpness --end--
 
 const allWeaponsMap = new Map<WeaponType, Weapon>([

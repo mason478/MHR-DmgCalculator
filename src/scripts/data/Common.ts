@@ -1,5 +1,7 @@
 // some common data
 
+import { en } from 'element-plus/es/locales.mjs'
+
 // weapon's or motion's attack type
 export enum AttackType {
   UNKNOWN = 0,
@@ -29,3 +31,9 @@ export const elementNamesMap = new Map<Element, string>([
   [Element.ICE, '冰'],
   [Element.DRAGON, '龙']
 ])
+
+export enum HitType {
+  UNKNOWN = 0,
+  PHYSIC = 1,
+  ELEMENT = 2
+}
