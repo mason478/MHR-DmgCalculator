@@ -1,8 +1,14 @@
 // Skills data, including weapon's and character's skills,
 // there are 4 categories of skills that could influence damage:
-//      attack,critical rate, enforcement and others
+//      1. attack: boost physic or element attack
+//      2. critical rate: boost critical rate
+//      3. enforcement: extra correction
+// data source:
+//     https://hyperwiki.jp/mhr/system-power/
+//     https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
 
-import { HitType } from './Common'
+import exp from 'constants'
+import { AttackType } from './Common'
 import { WeaponType } from './Weapons'
 
 const enum Category {
@@ -16,9 +22,10 @@ const enum Category {
 // attack calculation methods
 const enum CalcMethod {
   UNKNOWN = 0,
-  ADD = 1,
+  PLUS = 1,
   MULTI = 2,
-  // add or multi, but pick the max one, max(add,multi)
+  // TODO: to be confirmed
+  //plus or multi, but pick the max one, max(plus, multi)
   MIX = 3
 }
 
@@ -34,40 +41,188 @@ const enum Scope {
 // skill levels
 const enum Level {
   UNKNOWN = 0,
-  LEVEL_1 = 1,
-  LEVEL_2 = 2,
-  LEVEL_3 = 3,
-  LEVEL_4 = 4,
-  LEVEL_5 = 5,
-  LEVEL_6 = 6,
-  LEVEL_7 = 7
+  LEVEL1 = 1,
+  LEVEL2 = 2,
+  LEVEL3 = 3,
+  LEVEL4 = 4,
+  LEVEL5 = 5,
+  LEVEL6 = 6,
+  LEVEL7 = 7
 }
 
 interface LevelValue {
   level: Level
-  value: number
+  calcMethod: CalcMethod
+  // for plus
+  valueP?: number
+  // for multi
+  valueM?: number
+}
+
+// the precondition of the skill could be activated or valid
+const enum Precondition {
+  UNKNOWN = 0,
+  // when critical attack happens, the skill can be valid
+  CRITICAL_ATTACK = 1,
+  // when monster is at rage status, the skill can be activated
+  MONSTER_RAGE = 2,
+  // hit rate >= 40%
+  HIT_RATE_ABOVE_40 = 3
 }
 
 interface Skill {
   id: number
   name: string
   category: Category
-  hitType: HitType
-  calcMethod: CalcMethod
+  // the attack type that the skill affects
+  attackType: AttackType
   scope: Scope
   levelValue: Array<LevelValue>
-  // TODO: add Precondition enum
-  preCondition?: string
-  description?: string
+  // if not null, the skill will be activated when the precondition is met
+  preCondition?: Precondition
   availableWeaponTypes?: Array<WeaponType>
 }
 
-// const AttackBoost: Skill = {
-//   id: 1,
-//   name: '攻击加成',
-//   hitType: HitType.PHYSIC,
-//   calcMethod: CalcMethod.ADD,
+const AttackBoost: Skill = {
+  id: 1,
+  name: '攻击',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSIC,
+  scope: Scope.GLOBAL,
+  levelValue: [
+    {
+      level: Level.LEVEL1,
+      valueP: 3,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 6,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 9
+    },
+    {
+      level: Level.LEVEL4,
+      calcMethod: CalcMethod.MIX,
+      valueP: 7,
+      valueM: 1.05
+    },
+    {
+      level: Level.LEVEL5,
+      calcMethod: CalcMethod.MIX,
+      valueP: 8,
+      valueM: 1.06
+    },
+    {
+      level: Level.LEVEL6,
+      calcMethod: CalcMethod.MIX,
+      valueP: 9,
+      valueM: 1.08
+    },
+    {
+      level: Level.LEVEL7,
+      calcMethod: CalcMethod.MIX,
+      valueP: 10,
+      valueM: 1.1
+    }
+  ]
+}
+
+const CriticalEyes: Skill = {
+  id: 2,
+  name: '看破',
+  category: Category.CRITICAL_RATE,
+  attackType: AttackType.PHYSIC,
+  scope: Scope.GLOBAL,
+  levelValue: [
+    {
+      level: Level.LEVEL1,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 5
+    },
+    {
+      level: Level.LEVEL2,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 10
+    },
+    {
+      level: Level.LEVEL3,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 15
+    },
+    {
+      level: Level.LEVEL4,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 20
+    },
+    {
+      level: Level.LEVEL5,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 25
+    },
+    {
+      level: Level.LEVEL6,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 30
+    },
+    {
+      level: Level.LEVEL7,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 40
+    }
+  ]
+}
+const CriticalBoost: Skill = {
+  id: 3,
+  name: '超会心',
+  category: Category.ENFORCEMENT,
+  attackType: AttackType.PHYSIC,
+  scope: Scope.GLOBAL,
+  levelValue: [
+    {
+      level: Level.LEVEL1,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 0.05
+    },
+    {
+      level: Level.LEVEL2,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 0.1
+    },
+    {
+      level: Level.LEVEL3,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 0.15
+    }
+  ],
+  preCondition: Precondition.CRITICAL_ATTACK
+}
+
+// const Agitator: Skill = {
+//   id: 3,
+//   name: '挑战者',
+//   category: Category.ATTACK,
+//   attackType: AttackType.PHYSIC,
 //   scope: Scope.GLOBAL,
-//   level: Level.LEVEL_5,
-//   value: 0.1
-// }
+//   levelValue: [
+//     {
+//       level: Level.LEVEL1,
+//       valueP: 3,
+//       calcMethod: CalcMethod.PLUS
+//     },
+//     {
+//       level: Level.LEVEL2,
+//       valueP: 6,
+//       calcMethod: CalcMethod.PLUS
+//     },
+//     {
+//       level: Level.LEVEL3,
+//       calcMethod: CalcMethod.PLUS,
+//     }
+//   ]
+
+export { AttackBoost, CriticalEyes, CriticalBoost }

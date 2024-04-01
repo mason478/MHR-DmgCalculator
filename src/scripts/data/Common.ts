@@ -2,8 +2,14 @@
 
 import { en } from 'element-plus/es/locales.mjs'
 
-// weapon's or motion's attack type
 export enum AttackType {
+  UNKNOWN = 0,
+  PHYSIC = 1,
+  ELEMENT = 2
+}
+
+// weapon's or motion's physical attack type
+export enum PhysicAttackType {
   UNKNOWN = 0,
   // slashing type, like long sword, great sword
   SLASHING = 1,
@@ -31,9 +37,3 @@ export const elementNamesMap = new Map<Element, string>([
   [Element.ICE, '冰'],
   [Element.DRAGON, '龙']
 ])
-
-export enum HitType {
-  UNKNOWN = 0,
-  PHYSIC = 1,
-  ELEMENT = 2
-}

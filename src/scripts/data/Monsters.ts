@@ -1,5 +1,5 @@
 // Monsters data, reference: https://hyperwiki.jp/mhr/monster/
-import { AttackType, Element } from './Common'
+import { PhysicAttackType, Element } from './Common'
 
 export enum MonsterStatus {
   /*
@@ -14,8 +14,8 @@ export enum MonsterStatus {
 interface MonsterPart {
   id: number
   name: string
-  // physical hit rate: {attack type -> hit rate}
-  hitRates: Map<AttackType, number>
+  // physical hit rate(肉质): {attack type -> hit rate}
+  hitRates: Map<PhysicAttackType, number>
   // element hit rate: {element -> hit rate}
   elementHitRates: Map<Element, number>
 }
@@ -37,9 +37,9 @@ const KarakuriFrog: Monster = {
       id: 1,
       name: '头',
       hitRates: new Map([
-        [AttackType.SLASHING, 100],
-        [AttackType.HITTING, 100],
-        [AttackType.SHOTTING, 100]
+        [PhysicAttackType.SLASHING, 100],
+        [PhysicAttackType.HITTING, 100],
+        [PhysicAttackType.SHOTTING, 100]
       ]),
       elementHitRates: new Map([
         [Element.FIRE, 30],
@@ -53,9 +53,9 @@ const KarakuriFrog: Monster = {
       id: 2,
       name: '身体',
       hitRates: new Map([
-        [AttackType.SLASHING, 60],
-        [AttackType.HITTING, 60],
-        [AttackType.SHOTTING, 60]
+        [PhysicAttackType.SLASHING, 60],
+        [PhysicAttackType.HITTING, 60],
+        [PhysicAttackType.SHOTTING, 60]
       ]),
       elementHitRates: new Map([
         [Element.FIRE, 20],
@@ -69,9 +69,9 @@ const KarakuriFrog: Monster = {
       id: 3,
       name: '手足',
       hitRates: new Map([
-        [AttackType.SLASHING, 40],
-        [AttackType.HITTING, 40],
-        [AttackType.SHOTTING, 40]
+        [PhysicAttackType.SLASHING, 40],
+        [PhysicAttackType.HITTING, 40],
+        [PhysicAttackType.SHOTTING, 40]
       ]),
       elementHitRates: new Map([
         [Element.FIRE, 15],
@@ -85,9 +85,9 @@ const KarakuriFrog: Monster = {
       id: 4,
       name: '背',
       hitRates: new Map([
-        [AttackType.SLASHING, 20],
-        [AttackType.HITTING, 20],
-        [AttackType.SHOTTING, 20]
+        [PhysicAttackType.SLASHING, 20],
+        [PhysicAttackType.HITTING, 20],
+        [PhysicAttackType.SHOTTING, 20]
       ]),
       elementHitRates: new Map([
         [Element.FIRE, 5],
@@ -101,9 +101,9 @@ const KarakuriFrog: Monster = {
       id: 5,
       name: '甲壳上部',
       hitRates: new Map([
-        [AttackType.SLASHING, 80],
-        [AttackType.HITTING, 80],
-        [AttackType.SHOTTING, 80]
+        [PhysicAttackType.SLASHING, 80],
+        [PhysicAttackType.HITTING, 80],
+        [PhysicAttackType.SHOTTING, 80]
       ]),
       elementHitRates: new Map([
         [Element.FIRE, 25],
@@ -126,9 +126,9 @@ const Rathian: Monster = {
       // head
       name: '头',
       hitRates: new Map([
-        [AttackType.SLASHING, 70],
-        [AttackType.HITTING, 75],
-        [AttackType.SHOTTING, 65]
+        [PhysicAttackType.SLASHING, 70],
+        [PhysicAttackType.HITTING, 75],
+        [PhysicAttackType.SHOTTING, 65]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 15],
@@ -142,9 +142,9 @@ const Rathian: Monster = {
       // neck
       name: '颈',
       hitRates: new Map([
-        [AttackType.SLASHING, 40],
-        [AttackType.HITTING, 45],
-        [AttackType.SHOTTING, 35]
+        [PhysicAttackType.SLASHING, 40],
+        [PhysicAttackType.HITTING, 45],
+        [PhysicAttackType.SHOTTING, 35]
       ]),
       elementHitRates: new Map([
         [Element.THUNDER, 5],
@@ -156,9 +156,9 @@ const Rathian: Monster = {
       // body
       name: '身体',
       hitRates: new Map([
-        [AttackType.SLASHING, 35],
-        [AttackType.HITTING, 30],
-        [AttackType.SHOTTING, 25]
+        [PhysicAttackType.SLASHING, 35],
+        [PhysicAttackType.HITTING, 30],
+        [PhysicAttackType.SHOTTING, 25]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -172,9 +172,9 @@ const Rathian: Monster = {
       // back
       name: '背',
       hitRates: new Map([
-        [AttackType.SLASHING, 35],
-        [AttackType.HITTING, 30],
-        [AttackType.SHOTTING, 25]
+        [PhysicAttackType.SLASHING, 35],
+        [PhysicAttackType.HITTING, 30],
+        [PhysicAttackType.SHOTTING, 25]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -188,9 +188,9 @@ const Rathian: Monster = {
       // wings
       name: '翼',
       hitRates: new Map([
-        [AttackType.SLASHING, 45],
-        [AttackType.HITTING, 45],
-        [AttackType.SHOTTING, 35]
+        [PhysicAttackType.SLASHING, 45],
+        [PhysicAttackType.HITTING, 45],
+        [PhysicAttackType.SHOTTING, 35]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 10],
@@ -204,9 +204,9 @@ const Rathian: Monster = {
       // foot
       name: '脚',
       hitRates: new Map([
-        [AttackType.SLASHING, 40],
-        [AttackType.HITTING, 40],
-        [AttackType.SHOTTING, 35]
+        [PhysicAttackType.SLASHING, 40],
+        [PhysicAttackType.HITTING, 40],
+        [PhysicAttackType.SHOTTING, 35]
       ]),
       elementHitRates: new Map([
         [Element.THUNDER, 10],
@@ -218,9 +218,9 @@ const Rathian: Monster = {
       // tail
       name: '尾',
       hitRates: new Map([
-        [AttackType.SLASHING, 45],
-        [AttackType.HITTING, 40],
-        [AttackType.SHOTTING, 35]
+        [PhysicAttackType.SLASHING, 45],
+        [PhysicAttackType.HITTING, 40],
+        [PhysicAttackType.SHOTTING, 35]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -242,9 +242,9 @@ const Rathalos: Monster = {
       // head
       name: '头',
       hitRates: new Map([
-        [AttackType.SLASHING, 65],
-        [AttackType.HITTING, 70],
-        [AttackType.SHOTTING, 60]
+        [PhysicAttackType.SLASHING, 65],
+        [PhysicAttackType.HITTING, 70],
+        [PhysicAttackType.SHOTTING, 60]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 15],
@@ -258,9 +258,9 @@ const Rathalos: Monster = {
       // neck
       name: '颈',
       hitRates: new Map([
-        [AttackType.SLASHING, 35],
-        [AttackType.HITTING, 40],
-        [AttackType.SHOTTING, 30]
+        [PhysicAttackType.SLASHING, 35],
+        [PhysicAttackType.HITTING, 40],
+        [PhysicAttackType.SHOTTING, 30]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -274,9 +274,9 @@ const Rathalos: Monster = {
       // back
       name: '背',
       hitRates: new Map([
-        [AttackType.SLASHING, 25],
-        [AttackType.HITTING, 25],
-        [AttackType.SHOTTING, 20]
+        [PhysicAttackType.SLASHING, 25],
+        [PhysicAttackType.HITTING, 25],
+        [PhysicAttackType.SHOTTING, 20]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -290,9 +290,9 @@ const Rathalos: Monster = {
       // abdomen
       name: '腹',
       hitRates: new Map([
-        [AttackType.SLASHING, 25],
-        [AttackType.HITTING, 25],
-        [AttackType.SHOTTING, 20]
+        [PhysicAttackType.SLASHING, 25],
+        [PhysicAttackType.HITTING, 25],
+        [PhysicAttackType.SHOTTING, 20]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -306,9 +306,9 @@ const Rathalos: Monster = {
       // tail
       name: '尾',
       hitRates: new Map([
-        [AttackType.SLASHING, 45],
-        [AttackType.HITTING, 40],
-        [AttackType.SHOTTING, 35]
+        [PhysicAttackType.SLASHING, 45],
+        [PhysicAttackType.HITTING, 40],
+        [PhysicAttackType.SHOTTING, 35]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 5],
@@ -322,9 +322,9 @@ const Rathalos: Monster = {
       // wings
       name: '翼',
       hitRates: new Map([
-        [AttackType.SLASHING, 50],
-        [AttackType.HITTING, 45],
-        [AttackType.SHOTTING, 40]
+        [PhysicAttackType.SLASHING, 50],
+        [PhysicAttackType.HITTING, 45],
+        [PhysicAttackType.SHOTTING, 40]
       ]),
       elementHitRates: new Map([
         [Element.WATER, 10],
@@ -338,9 +338,9 @@ const Rathalos: Monster = {
       // foot
       name: '脚',
       hitRates: new Map([
-        [AttackType.SLASHING, 35],
-        [AttackType.HITTING, 35],
-        [AttackType.SHOTTING, 30]
+        [PhysicAttackType.SLASHING, 35],
+        [PhysicAttackType.HITTING, 35],
+        [PhysicAttackType.SHOTTING, 30]
       ]),
       elementHitRates: new Map([
         [Element.THUNDER, 5],
