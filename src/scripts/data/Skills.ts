@@ -51,10 +51,11 @@ interface LevelValue {
 interface Skill {
   id: number
   name: string
+  category: Category
   hitType: HitType
   calcMethod: CalcMethod
   scope: Scope
-  levelValue: Array<LevelAndValue>
+  levelValue: Array<LevelValue>
   // TODO: add Precondition enum
   preCondition?: string
   description?: string
