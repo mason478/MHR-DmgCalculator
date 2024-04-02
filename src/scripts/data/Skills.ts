@@ -4,10 +4,9 @@
 //      2. critical rate: boost critical rate
 //      3. enforcement: extra correction
 // data source:
-//     https://hyperwiki.jp/mhr/system-power/
-//     https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
+//     1. https://hyperwiki.jp/mhr/system-power/
+//     2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
 
-import exp from 'constants'
 import { AttackType } from './Common'
 import { WeaponType } from './Weapons'
 
@@ -24,8 +23,7 @@ const enum CalcMethod {
   UNKNOWN = 0,
   PLUS = 1,
   MULTI = 2,
-  // TODO: to be confirmed
-  //plus or multi, but pick the max one, max(plus, multi)
+  //plus and multi
   MIX = 3
 }
 
@@ -66,6 +64,7 @@ const enum Precondition {
   CRITICAL_ATTACK = 1,
   // when monster is at rage status, the skill can be activated
   MONSTER_RAGE = 2,
+  // TODO: improve this
   // hit rate >= 40%
   HIT_RATE_ABOVE_40 = 3
 }

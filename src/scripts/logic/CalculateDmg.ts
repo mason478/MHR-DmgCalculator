@@ -6,10 +6,20 @@
 import { todo } from 'node:test'
 // TODO：definition by class
 
-// Physics damage calculation
-function calcAttack(): number {
-  todo
+interface Context {}
+
+class DamageCalcultion {
+  readonly ctx: Context
+  constructor(context: Context) {
+    this.ctx = context
+  }
+
+  calcAttack(): number {
+    return 1
+  }
 }
+
+// Physics damage calculation
 
 function calcCriticalRate(): number {
   todo
