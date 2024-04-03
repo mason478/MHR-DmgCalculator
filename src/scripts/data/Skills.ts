@@ -2,7 +2,7 @@
 // there are 4 categories of skills that could influence damage:
 //      1. attack: boost physics or element attack
 //      2. critical rate: boost critical rate
-//      3. enforcement: extra correction
+//      3. enforcement: extra correction 比如 火やられ特効
 // data source:
 //     1. https://hyperwiki.jp/mhr/system-power/
 //     2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
@@ -27,13 +27,14 @@ const enum CalcMethod {
   MIX = 3
 }
 
-// skill's scope that could affect attack
+// skill influence's scope
 const enum Scope {
   UNKNOWN = 0,
-  GLOBAL = 1,
+  PARTIAL = 1,
+  GLOBAL = 2
   // valid for only specific weapon types
-  SPECIFIC_WEAPONS = 2,
-  RAMPAGE = 3
+  // SPECIFIC_WEAPONS = 2,
+  // RAMPAGE = 3
 }
 
 // skill levels
@@ -87,7 +88,7 @@ const AttackBoost: Skill = {
   name: '攻击',
   category: Category.ATTACK,
   attackType: AttackType.PHYSICS,
-  scope: Scope.GLOBAL,
+  scope: Scope.PARTIAL,
   levelValue: [
     {
       level: Level.LEVEL1,
@@ -136,7 +137,7 @@ const CriticalEyes: Skill = {
   name: '看破',
   category: Category.CRITICAL_RATE,
   attackType: AttackType.PHYSICS,
-  scope: Scope.GLOBAL,
+  scope: Scope.PARTIAL,
   levelValue: [
     {
       level: Level.LEVEL1,
@@ -180,7 +181,7 @@ const CriticalBoost: Skill = {
   name: '超会心',
   category: Category.ENFORCEMENT,
   attackType: AttackType.PHYSICS,
-  scope: Scope.GLOBAL,
+  scope: Scope.PARTIAL,
   levelValue: [
     {
       level: Level.LEVEL1,
@@ -224,4 +225,4 @@ const CriticalBoost: Skill = {
 //     }
 //   ]
 
-export { Category as SkillCategory, CalcMethod, AttackBoost, CriticalEyes, CriticalBoost }
+export { Category as SkillCategory, Scope, CalcMethod, AttackBoost, CriticalEyes, CriticalBoost }

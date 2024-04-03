@@ -2,7 +2,7 @@
 TotalDamage = round(PhysicDamage) + round(ElementDamage),
 PhysicDamage = MotionValue * (PhysicAttack/100) * (MonsterHitRate/100) * SharpnessCorrection * CriticalCorrection * OtherCorrection;
            1. MotionValue: depends on weapon type or motion type
-           2. PhysicAttack = ((RawAttack * MultiCorrection1) + PlusCorrection1) * MultiCorrection2
+           2. PhysicAttack = ((RawAttack * MultiCorrection1) + PlusCorrection) * MultiCorrection2
            3. MonsterHitRate: depends on weapon's hit type and monster's part
            4. SharpnessCorrection: depends on weapon's type or some skills
            5. CriticalCorrection = (BaseCriticalCorrection + CriticalBoost)* CriticalRate/100 + (1-CriticalRate/100),
@@ -16,7 +16,7 @@ import { todo } from 'node:test'
 import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
 import { WeaponType, type Weapon } from '@/scripts/data/Weapons'
 import { MonsterStatus, type Monster } from '@/scripts/data/Monsters'
-import { type Skill, CalcMethod, SkillCategory, AttackBoost } from '@/scripts/data/Skills'
+import { type Skill, CalcMethod, Scope, SkillCategory, AttackBoost } from '@/scripts/data/Skills'
 // TODO：definition by class
 
 interface Context {
@@ -50,42 +50,97 @@ abstract class C {
   // return normal damage ,critical damage and expected damage
   abstract calcDamage(): typeof R
 }
-
+// TODO: Skill calculation
 class physicsDamageCalculator extends C {
   /**
-   * Calculate the attack multi correction type 1
+   * Find out all the skills that affect attack, and calculate the attack multi correction type 1
    */
   private calcMultiCorrection1(): number {
     let total: number = 1
 
     //  skills that affect attack
-    const attackSkills = this.ctx.skills.filter((skill) => skill.category === SkillCategory.ATTACK)
+    const attackSkills = this.ctx.skills.filter(
+      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.PARTIAL
+    )
     for (const skill of attackSkills) {
       for (const levelValue of skill.levelValue) {
-        const m: number =
-          levelValue.calcMethod === CalcMethod.MULTI
-            ? levelValue.valueM != undefined
-              ? levelValue.valueM
-              : 0
-            : 1
-        total += m
+        if (
+          (levelValue.calcMethod === CalcMethod.MULTI || levelValue.calcMethod) ===
+            CalcMethod.MIX &&
+          levelValue.valueM != undefined
+        ) {
+          total += levelValue.valueM
+        }
+      }
+    }
+    // TODO: calculate items that affect attack
+    return total
+  }
+
+  private calcMultiCorrection2(): number {
+    let total: number = 1
+
+    const attackSkills = this.ctx.skills.filter(
+      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.GLOBAL
+    )
+
+    for (const skill of attackSkills) {
+      for (const levelValue of skill.levelValue) {
+        if (
+          (levelValue.calcMethod === CalcMethod.MULTI ||
+            levelValue.calcMethod === CalcMethod.MIX) &&
+          levelValue.valueP != undefined
+        ) {
+          total += levelValue.valueP
+        }
       }
     }
     return total
   }
 
+  private calcPlusCorrection(): number {
+    let total: number = 0
+
+    // todo: encapsulation
+    //  skills that affect attack
+    const attackSkills = this.ctx.skills.filter(
+      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.PARTIAL
+    )
+    // todo: encapsulation
+    for (const skill of attackSkills) {
+      for (const levelValue of skill.levelValue) {
+        if (
+          (levelValue.calcMethod === CalcMethod.PLUS || levelValue.calcMethod === CalcMethod.MIX) &&
+          levelValue.valueP != undefined
+        ) {
+          total += levelValue.valueP
+        }
+      }
+    }
+
+    // TODO: calculate items that affect attack
+
+    return total
+  }
+
   /*
    * Calculate the physics attack power:
-   * PhysicAttack = ((RawAttack * MultiCorrection1) + PlusCorrection1) * MultiCorrection2
+   * PhysicAttack = ((RawAttack * MultiCorrection1) + PlusCorrection) * MultiCorrection2
    *
    * @return Physics attack power
    */
   calcAttack(): number {
+    // TODO: check preCondition
     const raw = this.ctx.physicsAttack
+    const multi1 = this.calcMultiCorrection1()
+    const multi2 = this.calcMultiCorrection2()
+    const p = this.calcPlusCorrection()
+    return (raw * multi1 + p) * multi2
   }
 
   /**
-   * Calculate the monster's hit rate.
+   * Calculate the monster's hit rate, impact factors: weapon type && type, monster parts and maybe skills
+   *
    */
   calcMonsterHitRate(): number {}
 
