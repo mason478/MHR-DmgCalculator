@@ -1,15 +1,13 @@
 // some common data
 
-import { en } from 'element-plus/es/locales.mjs'
-
 export enum AttackType {
   UNKNOWN = 0,
-  PHYSIC = 1,
+  PHYSICS = 1,
   ELEMENT = 2
 }
 
 // weapon's or motion's physical attack type
-export enum PhysicAttackType {
+enum PhysicsAttackType {
   UNKNOWN = 0,
   // slashing type, like long sword, great sword
   SLASHING = 1,
@@ -20,7 +18,7 @@ export enum PhysicAttackType {
 }
 
 // element types
-export enum Element {
+enum ElementType {
   UNKNOWN = 0,
   FIRE = 1,
   WATER = 2,
@@ -29,11 +27,13 @@ export enum Element {
   DRAGON = 5
 }
 
-export const elementNamesMap = new Map<Element, string>([
-  [Element.UNKNOWN, '无'],
-  [Element.FIRE, '火'],
-  [Element.WATER, '水'],
-  [Element.THUNDER, '雷'],
-  [Element.ICE, '冰'],
-  [Element.DRAGON, '龙']
+const elementNamesMap = new Map<ElementType, string>([
+  [ElementType.UNKNOWN, '无'],
+  [ElementType.FIRE, '火'],
+  [ElementType.WATER, '水'],
+  [ElementType.THUNDER, '雷'],
+  [ElementType.ICE, '冰'],
+  [ElementType.DRAGON, '龙']
 ])
+
+export { PhysicsAttackType, ElementType, elementNamesMap }

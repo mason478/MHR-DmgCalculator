@@ -1,6 +1,6 @@
 // Skills data, including weapon's and character's skills,
 // there are 4 categories of skills that could influence damage:
-//      1. attack: boost physic or element attack
+//      1. attack: boost physics or element attack
 //      2. critical rate: boost critical rate
 //      3. enforcement: extra correction
 // data source:
@@ -69,7 +69,7 @@ const enum Precondition {
   HIT_RATE_ABOVE_40 = 3
 }
 
-interface Skill {
+export interface Skill {
   id: number
   name: string
   category: Category
@@ -86,7 +86,7 @@ const AttackBoost: Skill = {
   id: 1,
   name: '攻击',
   category: Category.ATTACK,
-  attackType: AttackType.PHYSIC,
+  attackType: AttackType.PHYSICS,
   scope: Scope.GLOBAL,
   levelValue: [
     {
@@ -135,7 +135,7 @@ const CriticalEyes: Skill = {
   id: 2,
   name: '看破',
   category: Category.CRITICAL_RATE,
-  attackType: AttackType.PHYSIC,
+  attackType: AttackType.PHYSICS,
   scope: Scope.GLOBAL,
   levelValue: [
     {
@@ -179,7 +179,7 @@ const CriticalBoost: Skill = {
   id: 3,
   name: '超会心',
   category: Category.ENFORCEMENT,
-  attackType: AttackType.PHYSIC,
+  attackType: AttackType.PHYSICS,
   scope: Scope.GLOBAL,
   levelValue: [
     {
@@ -205,7 +205,7 @@ const CriticalBoost: Skill = {
 //   id: 3,
 //   name: '挑战者',
 //   category: Category.ATTACK,
-//   attackType: AttackType.PHYSIC,
+//   attackType: AttackType.PHYSICS,
 //   scope: Scope.GLOBAL,
 //   levelValue: [
 //     {
@@ -224,4 +224,4 @@ const CriticalBoost: Skill = {
 //     }
 //   ]
 
-export { AttackBoost, CriticalEyes, CriticalBoost }
+export { Category as SkillCategory, CalcMethod, AttackBoost, CriticalEyes, CriticalBoost }

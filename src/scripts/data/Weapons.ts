@@ -1,6 +1,6 @@
 // All the weapons data, including types, sharpness, motion value
 // Data resources: https://hyperwiki.jp/mhr/ (in Japanese)
-import { PhysicAttackType } from './Common'
+import { PhysicsAttackType } from './Common'
 
 export enum WeaponType {
   UNKNOWN = 0,
@@ -14,7 +14,7 @@ interface WeaponMotion {
   id: number
   // motion name
   name: string
-  attackType: PhysicAttackType
+  attackType: PhysicsAttackType
   motionValue: number
   // element attack value
   elementValue?: number
@@ -26,12 +26,12 @@ interface WeaponMotion {
   elementCorrection?: number
   abnormalStatusCorrection?: number
   // physic damage correction of the motion, optional
-  physicCorrection?: number
-  // extra physic damage correction, optional
-  extraPhysicCorrection?: number
+  physicsCorrection?: number
+  // extra physics damage correction, optional
+  extraPhysicsCorrection?: number
 }
 
-interface Weapon {
+export interface Weapon {
   // definition of a weapon
   weaponType: WeaponType
   // weapon's name
@@ -49,14 +49,14 @@ const greatSword: Weapon = {
       id: 1,
       //	Overhead Slash
       name: '直斩',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 48
     },
     {
       // Charged Slash level 1
       id: 2,
       name: '蓄力斩Lv1',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 48,
       elementCorrection: 1.1,
       abnormalStatusCorrection: 1.1
@@ -65,7 +65,7 @@ const greatSword: Weapon = {
       // Charged Slash level 2
       id: 3,
       name: '蓄力斩Lv2',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 77,
       elementCorrection: 1.2,
       abnormalStatusCorrection: 1.2
@@ -74,7 +74,7 @@ const greatSword: Weapon = {
       // Charged Slash level 3
       id: 4,
       name: '蓄力斩Lv3',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 105,
       elementCorrection: 1.5,
       abnormalStatusCorrection: 1.5
@@ -84,7 +84,7 @@ const greatSword: Weapon = {
       //SIDE_BLOW
       id: 5,
       name: '横拍',
-      attackType: PhysicAttackType.HITTING,
+      attackType: PhysicsAttackType.HITTING,
       motionValue: 16,
       faintValue: 20,
       feeblenessValue: 15
@@ -93,14 +93,14 @@ const greatSword: Weapon = {
       //STRONG_CHARGED_SLASH_LV0,
       id: 6,
       name: '强蓄力斩Lv0',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 65
     },
     {
       //STRONG_CHARGED_SLASH_LV1,
       id: 7,
       name: '强蓄力斩Lv1',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 65,
       elementCorrection: 1.65,
       abnormalStatusCorrection: 1.65
@@ -109,7 +109,7 @@ const greatSword: Weapon = {
       //STRONG_CHARGED_SLASH_LV2,
       id: 8,
       name: '强蓄力斩Lv2',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 90,
       elementCorrection: 1.8,
       abnormalStatusCorrection: 1.8
@@ -118,7 +118,7 @@ const greatSword: Weapon = {
       // STRONG_CHARGED_SLASH_LV3
       id: 9,
       name: '强蓄力斩Lv3',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 115,
       elementCorrection: 2.25,
       abnormalStatusCorrection: 2.25
@@ -133,9 +133,9 @@ const longSword: Weapon = {
     {
       id: 1,
       name: '直斩',
-      attackType: PhysicAttackType.SLASHING,
+      attackType: PhysicsAttackType.SLASHING,
       motionValue: 48,
-      physicCorrection: 1,
+      physicsCorrection: 1,
       elementCorrection: 1
     }
   ]
@@ -159,7 +159,7 @@ export enum Sharpness {
 interface SharpnessAttributes {
   sharpness: Sharpness
   name: string
-  physicCorrection: number
+  physicsCorrection: number
   elementCorrection: number
 }
 
@@ -169,7 +169,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.UNKNOWN,
       name: '无',
-      physicCorrection: 1,
+      physicsCorrection: 1,
       elementCorrection: 1
     }
   ],
@@ -178,7 +178,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.RED,
       name: '红',
-      physicCorrection: 0.5,
+      physicsCorrection: 0.5,
       elementCorrection: 0.25
     }
   ],
@@ -187,7 +187,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.ORANGE,
       name: '橙',
-      physicCorrection: 0.75,
+      physicsCorrection: 0.75,
       elementCorrection: 0.5
     }
   ],
@@ -196,7 +196,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.YELLOW,
       name: '黄',
-      physicCorrection: 1.0,
+      physicsCorrection: 1.0,
       elementCorrection: 0.75
     }
   ],
@@ -205,7 +205,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.GREEN,
       name: '绿',
-      physicCorrection: 1.05,
+      physicsCorrection: 1.05,
       elementCorrection: 1.0
     }
   ],
@@ -214,7 +214,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.BLUE,
       name: '青',
-      physicCorrection: 1.2,
+      physicsCorrection: 1.2,
       elementCorrection: 1.0625
     }
   ],
@@ -223,7 +223,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.WHITE,
       name: '白',
-      physicCorrection: 1.32,
+      physicsCorrection: 1.32,
       elementCorrection: 1.15
     }
   ],
@@ -232,7 +232,7 @@ const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
     {
       sharpness: Sharpness.PURPLE,
       name: '紫',
-      physicCorrection: 1.39,
+      physicsCorrection: 1.39,
       elementCorrection: 1.25
     }
   ]

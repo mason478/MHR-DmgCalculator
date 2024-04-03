@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
-import { elementNamesMap, Element } from '../scripts/data/Common'
+import { elementNamesMap, ElementType } from '../scripts/data/Common'
 
 // function consoleName(wt: WeaponType) {
 // console.log(weaponData.getWeaponName(wt))
@@ -14,7 +14,7 @@ const wt = ref<WeaponType>()
 const mt = ref<number>()
 const sp = ref<Sharpness>(Sharpness.UNKNOWN)
 const rawAttack = ref<number>(0)
-const element = ref<Element>(Element.UNKNOWN)
+const element = ref<ElementType>(ElementType.UNKNOWN)
 const elementAttack = ref<number>(0)
 const criticalRate = ref<number>(0)
 
@@ -83,10 +83,10 @@ function onChange() {
           :label="elementNamesMap.get(e)"
         />
       </el-select>
-      <label for="elementAttack" v-if="element !== Element.UNKNOWN">武器属性攻击力</label>
+      <label for="elementAttack" v-if="element !== ElementType.UNKNOWN">武器属性攻击力</label>
       <el-input
         id="elementAttack"
-        v-if="element !== Element.UNKNOWN"
+        v-if="element !== ElementType.UNKNOWN"
         v-model="elementAttack"
         placeholder="请输入武器属性攻击力"
       />
