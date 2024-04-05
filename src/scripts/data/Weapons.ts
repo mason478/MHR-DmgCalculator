@@ -38,6 +38,7 @@ export interface Weapon {
   name: string
   //weapon's motions, one weapon may have kinds of motions
   motions: Array<WeaponMotion>
+  sharpness?: Sharpness
 }
 
 // All weapons --start--
@@ -249,6 +250,7 @@ const allWeaponsMap = new Map<WeaponType, Weapon>([
 
 export const allWeaponTypes: Array<WeaponType> = Array.from(allWeaponsMap.keys())
 export const allSharpness: Array<Sharpness> = Array.from(sharpnessAttributesMap.keys())
+
 export default {
   getWeaponName(wt: WeaponType): string {
     const weapon = allWeaponsMap.get(wt)

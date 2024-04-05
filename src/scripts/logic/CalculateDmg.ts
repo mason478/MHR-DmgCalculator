@@ -15,9 +15,9 @@ Data source: https://hyperwiki.jp/mhr/system-power/
 import { todo } from 'node:test'
 import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
 import { WeaponType, type Weapon } from '@/scripts/data/Weapons'
+import weaponsData from '@/scripts/data/Weapons'
 import { MonsterStatus, type Monster } from '@/scripts/data/Monsters'
 import { type Skill, CalcMethod, Scope, SkillCategory, AttackBoost } from '@/scripts/data/Skills'
-// TODO：definition by class
 
 interface Context {
   // raw physics attack
@@ -43,8 +43,8 @@ abstract class C {
     this.ctx = context
   }
   abstract calcAttack(): number
-  abstract calcMonsterHitRate(): number
-  abstract calcSharpnessCorrection(): number
+  abstract getMonsterHitRate(): number
+  abstract getSharpnessCorrection(): number
   abstract calcCriticalCorrection(): number
   abstract calcOtherCorrection(): number
   /**
@@ -119,7 +119,7 @@ class physicsDamageCalculator extends C {
   /*
 
    * Calculate the physics attack power:
-   * PhysicAttack = ((RawAttack * MultiCorrection1) + PlusCorrection) * MultiCorrection2
+   * PhysicAttack = (RawAttack * MultiCorrection1 + PlusCorrection) * MultiCorrection2
    *
    * @return Physics attack power
    */
@@ -133,12 +133,26 @@ class physicsDamageCalculator extends C {
   }
 
   /**
-   * Calculate the monster's hit rate, impact factors: weapon type && type, monster parts and maybe skills
+   * Calculate the monster's hit rate, impact factors: weapon or motion type, monster parts and maybe skills
    *
    */
-  calcMonsterHitRate(): number {}
+  getMonsterHitRate(): number {
+    const part = this.ctx.monster.parts[0]
+    const attackType = this.ctx.weapon.motions[0].attackType
+    const hr = part.hitRates.get(attackType)
+    const result = hr != undefined ? hr : 0
+    return result
+  }
 
-  calcSharpnessCorrection(): number {}
+  getSharpnessCorrection(): number {
+    const weapon = this.ctx.weapon
+    const sharpness = weapon.sharpness
+    if (sharpness == undefined) {
+      return 1
+    }
+    const sa = weaponsData.getSharpnessAttribute(sharpness)
+    return sa.physicsCorrection
+  }
 
   calcCriticalCorrection(): number {}
 
@@ -147,38 +161,3 @@ class physicsDamageCalculator extends C {
 }
 
 // Physics damage calculation
-
-function calcCriticalRate(): number {
-  todo
-}
-
-function calcCriticalCorrection(): number {
-  todo
-}
-
-function calcOtherPhysicCorrection(): number {
-  todo
-}
-function calcPhysicDamge(): number {
-  todo
-}
-
-// Element damage calculation
-function calcElementCorrection(): number {
-  todo
-}
-function calcCriticalElementRate(): number {
-  todo
-}
-
-function calcCriticalElementCorrection(): number {
-  todo
-}
-
-function calcOtherElementCorrection(): number {
-  todo
-}
-
-function calcElementDamage(): number {
-  todo
-}
