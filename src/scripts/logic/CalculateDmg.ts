@@ -47,54 +47,49 @@ abstract class C {
   abstract calcSharpnessCorrection(): number
   abstract calcCriticalCorrection(): number
   abstract calcOtherCorrection(): number
-  // return normal damage ,critical damage and expected damage
+  /**
+   * @return:  normal damage ,critical damage and expected damage
+   */
   abstract calcDamage(): typeof R
 }
 // TODO: Skill calculation
 class physicsDamageCalculator extends C {
-  /**
-   * Find out all the skills that affect attack, and calculate the attack multi correction type 1
-   */
-  private calcMultiCorrection1(): number {
-    let total: number = 1
-
-    //  skills that affect attack
-    const attackSkills = this.ctx.skills.filter(
-      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.PARTIAL
+  private findSkills(category: SkillCategory, scope: Scope): Array<Skill> {
+    const skills = this.ctx.skills.filter(
+      (skill) => skill.category === category && skill.scope === scope
     )
-    for (const skill of attackSkills) {
+    return skills
+  }
+
+  private calcSkillsMultiCorrection(skills: Array<Skill>): number {
+    let total: number = 1
+    for (const skill of skills) {
       for (const levelValue of skill.levelValue) {
         if (
-          (levelValue.calcMethod === CalcMethod.MULTI || levelValue.calcMethod) ===
-            CalcMethod.MIX &&
+          (levelValue.calcMethod === CalcMethod.MULTI || levelValue.calcMethod == CalcMethod.MIX) &&
           levelValue.valueM != undefined
         ) {
           total += levelValue.valueM
         }
       }
     }
+    return total
+  }
+  /**
+   * Find out all the skills and items that affect attack, and calculate the attack multi correction type 1
+   */
+  private calcMultiCorrection1(): number {
+    //  skills that affect attack
+    const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
     // TODO: calculate items that affect attack
+    const total = this.calcSkillsMultiCorrection(attackSkills)
     return total
   }
 
   private calcMultiCorrection2(): number {
-    let total: number = 1
+    const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.GLOBAL)
+    const total = this.calcSkillsMultiCorrection(attackSkills)
 
-    const attackSkills = this.ctx.skills.filter(
-      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.GLOBAL
-    )
-
-    for (const skill of attackSkills) {
-      for (const levelValue of skill.levelValue) {
-        if (
-          (levelValue.calcMethod === CalcMethod.MULTI ||
-            levelValue.calcMethod === CalcMethod.MIX) &&
-          levelValue.valueP != undefined
-        ) {
-          total += levelValue.valueP
-        }
-      }
-    }
     return total
   }
 
@@ -103,9 +98,7 @@ class physicsDamageCalculator extends C {
 
     // todo: encapsulation
     //  skills that affect attack
-    const attackSkills = this.ctx.skills.filter(
-      (skill) => skill.category === SkillCategory.ATTACK && skill.scope === Scope.PARTIAL
-    )
+    const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
     // todo: encapsulation
     for (const skill of attackSkills) {
       for (const levelValue of skill.levelValue) {
@@ -133,10 +126,10 @@ class physicsDamageCalculator extends C {
   calcAttack(): number {
     // TODO: check preCondition
     const raw = this.ctx.physicsAttack
-    const multi1 = this.calcMultiCorrection1()
-    const multi2 = this.calcMultiCorrection2()
+    const m1 = this.calcMultiCorrection1()
+    const m2 = this.calcMultiCorrection2()
     const p = this.calcPlusCorrection()
-    return (raw * multi1 + p) * multi2
+    return (raw * m1 + p) * m2
   }
 
   /**
