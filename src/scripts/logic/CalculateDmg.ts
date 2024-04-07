@@ -121,7 +121,7 @@ class physicsDamageCalculator extends C {
    */
   calcAttack(): number {
     // TODO: check preCondition
-    const raw = this.ctx.physicsAttack
+    const raw = this.ctx.weapon.physicsAttack ?? 0
     const m1 = this.calcMultiCorrection1()
     const m2 = this.calcMultiCorrection2()
     const p = this.calcPlusCorrection()
