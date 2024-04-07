@@ -1,6 +1,7 @@
 // All the weapons data, including types, sharpness, motion value
 // Data resources: https://hyperwiki.jp/mhr/ (in Japanese)
 import { PhysicsAttackType } from './Common'
+import { ElementType } from './Common'
 
 export enum WeaponType {
   UNKNOWN = 0,
@@ -39,6 +40,11 @@ export interface Weapon {
   //weapon's motions, one weapon may have kinds of motions
   motions: Array<WeaponMotion>
   sharpness?: Sharpness
+  // raw physics attack
+  physicsAttack?: number
+  elementAttack?: number
+  elementType?: ElementType
+  criticalRate?: number
 }
 
 // All weapons --start--
