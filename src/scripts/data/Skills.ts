@@ -10,6 +10,8 @@
 import { AttackType } from './Common'
 import { WeaponType } from './Weapons'
 
+const BASIC_CRITICAL_CORRECTION: number = 1.25
+
 const enum Category {
   UNKNOWN = 0,
   ATTACK = 1,
@@ -225,4 +227,12 @@ const CriticalBoost: Skill = {
 //     }
 //   ]
 
-export { Category as SkillCategory, Scope, CalcMethod, AttackBoost, CriticalEyes, CriticalBoost }
+export {
+  Category as SkillCategory,
+  Scope,
+  CalcMethod,
+  AttackBoost,
+  CriticalEyes,
+  CriticalBoost,
+  BASIC_CRITICAL_CORRECTION
+}

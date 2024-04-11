@@ -16,7 +16,14 @@ Data source: https://hyperwiki.jp/mhr/system-power/
 import { type Weapon } from '../data/Weapons'
 import weaponsData from '../data/Weapons'
 import { MonsterStatus, type Monster } from '../data/Monsters'
-import { type Skill, CalcMethod, Scope, SkillCategory, CriticalBoost } from '../data/Skills'
+import {
+  type Skill,
+  CalcMethod,
+  Scope,
+  SkillCategory,
+  CriticalBoost,
+  BASIC_CRITICAL_CORRECTION
+} from '../data/Skills'
 
 export interface Context {
   weapon: Weapon
@@ -38,8 +45,9 @@ abstract class C {
     this.ctx = context
   }
   abstract calcAttack(): number
-  abstract getMonsterHitRate(): number
+  abstract getMonsterHitRate(partId: number): number
   abstract getSharpnessCorrection(): number
+  abstract calcCriticalRate(): number
   abstract calcCriticalCorrection(): [number, number]
   abstract calcOtherCorrection(): number
   /**
@@ -134,8 +142,8 @@ class physicsDamageCalculator extends C {
    * Calculate the monster's hit rate, impact factors: weapon or motion type, monster parts and maybe skills
    *
    */
-  getMonsterHitRate(): number {
-    const part = this.ctx.monster.parts[0]
+  getMonsterHitRate(partId: number = 1): number {
+    const part = this.ctx.monster.parts[partId - 1]
     const attackType = this.ctx.weapon.motions[0].attackType
     const hr = part.hitRates.get(attackType)
     const result = hr != undefined ? hr : 0
@@ -194,7 +202,6 @@ class physicsDamageCalculator extends C {
   */
   calcCriticalCorrection(): [number, number] {
     const criticalRate = this.calcCriticalRate()
-    const baseCriticalCorrection: number = 1.25
 
     let skills: Array<Skill> = []
     if (this.ctx.skills != undefined) {
@@ -207,13 +214,14 @@ class physicsDamageCalculator extends C {
       boost = skills[0].levelValue[0].valueP ?? 0
     }
     return [
-      baseCriticalCorrection + boost,
-      ((baseCriticalCorrection + boost) * criticalRate) / 100 + (1 - criticalRate / 100)
+      BASIC_CRITICAL_CORRECTION + boost,
+      ((BASIC_CRITICAL_CORRECTION + boost) * criticalRate) / 100 + (1 - criticalRate / 100)
     ]
   }
 
   calcOtherCorrection(): number {
-    return 1
+    //TODO: other correction
+    return 1.3
   }
 
   /**
@@ -232,7 +240,7 @@ class physicsDamageCalculator extends C {
     const criticalDmg = normalDmg * criticalCorrection[0]
     const expectedDmg = normalDmg * criticalCorrection[1]
 
-    return [normalDmg, criticalDmg, expectedDmg]
+    return [Math.round(normalDmg), Math.round(criticalDmg), Math.round(expectedDmg)]
   }
 }
 
