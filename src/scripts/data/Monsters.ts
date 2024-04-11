@@ -31,7 +31,7 @@ export interface Monster {
 // the frog in the training ground
 const KarakuriFrog: Monster = {
   id: 1,
-  name: '神童蛙',
+  name: '机关蛙',
   parts: [
     {
       id: 1,
@@ -352,8 +352,9 @@ const Rathalos: Monster = {
 
 // All monsters data --end--
 export const allMonstersMap = new Map<number, Monster>([
-  [1, Rathalos],
-  [2, Rathian]
+  [KarakuriFrog.id, KarakuriFrog],
+  [Rathalos.id, Rathalos],
+  [Rathian.id, Rathian]
 ])
 
 export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())

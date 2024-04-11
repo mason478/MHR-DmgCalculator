@@ -12,18 +12,17 @@ ElementDamage = ElementAttack * (MonsterHitRate/100) * ElementCorrection * Criti
 
 Data source: https://hyperwiki.jp/mhr/system-power/
 */
-import { todo } from 'node:test'
-import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
-import { WeaponType, type Weapon } from '@/scripts/data/Weapons'
-import weaponsData from '@/scripts/data/Weapons'
-import { MonsterStatus, type Monster } from '@/scripts/data/Monsters'
-import { type Skill, CalcMethod, Scope, SkillCategory, CriticalBoost } from '@/scripts/data/Skills'
+// import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
+import { type Weapon } from '../data/Weapons'
+import weaponsData from '../data/Weapons'
+import { MonsterStatus, type Monster } from '../data/Monsters'
+import { type Skill, CalcMethod, Scope, SkillCategory, CriticalBoost } from '../data/Skills'
 
-interface Context {
+export interface Context {
   weapon: Weapon
   monster: Monster
   monsterStatus: MonsterStatus
-  skills: Array<Skill>
+  skills?: Array<Skill>
   // # TODO: items, and others
 }
 
@@ -48,9 +47,13 @@ abstract class C {
    */
   abstract calcDamage(): typeof R
 }
-// TODO: Skill calculation
+
+// Physics damage calculation
 class physicsDamageCalculator extends C {
   private findSkills(category: SkillCategory, scope: Scope): Array<Skill> {
+    if (this.ctx.skills === undefined) {
+      return []
+    }
     const skills = this.ctx.skills.filter(
       (skill) => skill.category === category && skill.scope === scope
     )
@@ -71,6 +74,7 @@ class physicsDamageCalculator extends C {
     }
     return total
   }
+
   /**
    * Find out all the skills and items that affect attack, and calculate the attack multi correction type 1
    */
@@ -91,7 +95,6 @@ class physicsDamageCalculator extends C {
 
   private calcPlusCorrection(): number {
     let total: number = 0
-
     // todo: encapsulation
     //  skills that affect attack
     const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
@@ -113,7 +116,6 @@ class physicsDamageCalculator extends C {
   }
 
   /*
-
    * Calculate the physics attack power:
    * PhysicAttack = (RawAttack * MultiCorrection1 + PlusCorrection) * MultiCorrection2
    *
@@ -193,8 +195,17 @@ class physicsDamageCalculator extends C {
   calcCriticalCorrection(): [number, number] {
     const criticalRate = this.calcCriticalRate()
     const baseCriticalCorrection: number = 1.25
-    const skills = this.ctx.skills.filter((skill) => skill.id === CriticalBoost.id)
-    const boost = skills[0].levelValue[0].valueP ?? 0
+
+    let skills: Array<Skill> = []
+    if (this.ctx.skills != undefined) {
+      skills = this.ctx.skills.filter((skill) => skill.id === CriticalBoost.id)
+    }
+
+    let boost: number = 0
+
+    if (skills.length != 0) {
+      boost = skills[0].levelValue[0].valueP ?? 0
+    }
     return [
       baseCriticalCorrection + boost,
       ((baseCriticalCorrection + boost) * criticalRate) / 100 + (1 - criticalRate / 100)
@@ -225,4 +236,4 @@ class physicsDamageCalculator extends C {
   }
 }
 
-// Physics damage calculation
+export { physicsDamageCalculator }
