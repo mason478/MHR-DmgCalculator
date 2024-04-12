@@ -18,9 +18,9 @@ const element = ref<ElementType>(ElementType.UNKNOWN)
 const elementAttack = ref<number>(0)
 const criticalRate = ref<number>(0)
 
-function out() {
-  console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
-}
+// function out() {
+// console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
+// }
 function onChange() {
   console.info('This is a test of onChange!')
   mt.value = undefined
