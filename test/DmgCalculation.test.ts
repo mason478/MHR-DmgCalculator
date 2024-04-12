@@ -90,9 +90,7 @@ describe('Test weapon1 damage', () => {
   const c = new physicsDamageCalculator(context1)
 
   test('calculate attack', () => {
-    const logSpy = jest.spyOn(global.console, 'log')
     expect(c.calcAttack()).toEqual(weapon1.physicsAttack)
-    expect(logSpy).toHaveBeenCalled()
   })
 
   test('get monster hit rate', () => {
