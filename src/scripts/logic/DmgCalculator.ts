@@ -135,6 +135,7 @@ class physicsDamageCalculator extends C {
     const m1 = this.calcMultiCorrection1()
     const m2 = this.calcMultiCorrection2()
     const p = this.calcPlusCorrection()
+    console.log(raw, m1, m2, p)
     return (raw * m1 + p) * m2
   }
 

@@ -111,25 +111,25 @@ const AttackBoost: Skill = {
       level: Level.LEVEL4,
       calcMethod: CalcMethod.MIX,
       valueP: 7,
-      valueM: 1.05
+      valueM: 0.05
     },
     {
       level: Level.LEVEL5,
       calcMethod: CalcMethod.MIX,
       valueP: 8,
-      valueM: 1.06
+      valueM: 0.06
     },
     {
       level: Level.LEVEL6,
       calcMethod: CalcMethod.MIX,
       valueP: 9,
-      valueM: 1.08
+      valueM: 0.08
     },
     {
       level: Level.LEVEL7,
       calcMethod: CalcMethod.MIX,
       valueP: 10,
-      valueM: 1.1
+      valueM: 0.1
     }
   ]
 }
@@ -234,5 +234,6 @@ export {
   AttackBoost,
   CriticalEyes,
   CriticalBoost,
-  BASIC_CRITICAL_CORRECTION
+  BASIC_CRITICAL_CORRECTION,
+  Level as SkillLevel
 }

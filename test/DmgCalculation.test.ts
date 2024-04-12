@@ -1,9 +1,16 @@
 import { physicsDamageCalculator, Context } from '../src/scripts/logic/DmgCalculator'
 import { WeaponType, Weapon, Sharpness } from '../src/scripts/data/Weapons'
 import weaponData from '../src/scripts/data/Weapons'
-import { PhysicsAttackType } from '../src/scripts/data/Common'
+import { PhysicsAttackType, AttackType } from '../src/scripts/data/Common'
 import { allMonstersMap, MonsterStatus } from '../src/scripts/data/Monsters'
-import { BASIC_CRITICAL_CORRECTION } from '../src/scripts/data/Skills'
+import {
+  BASIC_CRITICAL_CORRECTION,
+  Skill,
+  SkillCategory,
+  Scope,
+  SkillLevel,
+  CalcMethod
+} from '../src/scripts/data/Skills'
 
 /*
     Test Great Sword:
@@ -39,20 +46,53 @@ const weapon1: Weapon = {
   physicsAttack: 116
 }
 
+const skill1: Skill = {
+  id: 1,
+  name: '攻击',
+  category: SkillCategory.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValue: [
+    {
+      level: SkillLevel.LEVEL4,
+      calcMethod: CalcMethod.MIX,
+      valueP: 7,
+      valueM: 0.05
+    }
+  ]
+}
+
+const skill2: Skill = {
+  id: 2,
+  name: '看破',
+  category: SkillCategory.CRITICAL_RATE,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValue: [
+    {
+      level: SkillLevel.LEVEL4,
+      calcMethod: CalcMethod.PLUS,
+      valueP: 20
+    }
+  ]
+}
+
 describe('Test weapon1 damage', () => {
   const context1: Context = {
     weapon: weapon1,
     // @ts-ignore
     monster: monster1,
-    monsterStatus: MonsterStatus.NORMAL
+    monsterStatus: MonsterStatus.NORMAL,
     //   monster: Monster
     //   monsterStatus: MonsterStatus
-    //   skills: Array<Skill>
+    skills: [skill1, skill2]
   }
   const c = new physicsDamageCalculator(context1)
 
   test('calculate attack', () => {
+    const logSpy = jest.spyOn(global.console, 'log')
     expect(c.calcAttack()).toEqual(weapon1.physicsAttack)
+    expect(logSpy).toHaveBeenCalled()
   })
 
   test('get monster hit rate', () => {
