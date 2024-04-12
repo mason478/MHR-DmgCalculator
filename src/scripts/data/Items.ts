@@ -28,6 +28,7 @@ const enum CalcMethod {
 }
 
 interface Item {
+  id: number
   name: string
   effectMode: EffectMode
   itemType: ItemType
@@ -36,6 +37,7 @@ interface Item {
 }
 
 const PowerCharm: Item = {
+  id: 1,
   name: '力量之护符',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
@@ -43,7 +45,8 @@ const PowerCharm: Item = {
   value: 6
 }
 
-const Powertalon: Item = {
+const PowerTalon: Item = {
+  id: 2,
   name: '力量之爪',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
@@ -52,6 +55,7 @@ const Powertalon: Item = {
 }
 
 const MightSeed: Item = {
+  id: 3,
   name: '怪力之种',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
@@ -60,6 +64,7 @@ const MightSeed: Item = {
 }
 
 const DemonDrug: Item = {
+  id: 4,
   name: '鬼人药',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
@@ -68,6 +73,7 @@ const DemonDrug: Item = {
 }
 
 const MegaDemonDrug: Item = {
+  id: 5,
   name: '鬼人药G',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
@@ -76,6 +82,7 @@ const MegaDemonDrug: Item = {
 }
 
 const DemonPowder: Item = {
+  id: 6,
   name: '鬼人粉尘',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
@@ -84,9 +91,62 @@ const DemonPowder: Item = {
 }
 
 const DangoBoosterLv1: Item = {
+  id: 7,
   name: '催眠薄荷大福Lv1',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.DANGO,
   calcMethod: CalcMethod.PLUS,
-  value: 6 // 9,12,15
+  value: 6
 }
+
+const DangoBoosterLv2: Item = {
+  id: 8,
+  name: '催眠薄荷大福Lv2',
+  effectMode: EffectMode.ATTACK_BOOST,
+  itemType: ItemType.DANGO,
+  calcMethod: CalcMethod.PLUS,
+  value: 9
+}
+
+const DangoBoosterLv3: Item = {
+  id: 9,
+  name: '催眠薄荷大福Lv3',
+  effectMode: EffectMode.ATTACK_BOOST,
+  itemType: ItemType.DANGO,
+  calcMethod: CalcMethod.PLUS,
+  value: 12
+}
+
+const DangoBoosterLv4: Item = {
+  id: 10,
+  name: '催眠薄荷大福Lv4',
+  effectMode: EffectMode.ATTACK_BOOST,
+  itemType: ItemType.DANGO,
+  calcMethod: CalcMethod.PLUS,
+  value: 15
+}
+
+const Petalace: Item = {
+  id: 11,
+  name: '花链',
+  effectMode: EffectMode.ATTACK_BOOST,
+  itemType: ItemType.POSSESSION,
+  calcMethod: CalcMethod.PLUS,
+  value: 20
+}
+
+const allItemsMap: Map<number, Item> = new Map([
+  [PowerCharm.id, PowerCharm],
+  [PowerTalon.id, PowerTalon],
+  [MightSeed.id, MightSeed],
+  [DemonDrug.id, DemonDrug],
+  [MegaDemonDrug.id, MegaDemonDrug],
+  [DemonPowder.id, DemonPowder],
+  [DangoBoosterLv1.id, DangoBoosterLv1],
+  [DangoBoosterLv2.id, DangoBoosterLv2],
+  [DangoBoosterLv3.id, DangoBoosterLv3],
+  [DangoBoosterLv4.id, DangoBoosterLv4],
+  [Petalace.id, Petalace]
+])
+
+export { allItemsMap, type Item }

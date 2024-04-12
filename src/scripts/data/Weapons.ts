@@ -10,7 +10,7 @@ export enum WeaponType {
   BOW = 3
 }
 
-interface WeaponMotion {
+export interface WeaponMotion {
   // motion data reference: https://hyperwiki.jp/mhr/motion-value/
   id: number
   // motion name
@@ -57,16 +57,17 @@ const greatSword: Weapon = {
       //	Overhead Slash
       name: '直斩',
       attackType: PhysicsAttackType.SLASHING,
-      motionValue: 48
+      motionValue: 52
     },
     {
       // Charged Slash level 1
       id: 2,
       name: '蓄力斩Lv1',
       attackType: PhysicsAttackType.SLASHING,
-      motionValue: 48,
+      motionValue: 52,
       elementCorrection: 1.1,
-      abnormalStatusCorrection: 1.1
+      abnormalStatusCorrection: 1.1,
+      extraPhysicsCorrection: 1.1
     },
     {
       // Charged Slash level 2
@@ -75,7 +76,8 @@ const greatSword: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 77,
       elementCorrection: 1.2,
-      abnormalStatusCorrection: 1.2
+      abnormalStatusCorrection: 1.2,
+      extraPhysicsCorrection: 1.2
     },
     {
       // Charged Slash level 3
@@ -84,8 +86,9 @@ const greatSword: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 105,
       elementCorrection: 1.5,
-      abnormalStatusCorrection: 1.5
+      abnormalStatusCorrection: 1.5,
       // TODO: extra correction
+      extraPhysicsCorrection: 1.3
     },
     {
       //SIDE_BLOW
@@ -126,7 +129,7 @@ const greatSword: Weapon = {
       id: 9,
       name: '强蓄力斩Lv3',
       attackType: PhysicsAttackType.SLASHING,
-      motionValue: 115,
+      motionValue: 128,
       elementCorrection: 2.25,
       abnormalStatusCorrection: 2.25
     }
@@ -152,6 +155,7 @@ const longSword: Weapon = {
 
 // Weapons' sharpness, represented by color
 // Data resources: https://hyperwiki.jp/mhr/system-damage/ (in Japanese)
+
 export enum Sharpness {
   UNKNOWN = 0,
   RED = 1,

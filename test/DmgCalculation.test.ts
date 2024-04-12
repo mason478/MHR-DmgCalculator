@@ -39,8 +39,18 @@ const weapon1: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 105,
       elementCorrection: 1.5,
-      abnormalStatusCorrection: 1.5
+      abnormalStatusCorrection: 1.5,
+      extraPhysicsCorrection: 1.3
     }
+    //{
+    //  // STRONG_CHARGED_SLASH_LV3
+    //  id: 9,
+    //  name: '强蓄力斩Lv3',
+    //  attackType: PhysicsAttackType.SLASHING,
+    //  motionValue: 52,
+    //  elementCorrection: 2.25,
+    //  abnormalStatusCorrection: 2.25
+    //}
   ],
   sharpness: Sharpness.YELLOW,
   physicsAttack: 116

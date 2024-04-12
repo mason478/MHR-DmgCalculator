@@ -13,7 +13,7 @@ ElementDamage = ElementAttack * (MonsterHitRate/100) * ElementCorrection * Criti
 Data source: https://hyperwiki.jp/mhr/system-power/
 */
 // import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
-import { type Weapon } from '../data/Weapons'
+import { type Weapon, type WeaponMotion } from '../data/Weapons'
 import weaponsData from '../data/Weapons'
 import { MonsterStatus, type Monster } from '../data/Monsters'
 import {
@@ -24,12 +24,14 @@ import {
   CriticalBoost,
   BASIC_CRITICAL_CORRECTION
 } from '../data/Skills'
+import { allItemsMap, type Item } from '../data/Items'
 
 export interface Context {
   weapon: Weapon
   monster: Monster
   monsterStatus: MonsterStatus
   skills?: Array<Skill>
+  items?: Array<Item>
   // # TODO: items, and others
 }
 
@@ -219,7 +221,14 @@ class physicsDamageCalculator extends C {
   }
 
   calcOtherCorrection(): number {
+    // weapon's other correction
+    let total: number = 1
+    const weapon = this.ctx.weapon
+    const m = weapon.motions[0]
+    total *= m.extraPhysicsCorrection ?? 1
+
     //TODO: other correction
+
     return 1.3
   }
 
