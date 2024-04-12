@@ -1,11 +1,13 @@
-// Skills data, including weapon's and character's skills,
-// there are 4 categories of skills that could influence damage:
-//      1. attack: boost physics or element attack
-//      2. critical rate: boost critical rate
-//      3. enforcement: extra correction 比如 火やられ特効
-// data source:
-//     1. https://hyperwiki.jp/mhr/system-power/
-//     2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
+/* 
+Skills data, including weapon's and character's skills,
+  there are 4 categories of skills that could influence damage:
+       1. attack: boost physics or element attack
+       2. critical rate: boost critical rate
+       3. enforcement: extra correction 比如 火やられ特効
+  data source:
+      1. https://hyperwiki.jp/mhr/system-power/
+      2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
+*/
 
 import { AttackType } from './Common'
 import { WeaponType } from './Weapons'

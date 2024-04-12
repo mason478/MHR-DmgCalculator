@@ -1,4 +1,9 @@
-//Items could affect damage
+/*Items could affect damage
+
+data source:
+    1. https://hyperwiki.jp/mhr/system-power/
+    2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
+*/
 
 // items that affect attack power modes
 const enum EffectMode {
@@ -78,18 +83,10 @@ const DemonPowder: Item = {
   value: 10
 }
 
-const DangoBooster: Item = {
-  name: '催眠薄荷大福',
+const DangoBoosterLv1: Item = {
+  name: '催眠薄荷大福Lv1',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.DANGO,
   calcMethod: CalcMethod.PLUS,
-  value: 9
+  value: 6 // 9,12,15
 }
-
-// const DangoWeaker: Item = {
-//   name: '祈愿芋团子',
-//   effectMode: EffectMode.WEAKENING,
-//   itemType: ItemType.DANGO,
-//   calcMethod: CalcMethod.PLUS,
-//   value: 9
-// }
