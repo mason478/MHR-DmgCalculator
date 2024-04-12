@@ -82,10 +82,10 @@ describe('Test weapon1 damage', () => {
     weapon: weapon1,
     // @ts-ignore
     monster: monster1,
-    monsterStatus: MonsterStatus.NORMAL,
+    monsterStatus: MonsterStatus.NORMAL
     //   monster: Monster
     //   monsterStatus: MonsterStatus
-    skills: [skill1, skill2]
+    // skills: [skill1, skill2]
   }
   const c = new physicsDamageCalculator(context1)
 
