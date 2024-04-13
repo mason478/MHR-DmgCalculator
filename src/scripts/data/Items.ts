@@ -149,4 +149,4 @@ const allItemsMap: Map<number, Item> = new Map([
   [Petalace.id, Petalace]
 ])
 
-export { allItemsMap, type Item }
+export { allItemsMap, type Item, Petalace, PowerCharm }

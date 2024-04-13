@@ -24,6 +24,7 @@ export interface Monster {
   id: number
   name: string
   parts: Array<MonsterPart>
+  status?: MonsterStatus
 }
 
 // All monsters data --start--

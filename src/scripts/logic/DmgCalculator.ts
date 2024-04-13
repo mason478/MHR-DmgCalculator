@@ -24,15 +24,14 @@ import {
   CriticalBoost,
   BASIC_CRITICAL_CORRECTION
 } from '../data/Skills'
-import { allItemsMap, type Item } from '../data/Items'
+import { type Item } from '../data/Items'
 
 export interface Context {
   weapon: Weapon
   monster: Monster
-  monsterStatus: MonsterStatus
   skills?: Array<Skill>
   items?: Array<Item>
-  // # TODO: items, and others
+  // # TODO: and others
 }
 
 let R: [number, number, number]
@@ -91,8 +90,8 @@ class physicsDamageCalculator extends C {
   private calcMultiCorrection1(): number {
     //  skills that affect attack
     const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
-    // TODO: calculate items that affect attack
     const total = this.calcSkillsMultiCorrection(attackSkills)
+
     return total
   }
 
@@ -105,10 +104,8 @@ class physicsDamageCalculator extends C {
 
   private calcPlusCorrection(): number {
     let total: number = 0
-    // todo: encapsulation
     //  skills that affect attack
     const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
-    // todo: encapsulation
     for (const skill of attackSkills) {
       for (const levelValue of skill.levelValue) {
         if (
@@ -120,7 +117,13 @@ class physicsDamageCalculator extends C {
       }
     }
 
-    // TODO: calculate items that affect attack
+    // calculate items that affect attack
+    if (this.ctx.items != undefined) {
+      for (const item of this.ctx.items) {
+        total += item.value
+      }
+    }
+
     return total
   }
 
@@ -191,7 +194,7 @@ class physicsDamageCalculator extends C {
       }
     }
 
-    // TODO: calculate items that affect attack
+    // calculate items that affect attack
 
     return criticalRate
   }
@@ -229,12 +232,14 @@ class physicsDamageCalculator extends C {
 
     //TODO: other correction
 
-    return 1.3
+    return total
   }
 
   /**
    * Calculate physics damage:
      PhysicDamage = MotionValue * (PhysicAttack/100) * (MonsterHitRate/100) * SharpnessCorrection * CriticalCorrection * OtherCorrection;
+
+   * @return:  normal damage ,critical damage and expected damage
    */
   calcDamage(): typeof R {
     const mv = this.getWeaponMotionValue()

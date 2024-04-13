@@ -11,6 +11,8 @@ import {
   SkillLevel,
   CalcMethod
 } from '../src/scripts/data/Skills'
+import { Petalace, PowerCharm } from '../src/scripts/data/Items'
+import exp from 'constants'
 
 /*
     Test Great Sword:
@@ -23,12 +25,12 @@ import {
             2. skill2: critical eyes
             3. skill3: critical boost
             ...
-        items:
+        items: Petalace, PowerCharm
             ...
         monster: KarakuriFrog
 */
 
-const monster1 = allMonstersMap.get(1)
+const karakuriFrog = allMonstersMap.get(1)
 const weapon1: Weapon = {
   weaponType: WeaponType.GREAT_SWORD,
   name: 'Weapon1',
@@ -53,7 +55,7 @@ const weapon1: Weapon = {
     //}
   ],
   sharpness: Sharpness.YELLOW,
-  physicsAttack: 116
+  physicsAttack: 90
 }
 
 const skill1: Skill = {
@@ -87,29 +89,31 @@ const skill2: Skill = {
   ]
 }
 
+const item1 = Petalace
+const item2 = PowerCharm
+
 describe('Test weapon1 damage', () => {
   const context1: Context = {
     weapon: weapon1,
     // @ts-ignore
-    monster: monster1,
-    monsterStatus: MonsterStatus.NORMAL
-    //   monster: Monster
-    //   monsterStatus: MonsterStatus
+    monster: karakuriFrog,
     // skills: [skill1, skill2]
+    items: [item1, item2]
   }
   const c = new physicsDamageCalculator(context1)
 
   test('calculate attack', () => {
-    expect(c.calcAttack()).toEqual(weapon1.physicsAttack)
+    let expectedAttack = (weapon1.physicsAttack ?? 0) + item1.value + item2.value
+    expect(c.calcAttack()).toEqual(expectedAttack)
   })
 
   test('get monster hit rate', () => {
     const at = PhysicsAttackType.SLASHING
-    expect(c.getMonsterHitRate(1)).toEqual(monster1?.parts[0].hitRates.get(at)) // head
-    expect(c.getMonsterHitRate(2)).toEqual(monster1?.parts[1].hitRates.get(at)) // body
-    expect(c.getMonsterHitRate(3)).toEqual(monster1?.parts[2].hitRates.get(at))
-    expect(c.getMonsterHitRate(4)).toEqual(monster1?.parts[3].hitRates.get(at))
-    expect(c.getMonsterHitRate(5)).toEqual(monster1?.parts[4].hitRates.get(at))
+    expect(c.getMonsterHitRate(1)).toEqual(karakuriFrog?.parts[0].hitRates.get(at)) // head
+    expect(c.getMonsterHitRate(2)).toEqual(karakuriFrog?.parts[1].hitRates.get(at)) // body
+    expect(c.getMonsterHitRate(3)).toEqual(karakuriFrog?.parts[2].hitRates.get(at))
+    expect(c.getMonsterHitRate(4)).toEqual(karakuriFrog?.parts[3].hitRates.get(at))
+    expect(c.getMonsterHitRate(5)).toEqual(karakuriFrog?.parts[4].hitRates.get(at))
   })
 
   test('get sharpness correction', () => {
