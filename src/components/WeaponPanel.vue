@@ -152,7 +152,6 @@ const colors = [
       >
         <template #append>%</template> </el-input
       ><br /><br />
-      <!-- <el-input type="submit" value="Calculate!" size="medium" /> -->
     </form>
     <div>
       <!-- <el-button @click="out" type="primary">Button1</el-button> -->

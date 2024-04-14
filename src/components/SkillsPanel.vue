@@ -4,87 +4,45 @@ import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-import { AttackBoost, type Skill } from '../scripts/data/Skills'
+import { AttackBoost, type Skill, CriticalEyes } from '../scripts/data/Skills'
 
 const skills = ref<Array<Skill>>([])
+const skill1 = ref<Skill>()
+const skill2 = ref<Skill>()
+
+// 怎么优化？
+if (skill1.value != undefined) {
+  skills.value.push(skill1.value)
+}
+
+if (skill2.value != undefined) {
+  skills.value.push(skill2.value)
+}
 </script>
 
 <template>
   <div>
     <h1>技能</h1>
     <form id="skills">
-      <label for="attackBoost">武器类型</label>
-      <el-select id="attackBoost" name="attackBoost" v-model="skills" placeholder="请选择一种武器">
+      <label for="attackBoost">攻击</label>
+      <el-select id="attackBoost" name="attackBoost" v-model="skill1" placeholder="选择攻击技能">
         <el-option
-          v-for="t in allWeaponTypes"
-          :key="t"
-          :value="t"
-          :label="weaponData.getWeaponName(t)"
+          v-for="lv in AttackBoost.levelValue"
+          :key="lv.level"
+          :value="lv.level"
+          :label="lv ? AttackBoost.name + 'Lv' + lv.level : '无'"
         />
       </el-select>
 
-      <label for="motionType">武器动作</label>
-      <el-select id="motionType" name="motionType" v-model="mt" placeholder="请选择一种招式">
+      <label for="criticalEyes">看破</label>
+      <el-select id="criticalEyes" name="criticalEyes" v-model="skill2" placeholder="选择看破等级">
         <el-option
-          v-for="m in weaponData.getWeaponMotionsByWeaponType(wt)"
-          :key="m.id"
-          :value="m.id"
-          :label="m.name"
+          v-for="lv in CriticalEyes.levelValue"
+          :key="lv.level"
+          :value="lv.level"
+          :label="CriticalEyes.name + 'Lv' + lv.level"
         />
       </el-select>
-
-      <label for="sharpness">武器斩味（锋利度）</label>
-      <el-select id="sharpness" name="sharpness" v-model="sp" placeholder="请选择武器斩味（可选）">
-        <el-option
-          v-for="sp in allSharpness"
-          :key="sp"
-          :value="sp"
-          :label="weaponData.getSharpnessAttribute(sp).name"
-        />
-      </el-select>
-      <label for="rawAttack">武器原始攻击力</label>
-      <el-input
-        id="rawAttack"
-        name="rawAttack"
-        v-model="rawAttack"
-        placeholder="请输入武器原始攻击力"
-      />
-      <!-- <el-select> </el-select> -->
-      <label for="element">武器属性</label>
-      <el-select id="element" name="element" v-model="element" placeholder="">
-        <el-option
-          v-for="e in Array.from(elementNamesMap.keys())"
-          :key="e"
-          :value="e"
-          :label="elementNamesMap.get(e)"
-        />
-      </el-select>
-      <label for="elementAttack" v-if="element !== ElementType.UNKNOWN">武器属性攻击力</label>
-      <el-input
-        id="elementAttack"
-        v-if="element !== ElementType.UNKNOWN"
-        v-model="elementAttack"
-        placeholder="请输入武器属性攻击力"
-      />
-      <label for="criticalRate">请输入武器会心率（%）</label>
-      <br />
-      <el-input
-        id="criticalRate"
-        type="number_percent"
-        max="100"
-        min="-100"
-        name="criticalRate"
-        v-model="criticalRate"
-        validate-event="true"
-        placeholder="请输入武器会心率"
-      >
-        <template #append>%</template> </el-input
-      ><br /><br />
-      <!-- <el-input type="submit" value="Calculate!" size="medium" /> -->
     </form>
-    <div>
-      <!-- <el-button @click="out" type="primary">Button1</el-button> -->
-      <el-button type="primary" form="weaponForm" value="Submit">Calculate!</el-button>
-    </div>
   </div>
 </template>
