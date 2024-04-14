@@ -22,6 +22,48 @@ function onChange() {
   console.info('This is a test of onChange!')
   mt.value = undefined
 }
+
+const sharpnessColormap = new Map<Sharpness, string>([
+  [Sharpness.UNKNOWN, '#212121'],
+  [Sharpness.RED, '#F44336'],
+  [Sharpness.ORANGE, '#FF6600'],
+  [Sharpness.YELLOW, '#FFDE0A'],
+  [Sharpness.GREEN, '#70D92C'],
+  [Sharpness.BLUE, '#42A5F5'],
+  [Sharpness.WHITE, '#EEEEEE'],
+  [Sharpness.PURPLE, '#CC99FF']
+])
+
+const colors = [
+  {
+    value: '#E63415',
+    label: Sharpness.RED
+  },
+  {
+    value: '#FF6600',
+    label: Sharpness.ORANGE
+  },
+  {
+    value: '#FFDE0A',
+    label: Sharpness.YELLOW
+  },
+  {
+    value: '#1EC79D',
+    label: Sharpness.GREEN
+  },
+  {
+    value: '#14CCCC',
+    label: 'cyan'
+  },
+  {
+    value: '#4167F0',
+    label: 'blue'
+  },
+  {
+    value: '#6222C9',
+    label: 'purple'
+  }
+]
 </script>
 
 <template>
@@ -61,8 +103,17 @@ function onChange() {
           :key="sp"
           :value="sp"
           :label="weaponData.getSharpnessAttribute(sp).name"
-        />
+        >
+          <div class="flex items-center">
+            <el-tag :color="sharpnessColormap.get(sp)" style="margin-right: 8px" size="small" />
+            <span size="small">{{ weaponData.getSharpnessAttribute(sp).name }}</span>
+          </div>
+        </el-option>
+        <!--<template #tag>
+        //  <el-tag v-for="color in colors" :key="color.label" :color="color" />
+        //</template>-->
       </el-select>
+
       <label for="rawAttack">武器原始攻击力</label>
       <el-input
         id="rawAttack"

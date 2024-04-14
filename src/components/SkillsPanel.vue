@@ -4,14 +4,17 @@ import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
+import { AttackBoost, type Skill } from '../scripts/data/Skills'
+
+const skills = ref<Array<Skill>>([])
 </script>
 
 <template>
   <div>
-    <h1>技能信息</h1>
-    <form id="weaponForm">
-      <label for="weaponType">武器类型</label>
-      <el-select id="weaponType" name="weaponType" v-model="wt" placeholder="请选择一种武器">
+    <h1>技能</h1>
+    <form id="skills">
+      <label for="attackBoost">武器类型</label>
+      <el-select id="attackBoost" name="attackBoost" v-model="skills" placeholder="请选择一种武器">
         <el-option
           v-for="t in allWeaponTypes"
           :key="t"
