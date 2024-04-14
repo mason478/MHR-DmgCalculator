@@ -1,41 +1,17 @@
-<!-- Weapon basic attack values selection form-->
 <script setup lang="ts">
 import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-
-const wt = ref<WeaponType>()
-// motion type
-const mt = ref<number>()
-const sp = ref<Sharpness>(Sharpness.UNKNOWN)
-const rawAttack = ref<number>(0)
-const element = ref<ElementType>(ElementType.UNKNOWN)
-const elementAttack = ref<number>(0)
-const criticalRate = ref<number>(0)
-
-// function out() {
-// console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
-// }
-function onChange() {
-  console.info('This is a test of onChange!')
-  mt.value = undefined
-}
 </script>
 
 <template>
   <div>
-    <h1>武器基础信息</h1>
+    <h1>技能信息</h1>
     <form id="weaponForm">
       <label for="weaponType">武器类型</label>
-      <el-select
-        id="weaponType"
-        name="weaponType"
-        v-model="wt"
-        @change="onChange"
-        placeholder="请选择一种武器"
-      >
+      <el-select id="weaponType" name="weaponType" v-model="wt" placeholder="请选择一种武器">
         <el-option
           v-for="t in allWeaponTypes"
           :key="t"
