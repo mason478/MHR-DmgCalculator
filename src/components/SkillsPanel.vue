@@ -4,11 +4,12 @@ import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-import { AttackBoost, type Skill, CriticalEyes } from '../scripts/data/Skills'
+import { AttackBoost, type Skill, CriticalEyes, CriticalBoost } from '../scripts/data/Skills'
 
 const skills = ref<Array<Skill>>([])
 const skill1 = ref<Skill>()
 const skill2 = ref<Skill>()
+const skill3 = ref<Skill>()
 
 // 怎么优化？
 if (skill1.value != undefined) {
@@ -41,6 +42,21 @@ if (skill2.value != undefined) {
           :key="lv.level"
           :value="lv.level"
           :label="CriticalEyes.name + 'Lv' + lv.level"
+        />
+      </el-select>
+
+      <label>超会心</label>
+      <el-select
+        id="criticalBoost"
+        name="criticalBoost"
+        v-model="skill3"
+        placeholder="选择超会心等级"
+      >
+        <el-option
+          v-for="lv in CriticalBoost.levelValue"
+          :key="lv.level"
+          :value="lv.level"
+          :label="CriticalBoost.name + 'Lv' + lv.level"
         />
       </el-select>
     </form>
