@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import WeaponPanel from './components/WeaponPanel.vue'
 import MonstersPanel from './components/MonstersPanel.vue'
-import SkillsPanel from './components/SkillsPanel.vue'
+// import SkillsPanel from './components/SkillsPanel.vue'
+import CalculationResults from './components/CalculationResults.vue'
 </script>
 
 <template>
@@ -11,5 +12,5 @@ import SkillsPanel from './components/SkillsPanel.vue'
   <MonstersPanel />
   <br /><br />
   <br /><br />
-  <SkillsPanel />
+  <CalculationResults />
 </template>

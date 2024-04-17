@@ -1,23 +1,51 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-import { AttackBoost, type Skill, CriticalEyes, CriticalBoost } from '../scripts/data/Skills'
+import {
+  AttackBoost,
+  type Skill,
+  CriticalEyes,
+  CriticalBoost,
+  SkillLevel,
+  type LevelValue
+} from '../scripts/data/Skills'
 
-const skills = ref<Array<Skill>>([])
-const skill1 = ref<Skill>()
-const skill2 = ref<Skill>()
-const skill3 = ref<Skill>()
+const attackBoostLv = ref<SkillLevel>()
+const criticalEyesLv = ref<SkillLevel>()
+const criticalBoostLv = ref<SkillLevel>()
 
-// 怎么优化？
-if (skill1.value != undefined) {
-  skills.value.push(skill1.value)
+let skillsLevels: Array<Ref> = [attackBoostLv, criticalEyesLv, criticalBoostLv]
+
+const emitSkills = defineEmits(['skills'])
+
+function findLevelValue(skill: Skill, level: SkillLevel): LevelValue | undefined {
+  for (const levelValue of skill.levelValue) {
+    if (levelValue.level == level) {
+      return levelValue
+    }
+  }
 }
 
-if (skill2.value != undefined) {
-  skills.value.push(skill2.value)
+function makeSkill(skill: Skill, level: SkillLevel): Skill {
+  let newSkill = structuredClone(skill)
+  const levelValue = findLevelValue(skill, level)
+
+  newSkill.levelValue = levelValue ? [levelValue] : []
+  return newSkill
+}
+
+function onSelect(skill: Skill) {
+  console.info('This is a test of skill onSelect!, origin data' + skill.name)
+  let skills = ref<Array<Skill>>([])
+  for (const sl of skillsLevels) {
+    if (sl.value != undefined) {
+      skills.value.push(makeSkill(skill, sl.value))
+    }
+  }
+  emitSkills('skills', skills)
 }
 </script>
 
@@ -25,8 +53,14 @@ if (skill2.value != undefined) {
   <div>
     <h1>技能</h1>
     <form id="skills">
-      <label for="attackBoost">攻击</label>
-      <el-select id="attackBoost" name="attackBoost" v-model="skill1" placeholder="选择攻击技能">
+      <label for="attackBoostLv">攻击</label>
+      <el-select
+        id="attackBoostLv"
+        name="attackBoostLv"
+        v-model="attackBoostLv"
+        @change="onSelect(AttackBoost)"
+        placeholder="选择攻击技能"
+      >
         <el-option
           v-for="lv in AttackBoost.levelValue"
           :key="lv.level"
@@ -35,8 +69,14 @@ if (skill2.value != undefined) {
         />
       </el-select>
 
-      <label for="criticalEyes">看破</label>
-      <el-select id="criticalEyes" name="criticalEyes" v-model="skill2" placeholder="选择看破等级">
+      <label for="criticalEyesLv">看破</label>
+      <el-select
+        id="criticalEyesLv"
+        name="criticalEyesLv"
+        v-model="criticalEyesLv"
+        @change="onSelect(CriticalEyes)"
+        placeholder="选择看破等级"
+      >
         <el-option
           v-for="lv in CriticalEyes.levelValue"
           :key="lv.level"
@@ -47,9 +87,10 @@ if (skill2.value != undefined) {
 
       <label>超会心</label>
       <el-select
-        id="criticalBoost"
-        name="criticalBoost"
-        v-model="skill3"
+        id="criticalBoostLv"
+        name="criticalBoostLv"
+        v-model="criticalBoostLv"
+        @change="onSelect(CriticalBoost)"
         placeholder="选择超会心等级"
       >
         <el-option

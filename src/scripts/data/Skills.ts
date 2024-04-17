@@ -53,7 +53,7 @@ const enum Level {
   LEVEL7 = 7
 }
 
-interface LevelValue {
+export interface LevelValue {
   level: Level
   calcMethod: CalcMethod
   // for plus
