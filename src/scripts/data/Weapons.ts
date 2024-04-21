@@ -262,14 +262,13 @@ export const allWeaponTypes: Array<WeaponType> = Array.from(allWeaponsMap.keys()
 export const allSharpness: Array<Sharpness> = Array.from(sharpnessAttributesMap.keys())
 
 export default {
-  getWeaponName(wt: WeaponType): string {
+  getWeaponByType(wt: WeaponType): Weapon {
     const weapon = allWeaponsMap.get(wt)
     if (weapon == undefined) {
-      return 'UNKNOWN'
-    } else {
-      const name = weapon.name
-      return name
+      throw new TypeError('Unknown weapon type: ' + wt)
     }
+
+    return weapon
   },
   getMotionName(mId: number, wt: WeaponType): string {
     const weapon = allWeaponsMap.get(wt)
@@ -284,11 +283,7 @@ export default {
     }
     return mName
   },
-  getWeaponMotionsByWeaponType(wt: WeaponType | undefined): Array<WeaponMotion> {
-    if (wt == undefined) {
-      return []
-    }
-
+  getWeaponMotionsByWeaponType(wt: WeaponType): Array<WeaponMotion> {
     const weapon = allWeaponsMap.get(wt)
     if (weapon == undefined) {
       return []
@@ -303,5 +298,3 @@ export default {
     return sa
   }
 }
-
-// enum MotionValue {}

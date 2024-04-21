@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import WeaponPanel from './components/WeaponPanel.vue'
-import MonstersPanel from './components/MonstersPanel.vue'
-// import SkillsPanel from './components/SkillsPanel.vue'
-import CalculationResults from './components/CalculationResults.vue'
+import CalculationPanel from './components/CalculationPanel.vue'
 </script>
 
 <template>
+  <div>
+    <CalculationPanel />
+  </div>
   <!-- <CalculatorView /> -->
-  <WeaponPanel />
-  <br /><br />
-  <MonstersPanel />
-  <br /><br />
-  <br /><br />
-  <CalculationResults />
 </template>

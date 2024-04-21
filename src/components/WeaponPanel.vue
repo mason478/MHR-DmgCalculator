@@ -3,8 +3,17 @@
 import { ref } from 'vue'
 import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
-import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
+import {
+  WeaponType,
+  allWeaponTypes,
+  allSharpness,
+  Sharpness,
+  type Weapon
+} from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
+import ts from 'typescript'
+
+const emitWeapon = defineEmits(['weapon'])
 
 const wt = ref<WeaponType>()
 // motion type
@@ -14,14 +23,6 @@ const rawAttack = ref<number>(0)
 const element = ref<ElementType>(ElementType.UNKNOWN)
 const elementAttack = ref<number>(0)
 const criticalRate = ref<number>(0)
-
-// function out() {
-// console.info('Weapon type:' + wt.value + ' Motion type' + mt.value)
-// }
-function onChange() {
-  console.info('This is a test of onChange!')
-  mt.value = undefined
-}
 
 const sharpnessColormap = new Map<Sharpness, string>([
   [Sharpness.UNKNOWN, '#212121'],
@@ -33,37 +34,62 @@ const sharpnessColormap = new Map<Sharpness, string>([
   [Sharpness.WHITE, '#EEEEEE'],
   [Sharpness.PURPLE, '#CC99FF']
 ])
+let newWeapon: Weapon
 
-const colors = [
-  {
-    value: '#E63415',
-    label: Sharpness.RED
-  },
-  {
-    value: '#FF6600',
-    label: Sharpness.ORANGE
-  },
-  {
-    value: '#FFDE0A',
-    label: Sharpness.YELLOW
-  },
-  {
-    value: '#1EC79D',
-    label: Sharpness.GREEN
-  },
-  {
-    value: '#14CCCC',
-    label: 'cyan'
-  },
-  {
-    value: '#4167F0',
-    label: 'blue'
-  },
-  {
-    value: '#6222C9',
-    label: 'purple'
-  }
-]
+function onSelectWeapon() {
+  console.info('This is a test of onSelect!')
+  if (wt.value == undefined) return
+
+  // @ts-ignore
+  newWeapon = structuredClone(weaponData.getWeaponByType(wt.value))
+
+  newWeapon.motions = []
+  // set sharpness
+  // set motion
+  // set attack
+  // set element attack
+  // set critical rate
+  emitWeapon('weapon', newWeapon)
+}
+
+function onSelectMotion() {
+  // find out motion value
+  if (mt.value == undefined) return
+
+  // @ts-ignore
+  const motions = weaponData.getWeaponMotionsByWeaponType(wt.value)
+  const motion = motions.find((m) => m.id == mt.value)
+
+  if (motion == undefined) return
+  newWeapon.motions = [motion]
+
+  emitWeapon('weapon', newWeapon)
+}
+
+function onSelectSharpness() {
+  newWeapon.sharpness = sp.value
+  emitWeapon('weapon', newWeapon)
+}
+
+function onSelectElement() {
+  newWeapon.elementType = element.value
+  emitWeapon('weapon', newWeapon)
+}
+
+function onInputAttack() {
+  newWeapon.physicsAttack = rawAttack.value
+  emitWeapon('weapon', newWeapon)
+}
+
+function onInputCriticalRate() {
+  newWeapon.criticalRate = criticalRate.value
+  emitWeapon('weapon', newWeapon)
+}
+
+function onInputElementAttack() {
+  newWeapon.elementAttack = elementAttack.value
+  emitWeapon('weapon', newWeapon)
+}
 </script>
 
 <template>
@@ -75,14 +101,14 @@ const colors = [
         id="weaponType"
         name="weaponType"
         v-model="wt"
-        @change="onChange"
+        @change="onSelectWeapon"
         placeholder="请选择一种武器"
       >
         <el-option
           v-for="t in allWeaponTypes"
           :key="t"
           :value="t"
-          :label="weaponData.getWeaponName(t)"
+          :label="weaponData.getWeaponByType(t).name"
         />
       </el-select>
 
@@ -93,6 +119,7 @@ const colors = [
           :key="m.id"
           :value="m.id"
           :label="m.name"
+          @change="onSelectMotion"
         />
       </el-select>
 
@@ -103,6 +130,7 @@ const colors = [
           :key="sp"
           :value="sp"
           :label="weaponData.getSharpnessAttribute(sp).name"
+          @change="onSelectSharpness"
         >
           <div class="flex items-center">
             <el-tag :color="sharpnessColormap.get(sp)" style="margin-right: 8px" size="small" />
@@ -120,6 +148,7 @@ const colors = [
         name="rawAttack"
         v-model="rawAttack"
         placeholder="请输入武器原始攻击力"
+        @change="onInputAttack"
       />
       <!-- <el-select> </el-select> -->
       <label for="element">武器属性</label>
@@ -129,6 +158,7 @@ const colors = [
           :key="e"
           :value="e"
           :label="elementNamesMap.get(e)"
+          @change="onSelectElement"
         />
       </el-select>
       <label for="elementAttack" v-if="element !== ElementType.UNKNOWN">武器属性攻击力</label>
@@ -137,6 +167,7 @@ const colors = [
         v-if="element !== ElementType.UNKNOWN"
         v-model="elementAttack"
         placeholder="请输入武器属性攻击力"
+        @change="onInputElementAttack"
       />
       <label for="criticalRate">请输入武器会心率（%）</label>
       <br />
@@ -149,13 +180,10 @@ const colors = [
         v-model="criticalRate"
         validate-event="true"
         placeholder="请输入武器会心率"
+        @change="onInputCriticalRate"
       >
         <template #append>%</template> </el-input
       ><br /><br />
     </form>
-    <div>
-      <!-- <el-button @click="out" type="primary">Button1</el-button> -->
-      <el-button type="primary" form="weaponForm" value="Submit">Calculate!</el-button>
-    </div>
   </div>
 </template>

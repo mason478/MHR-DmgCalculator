@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, type Ref } from 'vue'
 import 'element-plus/dist/index.css'
-import weaponData from '../scripts/data/Weapons'
-import { WeaponType, allWeaponTypes, allSharpness, Sharpness } from '../scripts/data/Weapons'
-import { elementNamesMap, ElementType } from '../scripts/data/Common'
 import {
   AttackBoost,
   type Skill,
