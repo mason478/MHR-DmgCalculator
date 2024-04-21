@@ -11,7 +11,6 @@ import {
   type Weapon
 } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-import ts from 'typescript'
 
 const emitWeapon = defineEmits(['weapon'])
 

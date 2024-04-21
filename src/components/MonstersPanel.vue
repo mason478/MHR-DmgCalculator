@@ -6,6 +6,10 @@ import monsterData from '@/scripts/data/Monsters'
 const monsterId = ref<number>()
 const status = ref<MonsterStatus>(MonsterStatus.NORMAL)
 const monsterPart = ref<number>()
+
+const emitMonster = defineEmits(['monster'])
+
+function onSelect() {}
 </script>
 
 <template>
