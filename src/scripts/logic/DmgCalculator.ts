@@ -12,10 +12,11 @@ ElementDamage = ElementAttack * (MonsterHitRate/100) * ElementCorrection * Criti
 
 Data source: https://hyperwiki.jp/mhr/system-power/
 */
+
 // import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
-import { type Weapon, type WeaponMotion } from '../data/Weapons'
+import { type Weapon } from '../data/Weapons'
 import weaponsData from '../data/Weapons'
-import { MonsterStatus, type Monster } from '../data/Monsters'
+import { type Monster } from '../data/Monsters'
 import {
   type Skill,
   CalcMethod,

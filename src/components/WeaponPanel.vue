@@ -42,12 +42,6 @@ function onSelectWeapon() {
   // @ts-ignore
   newWeapon = structuredClone(weaponData.getWeaponByType(wt.value))
 
-  newWeapon.motions = []
-  // set sharpness
-  // set motion
-  // set attack
-  // set element attack
-  // set critical rate
   emitWeapon('weapon', newWeapon)
 }
 
@@ -112,24 +106,34 @@ function onInputElementAttack() {
       </el-select>
 
       <label for="motionType">武器动作</label>
-      <el-select id="motionType" name="motionType" v-model="mt" placeholder="请选择一种招式">
+      <el-select
+        id="motionType"
+        name="motionType"
+        v-model="mt"
+        @change="onSelectMotion"
+        placeholder="请选择一种招式"
+      >
         <el-option
           v-for="m in weaponData.getWeaponMotionsByWeaponType(wt)"
           :key="m.id"
           :value="m.id"
           :label="m.name"
-          @change="onSelectMotion"
         />
       </el-select>
 
       <label for="sharpness">武器斩味（锋利度）</label>
-      <el-select id="sharpness" name="sharpness" v-model="sp" placeholder="请选择武器斩味（可选）">
+      <el-select
+        id="sharpness"
+        name="sharpness"
+        v-model="sp"
+        @change="onSelectSharpness"
+        placeholder="请选择武器斩味（可选）"
+      >
         <el-option
           v-for="sp in allSharpness"
           :key="sp"
           :value="sp"
           :label="weaponData.getSharpnessAttribute(sp).name"
-          @change="onSelectSharpness"
         >
           <div class="flex items-center">
             <el-tag :color="sharpnessColormap.get(sp)" style="margin-right: 8px" size="small" />
@@ -151,13 +155,18 @@ function onInputElementAttack() {
       />
       <!-- <el-select> </el-select> -->
       <label for="element">武器属性</label>
-      <el-select id="element" name="element" v-model="element" placeholder="">
+      <el-select
+        id="element"
+        name="element"
+        v-model="element"
+        @change="onSelectElement"
+        placeholder=""
+      >
         <el-option
           v-for="e in Array.from(elementNamesMap.keys())"
           :key="e"
           :value="e"
           :label="elementNamesMap.get(e)"
-          @change="onSelectElement"
         />
       </el-select>
       <label for="elementAttack" v-if="element !== ElementType.UNKNOWN">武器属性攻击力</label>

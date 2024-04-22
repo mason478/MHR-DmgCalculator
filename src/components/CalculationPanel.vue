@@ -3,19 +3,28 @@ import { ref } from 'vue'
 import { type Skill } from '../scripts/data/Skills'
 import { type Weapon } from '../scripts/data/Weapons'
 import { type Monster } from '../scripts/data/Monsters'
+import { type Context, physicsDamageCalculator } from '../scripts/logic/DmgCalculator'
 import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
+import { isContext } from 'vm'
 
 let skillsP = ref<Array<Skill>>()
 let weaponP = ref<Weapon>()
 let monsterP = ref<Monster>()
 
-function onchange() {
-  console.info('Skills length: ' + skillsP.value?.length)
-  for (const skill of skillsP.value ?? []) {
-    console.info('Skill name:!' + skill.name)
+function makeContext(): Context {
+  return {
+    weapon: weaponP.value!,
+    monster: monsterP.value!,
+    skills: skillsP.value
   }
+}
+
+function onCalculate() {
+  const ctx = makeContext()
+  const c = new physicsDamageCalculator(ctx)
+  console.info(c.calcDamage() + 'damage is here')
 }
 </script>
 
@@ -23,7 +32,7 @@ function onchange() {
   <br /><br />
   <WeaponPanel @weapon="(weapon) => (weaponP = weapon)" />
   <br /><br />
-  <MonstersPanel />
+  <MonstersPanel @monster="(monster) => (monsterP = monster)" />
   <br /><br />
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
@@ -32,7 +41,7 @@ function onchange() {
     <h1>计算结果</h1>
     <div>
       <span>物理伤害 </span>
-      <el-button @click="onchange">Default</el-button>
+      <el-button @click="onCalculate">Default</el-button>
     </div>
   </div>
   <br /><br />

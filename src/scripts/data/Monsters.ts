@@ -362,6 +362,13 @@ export const allMonstersMap = new Map<number, Monster>([
 export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())
 
 export default {
+  getMonsterById: (monsterId: number): Monster => {
+    const monster = allMonstersMap.get(monsterId)
+    if (!monster) {
+      throw new TypeError('Unknown monster id: ' + monsterId)
+    }
+    return monster
+  },
   getMonsterPartsByMonsterId: (monsterId: number): Array<MonsterPart> => {
     const monster = allMonstersMap.get(monsterId)
     if (!monster) {
