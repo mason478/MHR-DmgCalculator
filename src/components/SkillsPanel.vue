@@ -14,7 +14,7 @@ const attackBoostLv = ref<SkillLevel>()
 const criticalEyesLv = ref<SkillLevel>()
 const criticalBoostLv = ref<SkillLevel>()
 
-let skillsLevels: Array<Ref> = [attackBoostLv, criticalEyesLv, criticalBoostLv]
+const skillsLevels: Array<Ref> = [attackBoostLv, criticalEyesLv, criticalBoostLv]
 
 const emitSkills = defineEmits(['skills'])
 
@@ -36,12 +36,13 @@ function makeSkill(skill: Skill, level: SkillLevel): Skill {
 
 function onSelect(skill: Skill) {
   console.info('This is a test of skill onSelect!, origin data' + skill.name)
-  let skills = ref<Array<Skill>>([])
-  for (const sl of skillsLevels) {
+  let skills: Array<Skill> = []
+  for (var sl of skillsLevels) {
     if (sl.value != undefined) {
-      skills.value.push(makeSkill(skill, sl.value))
+      skills.push(makeSkill(skill, sl.value))
     }
   }
+  console.info('skills count' + skills.length)
   emitSkills('skills', skills)
 }
 </script>

@@ -8,7 +8,7 @@ import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
 
-const skillsP = ref<Array<Skill>>()
+const skillsP = ref<Array<Skill>>([])
 const weaponP = ref<Weapon>()
 const monsterP = ref<Monster>()
 
@@ -31,7 +31,6 @@ function onCalculate() {
   normalPhyDmg.value = r[0]
   criticalPhyDmg.value = r[1]
   expectedPhyDmg.value = r[2]
-  console.info(c.calcDamage() + 'damage is here')
 }
 </script>
 
@@ -43,7 +42,6 @@ function onCalculate() {
   <br /><br />
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
-
   <div>
     <h1>计算结果</h1>
     <div>
