@@ -1,7 +1,7 @@
 <!-- Weapon basic attack values selection form-->
 <script setup lang="ts">
 import { ref } from 'vue'
-import 'element-plus/dist/index.css'
+// import 'element-plus/dist/index.css'
 import weaponData from '../scripts/data/Weapons'
 import {
   WeaponType,
@@ -86,7 +86,12 @@ function onInputElementAttack() {
 </script>
 
 <template>
-  <div>
+  <div
+    class="inline-flex"
+    :style="{
+      boxShadow: `var(--el-box-shadow-dark)`
+    }"
+  >
     <h1>武器基础信息</h1>
     <form id="weaponForm">
       <label for="weaponType">武器类型</label>

@@ -7,11 +7,14 @@ import { type Context, physicsDamageCalculator } from '../scripts/logic/DmgCalcu
 import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
-import { isContext } from 'vm'
 
-let skillsP = ref<Array<Skill>>()
-let weaponP = ref<Weapon>()
-let monsterP = ref<Monster>()
+const skillsP = ref<Array<Skill>>()
+const weaponP = ref<Weapon>()
+const monsterP = ref<Monster>()
+
+const normalPhyDmg = ref<number>(0)
+const criticalPhyDmg = ref<number>(0)
+const expectedPhyDmg = ref<number>(0)
 
 function makeContext(): Context {
   return {
@@ -24,6 +27,10 @@ function makeContext(): Context {
 function onCalculate() {
   const ctx = makeContext()
   const c = new physicsDamageCalculator(ctx)
+  let r = c.calcDamage()
+  normalPhyDmg.value = r[0]
+  criticalPhyDmg.value = r[1]
+  expectedPhyDmg.value = r[2]
   console.info(c.calcDamage() + 'damage is here')
 }
 </script>
@@ -41,7 +48,14 @@ function onCalculate() {
     <h1>计算结果</h1>
     <div>
       <span>物理伤害 </span>
-      <el-button @click="onCalculate">Default</el-button>
+      <br />
+      <span>期望伤害（加权平均）：{{ expectedPhyDmg }}</span>
+      <br />
+      <span>一般伤害：{{ normalPhyDmg }}</span>
+      <br />
+      <span>会心伤害：{{ criticalPhyDmg }}</span>
+      <br />
+      <el-button type="primary" plain @click="onCalculate">Calculate</el-button>
     </div>
   </div>
   <br /><br />
