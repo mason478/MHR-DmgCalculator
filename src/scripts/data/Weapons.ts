@@ -87,7 +87,6 @@ const greatSword: Weapon = {
       motionValue: 105,
       elementCorrection: 1.5,
       abnormalStatusCorrection: 1.5,
-      // TODO: extra correction
       extraPhysicsCorrection: 1.3
     },
     {
@@ -113,7 +112,8 @@ const greatSword: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 65,
       elementCorrection: 1.65,
-      abnormalStatusCorrection: 1.65
+      abnormalStatusCorrection: 2.65,
+      extraPhysicsCorrection: 1.1
     },
     {
       //STRONG_CHARGED_SLASH_LV2,
@@ -122,7 +122,8 @@ const greatSword: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 90,
       elementCorrection: 1.8,
-      abnormalStatusCorrection: 1.8
+      abnormalStatusCorrection: 1.8,
+      extraPhysicsCorrection: 1.2
     },
     {
       // STRONG_CHARGED_SLASH_LV3
@@ -131,7 +132,8 @@ const greatSword: Weapon = {
       attackType: PhysicsAttackType.SLASHING,
       motionValue: 128,
       elementCorrection: 2.25,
-      abnormalStatusCorrection: 2.25
+      abnormalStatusCorrection: 2.25,
+      extraPhysicsCorrection: 1.3
     }
   ]
 }

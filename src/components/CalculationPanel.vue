@@ -55,6 +55,9 @@ function onCalculate() {
       <br />
       <el-button type="primary" plain @click="onCalculate">Calculate</el-button>
     </div>
+    <div>
+      <span>属性伤害 </span>
+    </div>
   </div>
   <br /><br />
 </template>
