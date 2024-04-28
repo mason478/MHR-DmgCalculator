@@ -46,6 +46,17 @@ abstract class C {
     // TODO: check ids && level, 不允许重复
     this.ctx = context
   }
+
+  findSkills(category: SkillCategory, scope: Scope): Array<Skill> {
+    if (this.ctx.skills === undefined) {
+      return []
+    }
+    const skills = this.ctx.skills.filter(
+      (skill) => skill.category === category && skill.scope === scope
+    )
+    return skills
+  }
+
   abstract calcAttack(): number
   abstract getMonsterHitRate(partId: number): number
   abstract getSharpnessCorrection(): number
@@ -60,16 +71,6 @@ abstract class C {
 
 // Physics damage calculation
 class physicsDamageCalculator extends C {
-  private findSkills(category: SkillCategory, scope: Scope): Array<Skill> {
-    if (this.ctx.skills === undefined) {
-      return []
-    }
-    const skills = this.ctx.skills.filter(
-      (skill) => skill.category === category && skill.scope === scope
-    )
-    return skills
-  }
-
   private calcSkillsMultiCorrection(skills: Array<Skill>): number {
     let total: number = 1
     for (const skill of skills) {
@@ -148,7 +149,10 @@ class physicsDamageCalculator extends C {
    *
    */
   getMonsterHitRate(partId: number = 1): number {
-    const part = this.ctx.monster.parts[partId - 1]
+    const part = this.ctx.monster.parts.find((p) => p.id == partId)
+    if (part == undefined) {
+      return 0
+    }
     const attackType = this.ctx.weapon.motions[0].attackType
     const hr = part.hitRates.get(attackType)
     const result = hr != undefined ? hr : 0
@@ -194,8 +198,6 @@ class physicsDamageCalculator extends C {
         }
       }
     }
-
-    // calculate items that affect attack
 
     return criticalRate
   }
@@ -258,4 +260,43 @@ class physicsDamageCalculator extends C {
   }
 }
 
-export { physicsDamageCalculator }
+// Element damage calculation
+class elementDamageCalculator extends C {
+  calcAttack(): number {
+    const attack = this.ctx.weapon.elementAttack ?? 0
+    return attack
+  }
+
+  getMonsterHitRate(partId: number): number {
+    let result: number = 0
+    const part = this.ctx.monster.parts.find((p) => p.id == partId)
+    if (!part) {
+      return result
+    }
+    const elementType = this.ctx.weapon.elementType
+    if (!elementType) {
+      return result
+    }
+
+    const hr = part.elementHitRates.get(elementType)
+    result = hr != undefined ? hr : 0
+    return result
+  }
+
+  getSharpnessCorrection(): number {
+    let result: number = 1
+    const sharpness = this.ctx.weapon.sharpness
+
+    if (sharpness == undefined) {
+      return result
+    }
+
+    const sa = weaponsData.getSharpnessAttribute(sharpness)
+    result = sa.elementCorrection
+    return result
+  }
+
+  calcCriticalRate(): number {}
+}
+
+export { physicsDamageCalculator, elementDamageCalculator }
