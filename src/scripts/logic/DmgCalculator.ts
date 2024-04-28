@@ -13,7 +13,6 @@ ElementDamage = ElementAttack * (MonsterHitRate/100) * ElementCorrection * Criti
 Data source: https://hyperwiki.jp/mhr/system-power/
 */
 
-// import { PhysicsAttackType, ElementType } from '@/scripts/data/Common'
 import { type Weapon } from '../data/Weapons'
 import weaponsData from '../data/Weapons'
 import { type Monster } from '../data/Monsters'
@@ -22,8 +21,8 @@ import {
   CalcMethod,
   Scope,
   SkillCategory,
-  CriticalBoost,
-  BASIC_CRITICAL_CORRECTION
+  BASIC_CRITICAL_CORRECTION,
+  BASIC_ELEMENT_CRITICAL_CORRECTION
 } from '../data/Skills'
 import { type Item } from '../data/Items'
 
@@ -57,10 +56,39 @@ abstract class C {
     return skills
   }
 
+  private getWeaponCriticalRate(): number {
+    const weapon = this.ctx.weapon
+    let criticalRate: number = 0
+    if (weapon.criticalRate != undefined) {
+      criticalRate = weapon.criticalRate
+    }
+    return criticalRate
+  }
+
+  calcCriticalRate(): number {
+    let criticalRate = this.getWeaponCriticalRate()
+    const skills = this.findSkills(SkillCategory.CRITICAL_RATE, Scope.PARTIAL)
+
+    for (const skill of skills) {
+      for (const levelValue of skill.levelValue) {
+        if (levelValue.calcMethod === CalcMethod.PLUS && levelValue.valueP != undefined) {
+          criticalRate += levelValue.valueP
+        }
+      }
+    }
+
+    return criticalRate
+  }
+
   abstract calcAttack(): number
   abstract getMonsterHitRate(partId: number): number
   abstract getSharpnessCorrection(): number
-  abstract calcCriticalRate(): number
+
+  /*
+    CriticalCorrection = (BaseCriticalCorrection + CriticalBoost)* 1,
+    ExpectedCriticalCorrection = (BaseCriticalCorrection + CriticalBoost)* CriticalRate/100 + (1-CriticalRate/100) * 1,
+    @return: [CriticalCorrection, ExpectedCriticalCorrection] 
+  */
   abstract calcCriticalCorrection(): [number, number]
   abstract calcOtherCorrection(): number
   /**
@@ -148,7 +176,7 @@ class physicsDamageCalculator extends C {
    * Calculate the monster's hit rate, impact factors: weapon or motion type, monster parts and maybe skills
    *
    */
-  getMonsterHitRate(partId: number = 1): number {
+  getMonsterHitRate(partId: number): number {
     const part = this.ctx.monster.parts.find((p) => p.id == partId)
     if (part == undefined) {
       return 0
@@ -178,30 +206,6 @@ class physicsDamageCalculator extends C {
     return motionValue
   }
 
-  private getWeaponCriticalRate(): number {
-    const weapon = this.ctx.weapon
-    let criticalRate: number = 0
-    if (weapon.criticalRate != undefined) {
-      criticalRate = weapon.criticalRate
-    }
-    return criticalRate
-  }
-
-  calcCriticalRate(): number {
-    let criticalRate = this.getWeaponCriticalRate()
-    const skills = this.findSkills(SkillCategory.CRITICAL_RATE, Scope.PARTIAL)
-
-    for (const skill of skills) {
-      for (const levelValue of skill.levelValue) {
-        if (levelValue.calcMethod === CalcMethod.PLUS && levelValue.valueP != undefined) {
-          criticalRate += levelValue.valueP
-        }
-      }
-    }
-
-    return criticalRate
-  }
-
   /*  
     CriticalCorrection = (BaseCriticalCorrection + CriticalBoost)* 1,
     ExpectedCriticalCorrection = (BaseCriticalCorrection + CriticalBoost)* CriticalRate/100 + (1-CriticalRate/100) * 1,
@@ -212,7 +216,9 @@ class physicsDamageCalculator extends C {
 
     let skills: Array<Skill> = []
     if (this.ctx.skills != undefined) {
-      skills = this.ctx.skills.filter((skill) => skill.id === CriticalBoost.id)
+      skills = this.ctx.skills.filter(
+        (skill) => skill.category === SkillCategory.CRITICAL_ENFORCEMENT
+      )
     }
 
     let boost: number = 0
@@ -247,7 +253,7 @@ class physicsDamageCalculator extends C {
   calcDamage(): typeof R {
     const mv = this.getWeaponMotionValue()
     const attack = this.calcAttack()
-    const hitRate = this.getMonsterHitRate()
+    const hitRate = this.getMonsterHitRate(this.ctx.monster.parts[0].id)
     const sharpnessCorrection = this.getSharpnessCorrection()
     const criticalCorrection = this.calcCriticalCorrection()
     const otherCorrection = this.calcOtherCorrection()
@@ -296,7 +302,57 @@ class elementDamageCalculator extends C {
     return result
   }
 
-  calcCriticalRate(): number {}
+  calcCriticalCorrection(): [number, number] {
+    const criticalRate = this.calcCriticalRate()
+
+    let skills: Array<Skill> = []
+
+    if (this.ctx.skills != undefined) {
+      skills = this.ctx.skills.filter(
+        (skill) => skill.category === SkillCategory.ElEMENT_CRITICAL_ENFORCEMENT
+      )
+    }
+
+    let boost: number = 0
+
+    if (skills.length != 0) {
+      boost = skills[0].levelValue[0].valueP ?? 0
+    }
+    return [
+      BASIC_ELEMENT_CRITICAL_CORRECTION + boost,
+      ((BASIC_ELEMENT_CRITICAL_CORRECTION + boost) * criticalRate) / 100 + (1 - criticalRate / 100)
+    ]
+  }
+
+  calcOtherCorrection(): number {
+    let total: number = 1
+
+    // weapon's other correction
+    const weapon = this.ctx.weapon
+    const m = weapon.motions[0]
+    total *= m.elementCorrection ?? 1
+
+    //TODO: other correction
+    return total
+  }
+
+  /*
+  
+  ElementDamage = ElementAttack * (MonsterHitRate/100) * ElementCorrection * CriticalElementCorrection * SharpnessCorrection * OtherCorrection;
+  */
+  calcDamage(): typeof R {
+    const attack = this.calcAttack()
+    const hitRate = this.getMonsterHitRate(this.ctx.monster.parts[0].id)
+    const sharpnessCorrection = this.getSharpnessCorrection()
+    const criticalCorrection = this.calcCriticalCorrection()
+    const otherCorrection = this.calcOtherCorrection()
+
+    const normalDmg = attack * (hitRate / 100) * sharpnessCorrection * otherCorrection
+    const criticalDmg = normalDmg * criticalCorrection[0]
+    const expectedDmg = normalDmg * criticalCorrection[1]
+
+    return [Math.round(normalDmg), Math.round(criticalDmg), Math.round(expectedDmg)]
+  }
 }
 
 export { physicsDamageCalculator, elementDamageCalculator }

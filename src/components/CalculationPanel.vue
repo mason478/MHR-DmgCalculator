@@ -3,7 +3,11 @@ import { ref } from 'vue'
 import { type Skill } from '../scripts/data/Skills'
 import { type Weapon } from '../scripts/data/Weapons'
 import { type Monster } from '../scripts/data/Monsters'
-import { type Context, physicsDamageCalculator } from '../scripts/logic/DmgCalculator'
+import {
+  type Context,
+  physicsDamageCalculator,
+  elementDamageCalculator
+} from '../scripts/logic/DmgCalculator'
 import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
@@ -16,6 +20,10 @@ const normalPhyDmg = ref<number>(0)
 const criticalPhyDmg = ref<number>(0)
 const expectedPhyDmg = ref<number>(0)
 
+const normalElementDmg = ref<number>(0)
+const criticalElementDmg = ref<number>(0)
+const expectedElementDmg = ref<number>(0)
+
 function makeContext(): Context {
   return {
     weapon: weaponP.value!,
@@ -26,11 +34,19 @@ function makeContext(): Context {
 
 function onCalculate() {
   const ctx = makeContext()
-  const c = new physicsDamageCalculator(ctx)
-  let r = c.calcDamage()
-  normalPhyDmg.value = r[0]
-  criticalPhyDmg.value = r[1]
-  expectedPhyDmg.value = r[2]
+  const phyDmgCalc = new physicsDamageCalculator(ctx)
+  const elementDmgCalc = new elementDamageCalculator(ctx)
+
+  let r1 = phyDmgCalc.calcDamage()
+  let r2 = elementDmgCalc.calcDamage()
+
+  normalPhyDmg.value = r1[0]
+  criticalPhyDmg.value = r1[1]
+  expectedPhyDmg.value = r1[2]
+
+  normalElementDmg.value = r2[0]
+  criticalElementDmg.value = r2[1]
+  expectedElementDmg.value = r2[2]
 }
 </script>
 
@@ -53,12 +69,19 @@ function onCalculate() {
       <br />
       <span>会心伤害：{{ criticalPhyDmg }}</span>
       <br />
-      <el-button type="primary" plain @click="onCalculate">Calculate</el-button>
     </div>
 
     <div>
       <span>属性伤害 </span>
+      <br />
+      <span>期望属性伤害（加权平均）：{{ expectedElementDmg }}</span>
+      <br />
+      <span>一般属性伤害：{{ normalElementDmg }}</span>
+      <br />
+      <span>会心属性伤害：{{ criticalElementDmg }}</span>
+      <br />
     </div>
+    <el-button type="primary" plain @click="onCalculate">Calculate!</el-button>
   </div>
   <br /><br />
 </template>
