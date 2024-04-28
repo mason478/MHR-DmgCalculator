@@ -13,13 +13,15 @@ import { AttackType } from './Common'
 import { WeaponType } from './Weapons'
 
 const BASIC_CRITICAL_CORRECTION: number = 1.25
+const BASIC_ELEMENT_CRITICAL_CORRECTION: number = 1
 
 const enum Category {
   UNKNOWN = 0,
   ATTACK = 1,
   CRITICAL_RATE = 2,
-  ENFORCEMENT = 3,
-  OTHER = 4
+  CRITICAL_ENFORCEMENT = 3,
+  ElEMENT_CRITICAL_ENFORCEMENT = 4,
+  OTHER_ENFORCEMENT = 5
 }
 
 // attack calculation methods
@@ -183,7 +185,7 @@ const CriticalEyes: Skill = {
 const CriticalBoost: Skill = {
   id: 3,
   name: '超会心',
-  category: Category.ENFORCEMENT,
+  category: Category.CRITICAL_ENFORCEMENT,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
   levelValue: [
@@ -237,5 +239,6 @@ export {
   CriticalEyes,
   CriticalBoost,
   BASIC_CRITICAL_CORRECTION,
+  BASIC_ELEMENT_CRITICAL_CORRECTION,
   Level as SkillLevel
 }

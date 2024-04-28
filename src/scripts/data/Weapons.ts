@@ -17,7 +17,7 @@ export interface WeaponMotion {
   name: string
   attackType: PhysicsAttackType
   motionValue: number
-  // element attack value
+  // element attack value TODO: maybe should be deleted?
   elementValue?: number
   // 气绝 眩晕
   faintValue?: number
