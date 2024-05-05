@@ -61,8 +61,7 @@ function onCalculate() {
   <div>
     <h1>计算结果</h1>
     <div>
-      <span>物理伤害 </span>
-      <br />
+      <h2>物理伤害</h2>
       <span>期望伤害（加权平均）：{{ expectedPhyDmg }}</span>
       <br />
       <span>一般伤害：{{ normalPhyDmg }}</span>
@@ -71,9 +70,9 @@ function onCalculate() {
       <br />
     </div>
 
+    <br />
     <div>
-      <span>属性伤害 </span>
-      <br />
+      <h2>属性伤害</h2>
       <span>期望属性伤害（加权平均）：{{ expectedElementDmg }}</span>
       <br />
       <span>一般属性伤害：{{ normalElementDmg }}</span>
@@ -81,6 +80,7 @@ function onCalculate() {
       <span>会心属性伤害：{{ criticalElementDmg }}</span>
       <br />
     </div>
+    <br />
     <el-button type="primary" plain @click="onCalculate">Calculate!</el-button>
   </div>
   <br /><br />
