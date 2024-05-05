@@ -60,6 +60,7 @@ function onCalculate() {
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
   <ItemsPanel />
+  <br /><br />
   <div>
     <h1>计算结果</h1>
     <div>
