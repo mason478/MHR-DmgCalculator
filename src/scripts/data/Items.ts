@@ -38,7 +38,7 @@ interface Item {
 
 const PowerCharm: Item = {
   id: 1,
-  name: '力量之护符',
+  name: '力之护符',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
@@ -135,6 +135,7 @@ const Petalace: Item = {
   value: 20
 }
 
+// {item.id: item}
 const allItemsMap: Map<number, Item> = new Map([
   [PowerCharm.id, PowerCharm],
   [PowerTalon.id, PowerTalon],
@@ -149,4 +150,4 @@ const allItemsMap: Map<number, Item> = new Map([
   [Petalace.id, Petalace]
 ])
 
-export { allItemsMap, type Item, Petalace, PowerCharm }
+export { allItemsMap, type Item, Petalace, PowerCharm, PowerTalon }

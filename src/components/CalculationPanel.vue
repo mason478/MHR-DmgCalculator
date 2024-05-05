@@ -11,6 +11,7 @@ import {
 import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
+import ItemsPanel from './ItemsPanel.vue'
 
 const skillsP = ref<Array<Skill>>([])
 const weaponP = ref<Weapon>()
@@ -58,6 +59,7 @@ function onCalculate() {
   <br /><br />
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
+  <ItemsPanel />
   <div>
     <h1>计算结果</h1>
     <div>
