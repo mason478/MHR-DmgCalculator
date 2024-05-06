@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { type Skill } from '../scripts/data/Skills'
 import { type Weapon } from '../scripts/data/Weapons'
 import { type Monster } from '../scripts/data/Monsters'
+import { type Item } from '../scripts/data/Items'
 import {
   type Context,
   physicsDamageCalculator,
@@ -16,6 +17,7 @@ import ItemsPanel from './ItemsPanel.vue'
 const skillsP = ref<Array<Skill>>([])
 const weaponP = ref<Weapon>()
 const monsterP = ref<Monster>()
+const itemsP = ref<Array<Item>>()
 
 const normalPhyDmg = ref<number>(0)
 const criticalPhyDmg = ref<number>(0)
@@ -29,7 +31,8 @@ function makeContext(): Context {
   return {
     weapon: weaponP.value!,
     monster: monsterP.value!,
-    skills: skillsP.value
+    skills: skillsP.value,
+    items: itemsP.value
   }
 }
 
@@ -59,7 +62,7 @@ function onCalculate() {
   <br /><br />
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
-  <ItemsPanel />
+  <ItemsPanel @items="(items) => (itemsP = items)" />
   <br /><br />
   <div>
     <h1>计算结果</h1>
