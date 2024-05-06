@@ -166,14 +166,25 @@ export default {
   DangoBoosterLv4,
   Petalace,
 
-  getItemByType(type: ItemType): Item {
+  getItemByType(type: ItemType): Array<Item> {
     const allItems = [...allItemsMap.values()]
-    const item = allItems.find((i) => i.itemType == type)
-    if (!item) {
+    // const item = allItems.find((i) => i.itemType == type)
+    const items = allItems.filter((i) => i.itemType == type)
+    console.log('items, ====', items)
+
+    if (!items) {
       throw new TypeError('Unknown item type: ' + type)
+    }
+    return items
+  },
+
+  getItemById(itemId: number): Item {
+    const item = allItemsMap.get(itemId)
+    if (!item) {
+      throw new TypeError('Unknown item id: ' + itemId)
     }
     return item
   }
 }
 
-export { type Item }
+export { type Item, ItemType }

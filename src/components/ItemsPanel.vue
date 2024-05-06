@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ItemsData from '../scripts/data/Items'
-import { type Item } from '../scripts/data/Items'
+import { type Item, ItemType } from '../scripts/data/Items'
 
 const items = ref<Array<Item>>([])
 const hasPowerCharm = ref<Boolean>(false)
@@ -10,13 +10,18 @@ const hasDemonPowder = ref<Boolean>(false)
 const hasMightSeed = ref<Boolean>(false)
 
 const demonDrugId = ref<number>(0)
+const dangoId = ref<number>()
 // const hasDemonDrug = ref<Boolean>(false)
 // const hasDemonDrug = ref<Boolean>(false)
 
 const emitItems = defineEmits(['items'])
 
-function onSelect() {
-  console.info('This is a test of item onSelect!' + hasPowerCharm.value)
+function onSelect(itemId: number) {
+  let items: Array<Item> = []
+  const item = ItemsData.getItemById(itemId)
+  items.push(item)
+
+  emitItems('items', items)
 }
 </script>
 
@@ -30,9 +35,6 @@ function onSelect() {
       <el-checkbox v-model="hasPowerTalon">{{ ItemsData.PowerTalon.name }}</el-checkbox>
       <el-checkbox v-model="hasMightSeed">{{ ItemsData.MightSeed.name }}</el-checkbox>
       <el-checkbox v-model="hasDemonPowder">{{ ItemsData.DemonPowder.name }}</el-checkbox>
-      <!--
-        道具的选择应该分为两种： 勾选框和下拉选择框
-    -->
       <br />
 
       <label for="demonDrugId">鬼人药</label>
@@ -53,9 +55,15 @@ function onSelect() {
         </el-option>
       </el-select>
 
-      <label for="dango">看破</label>
-
-      <label>超会心</label>
+      <label for="dango">团子</label>
+      <el-select id="dango" name="dango" v-model="dangoId" placeholder="请选择">
+        <el-option
+          v-for="t in ItemsData.getItemByType(ItemType.DANGO)"
+          :key="t.id"
+          :value="t.id"
+          :label="t.name"
+        />
+      </el-select>
     </form>
   </div>
 </template>
