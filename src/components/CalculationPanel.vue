@@ -64,7 +64,7 @@ function onCalculate() {
   <br /><br />
   <ItemsPanel @items="(items) => (itemsP = items)" />
   <br /><br />
-  <div class="inline-flex">
+  <div class="inline-flex fixed-box">
     <h1>计算结果</h1>
     <div>
       <h2>物理伤害</h2>
@@ -92,4 +92,17 @@ function onCalculate() {
   <br /><br />
 </template>
 
-<style></style>
+<style>
+.fixed-box {
+  position: fixed;
+  top: 4%;
+  right: 2.5%;
+  width: 40%;
+
+  box-shadow:
+    0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+  padding: 2% 2% 2% 2%;
+}
+</style>
