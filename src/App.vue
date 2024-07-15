@@ -6,5 +6,4 @@ import CalculationPanel from './components/CalculationPanel.vue'
   <div>
     <CalculationPanel />
   </div>
-  <!-- <CalculatorView /> -->
 </template>

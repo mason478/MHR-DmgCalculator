@@ -64,7 +64,7 @@ function onCalculate() {
   <br /><br />
   <ItemsPanel @items="(items) => (itemsP = items)" />
   <br /><br />
-  <div>
+  <div class="inline-flex">
     <h1>计算结果</h1>
     <div>
       <h2>物理伤害</h2>
@@ -91,3 +91,5 @@ function onCalculate() {
   </div>
   <br /><br />
 </template>
+
+<style></style>

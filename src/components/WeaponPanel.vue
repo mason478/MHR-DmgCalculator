@@ -86,12 +86,7 @@ function onInputElementAttack() {
 </script>
 
 <template>
-  <div
-    class="inline-flex"
-    :style="{
-      boxShadow: `var(--el-box-shadow-dark)`
-    }"
-  >
+  <div class="inline-flex">
     <h1>武器基础信息</h1>
     <form id="weaponForm">
       <label for="weaponType">武器类型</label>
@@ -200,3 +195,12 @@ function onInputElementAttack() {
     </form>
   </div>
 </template>
+
+<style>
+/* .inline-flex { */
+/* box-shadow: */
+/* 0 2px 5px 0 rgba(0, 0, 0, 0.16), */
+/* 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
+/* padding: 16px 24px; */
+/* } */
+</style>

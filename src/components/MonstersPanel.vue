@@ -26,7 +26,7 @@ function onSelect() {
 </script>
 
 <template>
-  <div>
+  <div class="inline-flex">
     <h1>怪物信息</h1>
     <form id="monsterForm">
       <label for="monster">怪物</label>

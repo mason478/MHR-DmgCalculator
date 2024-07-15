@@ -48,7 +48,7 @@ function onSelect(skill: Skill) {
 </script>
 
 <template>
-  <div>
+  <div class="inline-flex">
     <h1>技能</h1>
     <form id="skills">
       <label for="attackBoostLv">攻击</label>
