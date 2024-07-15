@@ -11,7 +11,8 @@ import {
   SkillLevel,
   CalcMethod
 } from '../src/scripts/data/Skills'
-import { Petalace, PowerCharm } from '../src/scripts/data/Items'
+//import { Petalace, PowerCharm } from '../src/scripts/data/Items'
+import items from '../src/scripts/data/Items'
 import exp from 'constants'
 
 /*
@@ -89,8 +90,8 @@ const skill2: Skill = {
   ]
 }
 
-const item1 = Petalace
-const item2 = PowerCharm
+const item1 = items.Petalace
+const item2 = items.PowerCharm
 
 describe('Test weapon1 damage', () => {
   const context1: Context = {
