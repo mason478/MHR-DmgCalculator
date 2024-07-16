@@ -67,6 +67,13 @@ function onCalculate() {
   <div class="inline-flex fixed-box">
     <h1>计算结果</h1>
     <div>
+      <h2>总伤害</h2>
+      <span>期望总伤害（加权平均）：{{ expectedPhyDmg + expectedElementDmg }}</span>
+      <br />
+    </div>
+    <br />
+
+    <div>
       <h2>物理伤害</h2>
       <span>期望伤害（加权平均）：{{ expectedPhyDmg }}</span>
       <br />
@@ -87,8 +94,11 @@ function onCalculate() {
       <br />
     </div>
     <br />
-    <el-button type="primary" plain @click="onCalculate">Calculate!</el-button>
+    <el-button @click="onCalculate" style="background-color: #000000; color: #ffffff"
+      >计算!</el-button
+    >
   </div>
+  <i class="el-icon-delete">fefe</i>
   <br /><br />
 </template>
 

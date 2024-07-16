@@ -4,13 +4,15 @@ import { MonsterStatus, allMonsters } from '@/scripts/data/Monsters'
 import monsterData from '@/scripts/data/Monsters'
 import type { Monster } from '@/scripts/data/Monsters'
 
-const monsterId = ref<number>()
+const monsterId = ref<number>(1)
 const status = ref<MonsterStatus>(MonsterStatus.NORMAL)
-const monsterPartId = ref<number>()
+const monsterPartId = ref<number>(1)
 
+var monster = structuredClone(monsterData.getMonsterById(monsterId.value))
+monster.parts = monsterData.getMonsterPartsByMonsterId(monsterId.value)
 const emitMonster = defineEmits(['monster'])
-let monster: Monster
 
+emitMonster('monster', monster)
 function onSelect() {
   if (!monsterId.value) return
 
