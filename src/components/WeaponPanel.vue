@@ -36,7 +36,6 @@ const sharpnessColormap = new Map<Sharpness, string>([
 let newWeapon: Weapon
 
 function onSelectWeapon() {
-  console.info('This is a test of onSelect!')
   if (wt.value == undefined) return
 
   // @ts-ignore
@@ -114,7 +113,7 @@ function onInputElementAttack() {
         placeholder="请选择一种招式"
       >
         <el-option
-          v-for="m in weaponData.getWeaponMotionsByWeaponType(wt)"
+          v-for="m in wt == undefined ? [] : weaponData.getWeaponMotionsByWeaponType(wt)"
           :key="m.id"
           :value="m.id"
           :label="m.name"
@@ -195,12 +194,3 @@ function onInputElementAttack() {
     </form>
   </div>
 </template>
-
-<style>
-/* .inline-flex { */
-/* box-shadow: */
-/* 0 2px 5px 0 rgba(0, 0, 0, 0.16), */
-/* 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
-/* padding: 16px 24px; */
-/* } */
-</style>
