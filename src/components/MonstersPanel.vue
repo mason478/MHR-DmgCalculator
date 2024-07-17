@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { MonsterStatus, allMonsters } from '@/scripts/data/Monsters'
 import monsterData from '@/scripts/data/Monsters'
-import type { Monster } from '@/scripts/data/Monsters'
 
 const monsterId = ref<number>(1)
 const status = ref<MonsterStatus>(MonsterStatus.NORMAL)

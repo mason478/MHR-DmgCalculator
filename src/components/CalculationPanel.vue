@@ -69,9 +69,8 @@ function onCalculate() {
     <div>
       <h2>总伤害</h2>
       <span>期望总伤害（加权平均）：{{ expectedPhyDmg + expectedElementDmg }}</span>
-      <br />
     </div>
-    <br />
+    <el-divider></el-divider>
 
     <div>
       <h2>物理伤害</h2>
@@ -82,8 +81,8 @@ function onCalculate() {
       <span>会心伤害：{{ criticalPhyDmg }}</span>
       <br />
     </div>
+    <el-divider></el-divider>
 
-    <br />
     <div>
       <h2>属性伤害</h2>
       <span>期望属性伤害（加权平均）：{{ expectedElementDmg }}</span>
@@ -93,21 +92,22 @@ function onCalculate() {
       <span>会心属性伤害：{{ criticalElementDmg }}</span>
       <br />
     </div>
-    <br />
+    <el-divider></el-divider>
     <el-button @click="onCalculate" style="background-color: #000000; color: #ffffff"
       >计算!</el-button
     >
   </div>
-  <i class="el-icon-delete">fefe</i>
   <br /><br />
 </template>
 
 <style>
 .fixed-box {
-  position: fixed;
-  top: 4%;
-  right: 2.5%;
-  width: 40%;
+  /* position: absolute; */
+  /* top: 10px; */
+  /* right: 10px; */
+  /* top: 4%; */
+  /* right: 2.5%; */
+  /* width: 40%; */
 
   box-shadow:
     0 2px 5px 0 rgba(0, 0, 0, 0.16),

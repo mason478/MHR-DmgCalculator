@@ -11,7 +11,9 @@ import {
   type Weapon
 } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
+// import imageUrl from '/great_sword.ico'
 
+const iconBaseUrl = '/icons/'
 const emitWeapon = defineEmits(['weapon'])
 
 const wt = ref<WeaponType>()
@@ -87,6 +89,7 @@ function onInputElementAttack() {
 <template>
   <div class="inline-flex">
     <h1>武器基础信息</h1>
+
     <form id="weaponForm">
       <label for="weaponType">武器类型</label>
       <el-select
@@ -101,7 +104,22 @@ function onInputElementAttack() {
           :key="t"
           :value="t"
           :label="weaponData.getWeaponByType(t).name"
-        />
+        >
+          <img
+            :src="`${iconBaseUrl}${weaponData.getWeaponByType(t).name}.png`"
+            :style="{
+              width: '17px',
+              height: '17px',
+              verticalAlign: 'middle'
+            }"
+          />
+          <span
+            :style="{
+              verticalAlign: 'middle'
+            }"
+            >{{ weaponData.getWeaponByType(t).name }}</span
+          >
+        </el-option>
       </el-select>
 
       <label for="motionType">武器动作</label>
@@ -117,7 +135,8 @@ function onInputElementAttack() {
           :key="m.id"
           :value="m.id"
           :label="m.name"
-        />
+        >
+        </el-option>
       </el-select>
 
       <label for="sharpness">武器斩味（锋利度）</label>
