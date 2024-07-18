@@ -2,15 +2,16 @@
 import { ref } from 'vue'
 import { MonsterStatus, allMonsters } from '@/scripts/data/Monsters'
 import monsterData from '@/scripts/data/Monsters'
-import type { Monster } from '@/scripts/data/Monsters'
 
-const monsterId = ref<number>()
+const monsterId = ref<number>(1)
 const status = ref<MonsterStatus>(MonsterStatus.NORMAL)
-const monsterPartId = ref<number>()
+const monsterPartId = ref<number>(1)
 
+var monster = structuredClone(monsterData.getMonsterById(monsterId.value))
+monster.parts = monsterData.getMonsterPartsByMonsterId(monsterId.value)
 const emitMonster = defineEmits(['monster'])
-let monster: Monster
 
+emitMonster('monster', monster)
 function onSelect() {
   if (!monsterId.value) return
 
@@ -26,8 +27,11 @@ function onSelect() {
 </script>
 
 <template>
-  <div>
-    <h1>怪物信息</h1>
+  <div class="inline-flex">
+    <div class="header-container">
+      <img :src="`/icons/monsters/rathian.jpg`" class="header-icon" />
+      <h1 class="header-title">怪物信息</h1>
+    </div>
     <form id="monsterForm">
       <label for="monster">怪物</label>
       <el-select id="monster" v-model="monsterId" placeholder="请选择狩猎的怪物" @change="onSelect">

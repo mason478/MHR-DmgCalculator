@@ -33,3 +33,21 @@ a,
     padding: 0 2rem;
   }
 }
+
+.inline-flex {
+  box-shadow:
+    0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  padding: 2% 2% 5% 2%;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-icon {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}

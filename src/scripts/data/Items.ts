@@ -5,6 +5,8 @@ data source:
     2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
 */
 
+import { throwError } from 'element-plus/es/utils/error.mjs'
+
 // items that affect attack power modes
 const enum EffectMode {
   UNKNOWN = 0,
@@ -38,7 +40,7 @@ interface Item {
 
 const PowerCharm: Item = {
   id: 1,
-  name: '力量之护符',
+  name: '力之护符',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
@@ -135,6 +137,7 @@ const Petalace: Item = {
   value: 20
 }
 
+// {item.id: item}
 const allItemsMap: Map<number, Item> = new Map([
   [PowerCharm.id, PowerCharm],
   [PowerTalon.id, PowerTalon],
@@ -149,4 +152,39 @@ const allItemsMap: Map<number, Item> = new Map([
   [Petalace.id, Petalace]
 ])
 
-export { allItemsMap, type Item, Petalace, PowerCharm }
+export default {
+  allItemsMap,
+  PowerCharm,
+  PowerTalon,
+  DemonPowder,
+  MightSeed,
+  MegaDemonDrug,
+  DemonDrug,
+  DangoBoosterLv1,
+  DangoBoosterLv2,
+  DangoBoosterLv3,
+  DangoBoosterLv4,
+  Petalace,
+
+  getItemByType(type: ItemType): Array<Item> {
+    const allItems = [...allItemsMap.values()]
+    // const item = allItems.find((i) => i.itemType == type)
+    const items = allItems.filter((i) => i.itemType == type)
+    console.log('items, ====', items)
+
+    if (!items) {
+      throw new TypeError('Unknown item type: ' + type)
+    }
+    return items
+  },
+
+  getItemById(itemId: number): Item {
+    const item = allItemsMap.get(itemId)
+    if (!item) {
+      throw new TypeError('Unknown item id: ' + itemId)
+    }
+    return item
+  }
+}
+
+export { type Item, ItemType }
