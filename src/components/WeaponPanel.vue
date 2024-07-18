@@ -11,9 +11,10 @@ import {
   type Weapon
 } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType } from '../scripts/data/Common'
-// import imageUrl from '/great_sword.ico'
 
-const iconBaseUrl = '/icons/'
+const weaponIconBaseUrl = '/icons/weapons/'
+const elementIconBaseUrl = '/icons/elements/'
+
 const emitWeapon = defineEmits(['weapon'])
 
 const wt = ref<WeaponType>()
@@ -88,8 +89,10 @@ function onInputElementAttack() {
 
 <template>
   <div class="inline-flex">
-    <h1>武器基础信息</h1>
-
+    <div class="header-container">
+      <img :src="`/icons/weapons/weapon.png`" class="header-icon" />
+      <h1 class="header-title">武器信息</h1>
+    </div>
     <form id="weaponForm">
       <label for="weaponType">武器类型</label>
       <el-select
@@ -106,19 +109,10 @@ function onInputElementAttack() {
           :label="weaponData.getWeaponByType(t).name"
         >
           <img
-            :src="`${iconBaseUrl}${weaponData.getWeaponByType(t).name}.png`"
-            :style="{
-              width: '17px',
-              height: '17px',
-              verticalAlign: 'middle'
-            }"
+            :src="`${weaponIconBaseUrl}${weaponData.getWeaponByType(t).name}.png`"
+            class="select-icon"
           />
-          <span
-            :style="{
-              verticalAlign: 'middle'
-            }"
-            >{{ weaponData.getWeaponByType(t).name }}</span
-          >
+          <span class="select-label">{{ weaponData.getWeaponByType(t).name }}</span>
         </el-option>
       </el-select>
 
@@ -128,7 +122,7 @@ function onInputElementAttack() {
         name="motionType"
         v-model="mt"
         @change="onSelectMotion"
-        placeholder="请选择一种招式"
+        placeholder="请选择一种动作"
       >
         <el-option
           v-for="m in wt == undefined ? [] : weaponData.getWeaponMotionsByWeaponType(wt)"
@@ -153,14 +147,12 @@ function onInputElementAttack() {
           :value="sp"
           :label="weaponData.getSharpnessAttribute(sp).name"
         >
+          <!--color-->
           <div class="flex items-center">
             <el-tag :color="sharpnessColormap.get(sp)" style="margin-right: 8px" size="small" />
             <span size="small">{{ weaponData.getSharpnessAttribute(sp).name }}</span>
           </div>
         </el-option>
-        <!--<template #tag>
-        //  <el-tag v-for="color in colors" :key="color.label" :color="color" />
-        //</template>-->
       </el-select>
 
       <label for="rawAttack">武器原始攻击力</label>
@@ -171,7 +163,6 @@ function onInputElementAttack() {
         placeholder="请输入武器原始攻击力"
         @change="onInputAttack"
       />
-      <!-- <el-select> </el-select> -->
       <label for="element">武器属性</label>
       <el-select
         id="element"
@@ -185,7 +176,13 @@ function onInputElementAttack() {
           :key="e"
           :value="e"
           :label="elementNamesMap.get(e)"
-        />
+        >
+          <img
+            :src="`${elementIconBaseUrl}${ElementType[e].toLowerCase()}.jpg`"
+            class="select-icon"
+          />
+          <span class="select-label">{{ elementNamesMap.get(e) }}</span>
+        </el-option>
       </el-select>
       <label for="elementAttack" v-if="element !== ElementType.UNKNOWN">武器属性攻击力</label>
       <el-input
@@ -213,3 +210,15 @@ function onInputElementAttack() {
     </form>
   </div>
 </template>
+
+<style scoped>
+.select-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.select-label {
+  vertical-align: middle;
+}
+</style>

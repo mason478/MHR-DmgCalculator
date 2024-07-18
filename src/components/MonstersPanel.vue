@@ -28,7 +28,10 @@ function onSelect() {
 
 <template>
   <div class="inline-flex">
-    <h1>怪物信息</h1>
+    <div class="header-container">
+      <img :src="`/icons/monsters/rathian.jpg`" class="header-icon" />
+      <h1 class="header-title">怪物信息</h1>
+    </div>
     <form id="monsterForm">
       <label for="monster">怪物</label>
       <el-select id="monster" v-model="monsterId" placeholder="请选择狩猎的怪物" @change="onSelect">

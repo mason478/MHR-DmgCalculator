@@ -49,7 +49,10 @@ function onSelect(skill: Skill) {
 
 <template>
   <div class="inline-flex">
-    <h1>技能</h1>
+    <div class="header-container">
+      <img :src="`/icons/increased_attack.png`" class="header-icon" />
+      <h1 class="header-title">技能</h1>
+    </div>
     <form id="skills">
       <label for="attackBoostLv">攻击</label>
       <el-select

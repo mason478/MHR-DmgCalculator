@@ -27,7 +27,10 @@ function onSelect(itemId: number) {
 
 <template>
   <div class="inline-flex">
-    <h1>道具</h1>
+    <div class="header-container">
+      <img :src="`/icons/items/seed.png`" class="header-icon" />
+      <h1 class="header-title">道具</h1>
+    </div>
     <form id="items">
       <el-checkbox v-model="hasPowerCharm" @change="onSelect(ItemsData.PowerCharm.id)">{{
         ItemsData.PowerCharm.name
