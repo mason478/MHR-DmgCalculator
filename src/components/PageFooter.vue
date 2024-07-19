@@ -3,19 +3,10 @@
   <div class="footer-wrap">
     <div class="footer-divider"></div>
     <div class="text-row">
-      <span class="author-name"
-        >一个基于Vue的前端项目 By
-        <a href="https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?link_id=43202292" target="_blank"
-          >鎧羅突擊弩賊</a
-        ></span
-      >
-      <span class="author-id"
-        >小黑盒ID:1310911&nbsp;&nbsp;Ver.1.1.6&nbsp;<a
-          href="https://github.com/dzxrly/MHWIBDmgCalculator"
-          target="_blank"
-          ><img :src="gitIconSrc" width="12" height="12" />Github</a
-        ></span
-      >
+      <span>Based on Vue.js and Element-Plus </span>
+      <a href="https://github.com/dzxrly/MHWIBDmgCalculator" target="_blank">
+        <img :src="gitIconSrc" width="12" height="12" />Github
+      </a>
     </div>
   </div>
 </template>
@@ -27,7 +18,7 @@
   box-shadow:
     0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132),
     0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108);
-  /* background-color: black; */
+  background-color: black;
 
   width: 100vw;
   position: relative;
@@ -44,6 +35,7 @@
 
 .text-row {
   margin: 10px 0px;
+  padding-bottom: 10px;
   display: flex;
   flex-flow: row wrap;
   flex: 1;
