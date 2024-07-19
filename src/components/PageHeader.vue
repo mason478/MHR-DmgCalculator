@@ -8,17 +8,20 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'PageHeader'
-}
-</script>
+<script setup lang="ts"></script>
 
 <style>
 .header-wrap {
   box-shadow:
     0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132),
     0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108);
+
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 .header-wrap .title-text-row {
   display: flex;
@@ -28,7 +31,7 @@ export default {
   align-items: center;
   height: 50px;
   background-color: #0f0f0f;
-  padding: 10px 0;
+  padding: 0 0;
 }
 .header-wrap .title-text-row .page-name {
   margin: 0 20px;
