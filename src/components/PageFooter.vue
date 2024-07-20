@@ -1,17 +1,19 @@
 <!-- code reference: https://github.com/dzxrly/MHWIBDmgCalculator/blob/main/mhwdmgcalculator/src/components/Footer.vue -->
+<script setup>
+
+</script>
 <template>
   <div class="footer-wrap">
     <div class="footer-divider"></div>
     <div class="text-row">
-      <span>Based on Vue.js and Element-Plus </span>
-      <a href="https://github.com/dzxrly/MHWIBDmgCalculator" target="_blank">
-        <img :src="gitIconSrc" width="12" height="12" />Github
+      <span>Based on <a href="https://vuejs.org/" target="_blank">Vue.js</a> and <a href="https://element.eleme.io/" target="_blank">Element-Plus</a> </span>
+      <a href="https://github.com/mason478/MHR-DmgCal" target="_blank">
+        <img :src="`/github.png`" width="12" height="12" />Github
       </a>
     </div>
   </div>
 </template>
 
-<script setup></script>
 
 <style scoped>
 .footer-wrap {
