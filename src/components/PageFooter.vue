@@ -1,19 +1,15 @@
 <!-- code reference: https://github.com/dzxrly/MHWIBDmgCalculator/blob/main/mhwdmgcalculator/src/components/Footer.vue -->
-<script setup>
-
-</script>
+<script setup></script>
 <template>
   <div class="footer-wrap">
     <div class="footer-divider"></div>
     <div class="text-row">
-      <span>Based on <a href="https://vuejs.org/" target="_blank">Vue.js</a> and <a href="https://element.eleme.io/" target="_blank">Element-Plus</a> </span>
       <a href="https://github.com/mason478/MHR-DmgCal" target="_blank">
-        <img :src="`/github.png`" width="12" height="12" />Github
+        <img :src="`/github.svg`" width="18" height="18" style="vertical-align: middle" /> Github
       </a>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .footer-wrap {
@@ -44,46 +40,5 @@
   justify-content: center;
   align-items: center;
   color: white;
-}
-
-.author-name {
-  font-size: 12px;
-  font-weight: lighter;
-}
-
-.author-name a {
-  text-decoration: none;
-  border-bottom: 1px solid white;
-}
-
-.author-name a:link,
-.author-name a:hover,
-.author-name a:visited {
-  color: white;
-}
-
-.author-name a:active {
-  color: #333333;
-}
-
-.author-id {
-  margin: 0px 5px;
-  font-size: 12px;
-  font-weight: lighter;
-  color: #666666;
-}
-
-.author-id a {
-  text-decoration: none;
-}
-
-.author-id a:link,
-.author-id a:hover,
-.author-id a:visited {
-  color: white;
-}
-
-.author-id a:active {
-  color: #333333;
 }
 </style>
