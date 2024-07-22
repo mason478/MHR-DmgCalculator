@@ -2,7 +2,15 @@
 <template>
   <div class="header-wrap">
     <div class="title-text-row">
-      <span class="page-name">MHR伤害计算器</span>
+      <span class="page-name">怪物猎人: 崛起 </span>
+      <img
+        :src="`/mhr_logo.wbpg`"
+        :style="{
+          height: '35px',
+          width: '60px'
+        }"
+      />
+      <span :style="{ color: 'white', margin: '10px 20px 0px 20px' }"> 伤害计算器</span>
     </div>
     <div class="divider-row"></div>
   </div>

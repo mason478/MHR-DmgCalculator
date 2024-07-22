@@ -149,8 +149,15 @@ function onInputElementAttack() {
         >
           <!--color-->
           <div class="flex items-center">
-            <el-tag :color="sharpnessColormap.get(sp)" style="margin-right: 8px" size="small" />
-            <span size="small">{{ weaponData.getSharpnessAttribute(sp).name }}</span>
+            <el-tag
+              :color="sharpnessColormap.get(sp)"
+              style="margin-right: 8px; vertical-align: center"
+              size="small"
+              class="select-icon"
+            />
+            <span size="small" class="select-label">{{
+              weaponData.getSharpnessAttribute(sp).name
+            }}</span>
           </div>
         </el-option>
       </el-select>
