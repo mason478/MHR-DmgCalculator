@@ -2,7 +2,7 @@
 <template>
   <div class="header-wrap">
     <div class="title-text-row">
-      <span class="page-name">怪物猎人: 崛起 </span>
+      <span class="page-name">怪物猎人: 崛起/曙光 </span>
       <img
         :src="`/mhr_logo.wbpg`"
         :style="{
