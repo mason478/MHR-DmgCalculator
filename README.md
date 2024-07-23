@@ -5,4 +5,6 @@ MonsterHunter Rise/Sunbreak damage calculator(WIP)
 A test
 
 reference:
-https://www.monsterhunter.com/rise/en/weapon/
+
+- https://www.monsterhunter.com/rise/en/weapon/
+- https://ngabbs.com/read.php?tid=32574416&rand=388

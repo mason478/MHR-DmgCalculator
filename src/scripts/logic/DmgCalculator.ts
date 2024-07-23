@@ -25,13 +25,14 @@ import {
   BASIC_ELEMENT_CRITICAL_CORRECTION
 } from '../data/Skills'
 import { type Item } from '../data/Items'
+import { type otherFactor } from '../data/Others'
 
 export interface Context {
   weapon: Weapon
   monster: Monster
   skills?: Array<Skill>
   items?: Array<Item>
-  // # TODO: and others
+  others?: Array<otherFactor>
 }
 
 let R: [number, number, number]
@@ -91,6 +92,7 @@ abstract class C {
   */
   abstract calcCriticalCorrection(): [number, number]
   abstract calcOtherCorrection(): number
+
   /**
    * @return:  normal damage ,critical damage and expected damage
    */
@@ -239,7 +241,7 @@ class physicsDamageCalculator extends C {
     const m = weapon.motions[0]
     total *= m.extraPhysicsCorrection ?? 1
 
-    //TODO: other correction
+    //TODO: and some other correction
 
     return total
   }

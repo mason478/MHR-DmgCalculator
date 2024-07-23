@@ -4,6 +4,7 @@ import { type Skill } from '../scripts/data/Skills'
 import { type Weapon } from '../scripts/data/Weapons'
 import { type Monster } from '../scripts/data/Monsters'
 import { type Item } from '../scripts/data/Items'
+import { type otherFactor } from '../scripts/data/Others'
 import {
   type Context,
   physicsDamageCalculator,
@@ -13,11 +14,13 @@ import SkillsPanel from './SkillsPanel.vue'
 import WeaponPanel from './WeaponPanel.vue'
 import MonstersPanel from './MonstersPanel.vue'
 import ItemsPanel from './ItemsPanel.vue'
+import OthersPanel from './OthersPanel.vue'
 
 const skillsP = ref<Array<Skill>>([])
 const weaponP = ref<Weapon>()
 const monsterP = ref<Monster>()
 const itemsP = ref<Array<Item>>()
+const othersP = ref<Array<otherFactor>>()
 
 const normalPhyDmg = ref<number>(0)
 const criticalPhyDmg = ref<number>(0)
@@ -32,12 +35,14 @@ function makeContext(): Context {
     weapon: weaponP.value!,
     monster: monsterP.value!,
     skills: skillsP.value,
-    items: itemsP.value
+    items: itemsP.value,
+    others: othersP.value
   }
 }
 
 function onCalculate() {
   const ctx = makeContext()
+  console.log('context', ctx)
   const phyDmgCalc = new physicsDamageCalculator(ctx)
   const elementDmgCalc = new elementDamageCalculator(ctx)
 
@@ -63,6 +68,8 @@ function onCalculate() {
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
   <ItemsPanel @items="(items) => (itemsP = items)" />
+  <br /><br />
+  <OthersPanel @others="(others) => (othersP = others)" />
   <br /><br />
   <div class="inline-flex fixed-box">
     <h1>计算结果</h1>

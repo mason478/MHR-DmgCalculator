@@ -35,7 +35,6 @@ function makeSkill(skill: Skill, level: SkillLevel): Skill {
 }
 
 function onSelect(skill: Skill) {
-  console.info('This is a test of skill onSelect!, origin data' + skill.name)
   let skills: Array<Skill> = []
   for (var sl of skillsLevels) {
     if (sl.value != undefined) {
