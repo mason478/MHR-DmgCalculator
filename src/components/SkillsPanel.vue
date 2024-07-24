@@ -41,7 +41,6 @@ function onSelect(skill: Skill) {
       skills.push(makeSkill(skill, sl.value))
     }
   }
-  console.info('skills count' + skills.length)
   emitSkills('skills', skills)
 }
 </script>

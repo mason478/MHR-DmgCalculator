@@ -241,7 +241,12 @@ class physicsDamageCalculator extends C {
     const m = weapon.motions[0]
     total *= m.extraPhysicsCorrection ?? 1
 
-    //TODO: and some other correction
+    //and some other correction
+    if (this.ctx.others != undefined) {
+      for (const other of this.ctx.others) {
+        total *= other.physicsCorrection
+      }
+    }
 
     return total
   }
@@ -334,7 +339,12 @@ class elementDamageCalculator extends C {
     const m = weapon.motions[0]
     total *= m.elementCorrection ?? 1
 
-    //TODO: other correction
+    //and other correction
+    if (this.ctx.others != undefined) {
+      for (const other of this.ctx.others) {
+        total *= other.elementCorrection ?? 1
+      }
+    }
     return total
   }
 

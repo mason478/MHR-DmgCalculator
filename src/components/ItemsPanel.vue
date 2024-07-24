@@ -14,13 +14,13 @@ const dangoId = ref<number>()
 const emitItems = defineEmits(['items'])
 
 function onSelect(itemId: number) {
+  // FIXME: 这里有bug
   if (itemId == 0) {
     return
   }
   let items: Array<Item> = []
   const item = ItemsData.getItemById(itemId)
   items.push(item)
-
   emitItems('items', items)
 }
 </script>
