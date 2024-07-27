@@ -7,6 +7,22 @@ data source:
 
 import { throwError } from 'element-plus/es/utils/error.mjs'
 
+enum ItemLevel {
+  UNKNOWN = 0,
+  LV1 = 1,
+  LV2 = 2,
+  LV3 = 3,
+  LV4 = 4,
+  LV5 = 5
+}
+
+interface LevelValue {
+  level?: ItemLevel
+  value: number
+  // name alias
+  alias?: string
+}
+
 // items that affect attack power modes
 const enum EffectMode {
   UNKNOWN = 0,
@@ -35,7 +51,7 @@ interface Item {
   effectMode: EffectMode
   itemType: ItemType
   calcMethod: CalcMethod
-  value: number
+  levelValues: Array<LevelValue>
 }
 
 const PowerCharm: Item = {
@@ -44,7 +60,7 @@ const PowerCharm: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  value: 6
+  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 6 }]
 }
 
 const PowerTalon: Item = {
@@ -53,7 +69,7 @@ const PowerTalon: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  value: 9
+  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 9 }]
 }
 
 const MightSeed: Item = {
@@ -62,7 +78,7 @@ const MightSeed: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
   calcMethod: CalcMethod.PLUS,
-  value: 10
+  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 10 }]
 }
 
 const DemonDrug: Item = {
@@ -71,70 +87,36 @@ const DemonDrug: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
   calcMethod: CalcMethod.PLUS,
-  value: 5
+  levelValues: [
+    { level: ItemLevel.UNKNOWN, value: 0, alias: '无' },
+    { value: 5, level: ItemLevel.LV1, alias: '鬼人药' }, // 鬼人药
+    { value: 7, level: ItemLevel.LV2, alias: '鬼人药G' }, // 鬼人药G
+    { value: 10, level: ItemLevel.LV3, alias: '鬼人粉尘' } // 鬼人粉尘
+  ]
 }
 
-const MegaDemonDrug: Item = {
+const DangoBooster: Item = {
   id: 5,
-  name: '鬼人药G',
-  effectMode: EffectMode.ATTACK_BOOST,
-  itemType: ItemType.EDIBILITY,
-  calcMethod: CalcMethod.PLUS,
-  value: 7
-}
-
-const DemonPowder: Item = {
-  id: 6,
-  name: '鬼人粉尘',
-  effectMode: EffectMode.ATTACK_BOOST,
-  itemType: ItemType.EDIBILITY,
-  calcMethod: CalcMethod.PLUS,
-  value: 10
-}
-
-const DangoBoosterLv1: Item = {
-  id: 7,
-  name: '催眠薄荷大福Lv1',
+  name: '催眠薄荷大福',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.DANGO,
   calcMethod: CalcMethod.PLUS,
-  value: 6
-}
-
-const DangoBoosterLv2: Item = {
-  id: 8,
-  name: '催眠薄荷大福Lv2',
-  effectMode: EffectMode.ATTACK_BOOST,
-  itemType: ItemType.DANGO,
-  calcMethod: CalcMethod.PLUS,
-  value: 9
-}
-
-const DangoBoosterLv3: Item = {
-  id: 9,
-  name: '催眠薄荷大福Lv3',
-  effectMode: EffectMode.ATTACK_BOOST,
-  itemType: ItemType.DANGO,
-  calcMethod: CalcMethod.PLUS,
-  value: 12
-}
-
-const DangoBoosterLv4: Item = {
-  id: 10,
-  name: '催眠薄荷大福Lv4',
-  effectMode: EffectMode.ATTACK_BOOST,
-  itemType: ItemType.DANGO,
-  calcMethod: CalcMethod.PLUS,
-  value: 15
+  levelValues: [
+    { level: ItemLevel.UNKNOWN, value: 0, alias: '无' },
+    { value: 6, level: ItemLevel.LV1 },
+    { value: 9, level: ItemLevel.LV2 },
+    { value: 12, level: ItemLevel.LV3 },
+    { value: 15, level: ItemLevel.LV4 }
+  ]
 }
 
 const Petalace: Item = {
-  id: 11,
+  id: 6,
   name: '花链',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  value: 20
+  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0 }, { value: 20 }]
 }
 
 // {item.id: item}
@@ -143,12 +125,7 @@ const allItemsMap: Map<number, Item> = new Map([
   [PowerTalon.id, PowerTalon],
   [MightSeed.id, MightSeed],
   [DemonDrug.id, DemonDrug],
-  [MegaDemonDrug.id, MegaDemonDrug],
-  [DemonPowder.id, DemonPowder],
-  [DangoBoosterLv1.id, DangoBoosterLv1],
-  [DangoBoosterLv2.id, DangoBoosterLv2],
-  [DangoBoosterLv3.id, DangoBoosterLv3],
-  [DangoBoosterLv4.id, DangoBoosterLv4],
+  [DangoBooster.id, DangoBooster],
   [Petalace.id, Petalace]
 ])
 
@@ -156,21 +133,14 @@ export default {
   allItemsMap,
   PowerCharm,
   PowerTalon,
-  DemonPowder,
   MightSeed,
-  MegaDemonDrug,
   DemonDrug,
-  DangoBoosterLv1,
-  DangoBoosterLv2,
-  DangoBoosterLv3,
-  DangoBoosterLv4,
+  DangoBooster,
   Petalace,
 
   getItemByType(type: ItemType): Array<Item> {
     const allItems = [...allItemsMap.values()]
-    // const item = allItems.find((i) => i.itemType == type)
     const items = allItems.filter((i) => i.itemType == type)
-    console.log('items, ====', items)
 
     if (!items) {
       throw new TypeError('Unknown item type: ' + type)
@@ -187,4 +157,4 @@ export default {
   }
 }
 
-export { type Item, ItemType }
+export { type Item, ItemType, ItemLevel, type LevelValue }

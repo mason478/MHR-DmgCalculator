@@ -83,7 +83,7 @@ export interface Skill {
   // the attack type that the skill affects
   attackType: AttackType
   scope: Scope
-  levelValue: Array<LevelValue>
+  levelValues: Array<LevelValue>
   // if not null, the skill will be activated when the precondition is met
   preCondition?: Precondition
   availableWeaponTypes?: Array<WeaponType>
@@ -95,7 +95,12 @@ const AttackBoost: Skill = {
   category: Category.ATTACK,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
-  levelValue: [
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
     {
       level: Level.LEVEL1,
       valueP: 3,
@@ -144,7 +149,12 @@ const CriticalEyes: Skill = {
   category: Category.CRITICAL_RATE,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
-  levelValue: [
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
     {
       level: Level.LEVEL1,
       calcMethod: CalcMethod.PLUS,
@@ -188,7 +198,12 @@ const CriticalBoost: Skill = {
   category: Category.CRITICAL_ENFORCEMENT,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
-  levelValue: [
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
     {
       level: Level.LEVEL1,
       calcMethod: CalcMethod.PLUS,

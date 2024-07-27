@@ -10,16 +10,17 @@ import {
   type LevelValue
 } from '../scripts/data/Skills'
 
-const attackBoostLv = ref<SkillLevel>()
-const criticalEyesLv = ref<SkillLevel>()
-const criticalBoostLv = ref<SkillLevel>()
+const attackBoostLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
+const criticalEyesLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
+const criticalBoostLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
 
 const skillsLevels: Array<Ref> = [attackBoostLv, criticalEyesLv, criticalBoostLv]
+const skills: Array<Skill> = []
 
 const emitSkills = defineEmits(['skills'])
 
 function findLevelValue(skill: Skill, level: SkillLevel): LevelValue | undefined {
-  for (const levelValue of skill.levelValue) {
+  for (const levelValue of skill.levelValues) {
     if (levelValue.level == level) {
       return levelValue
     }
@@ -30,17 +31,22 @@ function makeSkill(skill: Skill, level: SkillLevel): Skill {
   let newSkill = structuredClone(skill)
   const levelValue = findLevelValue(skill, level)
 
-  newSkill.levelValue = levelValue ? [levelValue] : []
+  newSkill.levelValues = levelValue ? [levelValue] : []
   return newSkill
 }
 
-function onSelect(skill: Skill) {
-  let skills: Array<Skill> = []
-  for (var sl of skillsLevels) {
-    if (sl.value != undefined) {
-      skills.push(makeSkill(skill, sl.value))
-    }
+function replaceOrAddSkill(skill: Skill, lv: SkillLevel) {
+  let sk = makeSkill(skill, lv)
+  const idx = skills.findIndex((s) => s.id == sk.id)
+  if (idx != -1) {
+    skills[idx] = sk
+  } else {
+    skills.push(sk)
   }
+}
+
+function onSelect(skill: Skill, lv: SkillLevel) {
+  replaceOrAddSkill(skill, lv)
   emitSkills('skills', skills)
 }
 </script>
@@ -57,14 +63,14 @@ function onSelect(skill: Skill) {
         id="attackBoostLv"
         name="attackBoostLv"
         v-model="attackBoostLv"
-        @change="onSelect(AttackBoost)"
+        @change="onSelect(AttackBoost, attackBoostLv)"
         placeholder="选择攻击技能"
       >
         <el-option
-          v-for="lv in AttackBoost.levelValue"
+          v-for="lv in AttackBoost.levelValues"
           :key="lv.level"
           :value="lv.level"
-          :label="lv ? AttackBoost.name + 'Lv' + lv.level : '无'"
+          :label="lv.level == SkillLevel.UNKNOWN ? '无' : AttackBoost.name + 'Lv' + lv.level"
         />
       </el-select>
 
@@ -73,14 +79,14 @@ function onSelect(skill: Skill) {
         id="criticalEyesLv"
         name="criticalEyesLv"
         v-model="criticalEyesLv"
-        @change="onSelect(CriticalEyes)"
+        @change="onSelect(CriticalEyes, criticalEyesLv)"
         placeholder="选择看破等级"
       >
         <el-option
-          v-for="lv in CriticalEyes.levelValue"
+          v-for="lv in CriticalEyes.levelValues"
           :key="lv.level"
           :value="lv.level"
-          :label="CriticalEyes.name + 'Lv' + lv.level"
+          :label="lv.level == SkillLevel.UNKNOWN ? '无' : CriticalEyes.name + 'Lv' + lv.level"
         />
       </el-select>
 
@@ -89,14 +95,14 @@ function onSelect(skill: Skill) {
         id="criticalBoostLv"
         name="criticalBoostLv"
         v-model="criticalBoostLv"
-        @change="onSelect(CriticalBoost)"
+        @change="onSelect(CriticalBoost, criticalBoostLv)"
         placeholder="选择超会心等级"
       >
         <el-option
-          v-for="lv in CriticalBoost.levelValue"
+          v-for="lv in CriticalBoost.levelValues"
           :key="lv.level"
           :value="lv.level"
-          :label="CriticalBoost.name + 'Lv' + lv.level"
+          :label="lv.level == SkillLevel.UNKNOWN ? '无' : CriticalBoost.name + 'Lv' + lv.level"
         />
       </el-select>
     </form>
