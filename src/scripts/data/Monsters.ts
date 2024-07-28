@@ -351,7 +351,109 @@ const Rathalos: Monster = {
   ]
 }
 
-const Rathalos: Monster = {}
+const Rajang: Monster = {
+  id: 4,
+  // Rajang (金獅子)
+  name: '金獅子',
+  parts: [
+    {
+      id: 1,
+      // head
+      name: '头',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 65],
+        [PhysicsAttackType.HITTING, 67],
+        [PhysicsAttackType.SHOTTING, 55]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 30]
+      ])
+    },
+    {
+      id: 2,
+      // body
+      name: '身体',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 45],
+        [PhysicsAttackType.SHOTTING, 35]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 15]
+      ])
+    },
+    {
+      id: 3,
+      // front foot
+      name: '前脚1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 45],
+        [PhysicsAttackType.SHOTTING, 40]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 15]
+      ])
+    },
+    {
+      id: 4,
+      name: '前脚2（硬化）',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 10],
+        [PhysicsAttackType.HITTING, 10],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 15]
+      ])
+    },
+    {
+      id: 5,
+      name: '后脚',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 35],
+        [PhysicsAttackType.HITTING, 35],
+        [PhysicsAttackType.SHOTTING, 15]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 15]
+      ])
+    },
+    {
+      id: 6,
+      // tail
+      name: '尾1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 35],
+        [PhysicsAttackType.HITTING, 32],
+        [PhysicsAttackType.SHOTTING, 25]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 15]
+      ])
+    },
+    {
+      id: 7,
+      name: '尾2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 65],
+        [PhysicsAttackType.HITTING, 65],
+        [PhysicsAttackType.SHOTTING, 55]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.WATER, 5],
+        [ElementType.ICE, 25]
+      ])
+    }
+  ]
+}
 
 // All monsters data --end--
 
