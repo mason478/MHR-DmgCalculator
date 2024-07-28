@@ -652,9 +652,9 @@ const huntingHorn: Weapon = {
   motions: [
     {
       id: 1,
-      name: '直斩',
-      attackType: PhysicsAttackType.SLASHING,
-      motionValue: 48
+      name: '左/右挥',
+      attackType: PhysicsAttackType.HITTING,
+      motionValue: 36
     }
   ]
 }
@@ -665,9 +665,45 @@ const switchAxe: Weapon = {
   motions: [
     {
       id: 1,
-      name: '直斩',
+      name: '斧 直斩',
       attackType: PhysicsAttackType.SLASHING,
-      motionValue: 48
+      motionValue: 50
+    },
+    {
+      id: 2,
+      name: '斧 横斩/剑 变形斩',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 23
+    },
+    {
+      id: 3,
+      name: '斧 突进斩',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 19
+    },
+    {
+      id: 4,
+      name: '斧 挥舞(左/右)',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 22
+    },
+    {
+      id: 5,
+      name: '剑 直斩/斧 变形斩',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 32
+    },
+    {
+      id: 6,
+      name: '剑 上捞斩(左/右)',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 25
+    },
+    {
+      id: 7,
+      name: '剑 跳跃斩/斧 跳跃变形斩',
+      attackType: PhysicsAttackType.SLASHING,
+      motionValue: 32
     }
   ]
 }
