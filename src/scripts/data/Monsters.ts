@@ -351,6 +351,8 @@ const Rathalos: Monster = {
   ]
 }
 
+const Rathalos: Monster = {}
+
 // All monsters data --end--
 
 export const allMonstersMap = new Map<number, Monster>([
