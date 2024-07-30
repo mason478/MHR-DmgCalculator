@@ -93,28 +93,33 @@ function onInputElementAttack() {
       <img :src="`/icons/weapons/weapon.png`" class="header-icon" />
       <h1 class="header-title">武器信息</h1>
     </div>
-    <form id="weaponForm">
-      <label for="weaponType">武器类型</label>
-      <el-select
-        id="weaponType"
-        name="weaponType"
-        v-model="wt"
-        @change="onSelectWeapon"
-        placeholder="请选择一种武器"
+    <el-form id="weaponForm">
+      <el-form-item
+        label="武器类型"
+        :rules="[{ required: true, message: '请选择一个选项', trigger: 'change' }]"
       >
-        <el-option
-          v-for="t in allWeaponTypes"
-          :key="t"
-          :value="t"
-          :label="weaponData.getWeaponByType(t).name"
+        <el-select
+          id="weaponType"
+          name="weaponType"
+          v-model="wt"
+          @change="onSelectWeapon"
+          placeholder="请选择一种武器"
         >
-          <img
-            :src="`${weaponIconBaseUrl}${weaponData.getWeaponByType(t).name}.png`"
-            class="select-icon"
-          />
-          <span class="select-label">{{ weaponData.getWeaponByType(t).name }}</span>
-        </el-option>
-      </el-select>
+          <el-option
+            v-for="t in allWeaponTypes"
+            :key="t"
+            :value="t"
+            :label="weaponData.getWeaponByType(t).name"
+          >
+            <img
+              :src="`${weaponIconBaseUrl}${weaponData.getWeaponByType(t).name}.png`"
+              class="select-icon"
+            />
+            <span class="select-label">{{ weaponData.getWeaponByType(t).name }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <label for="weaponType"></label> -->
 
       <label for="motionType">武器动作</label>
       <el-select
@@ -214,7 +219,7 @@ function onInputElementAttack() {
       >
         <template #append>%</template> </el-input
       ><br /><br />
-    </form>
+    </el-form>
   </div>
 </template>
 

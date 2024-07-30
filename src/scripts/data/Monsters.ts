@@ -4254,7 +4254,7 @@ const Gaismagorm: Monster = {
 }
 
 const Amastu: Monster = {
-  id: 25,
+  id: 24,
   name: '岚龙',
   parts: [
     {
@@ -4508,7 +4508,8 @@ export const allMonstersMap = new Map<number, Monster>([
   [Zinogre.id, Zinogre],
   [CrimsonGlowValstrax.id, CrimsonGlowValstrax],
   [PrimordialMalzeno.id, PrimordialMalzeno],
-  [Gaismagorm.id, Gaismagorm]
+  [Gaismagorm.id, Gaismagorm],
+  [Amastu.id, Amastu]
 ])
 
 export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())
