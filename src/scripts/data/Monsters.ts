@@ -3948,6 +3948,541 @@ const CrimsonGlowValstrax: Monster = {
   ]
 }
 
+const PrimordialMalzeno: Monster = {
+  id: 22,
+  name: '爵银龙',
+  parts: [
+    {
+      id: 1,
+      name: '頭部1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 46],
+        [PhysicsAttackType.HITTING, 48],
+        [PhysicsAttackType.SHOTTING, 45]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 15],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 2,
+      name: '頭部2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 55],
+        [PhysicsAttackType.HITTING, 58],
+        [PhysicsAttackType.SHOTTING, 30]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 15],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 20],
+        [ElementType.DRAGON, 30]
+      ])
+    },
+    {
+      id: 3,
+      name: '身体',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 32],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 15]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 4,
+      name: '前脚1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 40],
+        [PhysicsAttackType.SHOTTING, 30]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 20]
+      ])
+    },
+    {
+      id: 5,
+      name: '前脚2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 58],
+        [PhysicsAttackType.HITTING, 55],
+        [PhysicsAttackType.SHOTTING, 45]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 15],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 6,
+      name: '後脚',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 30],
+        [PhysicsAttackType.HITTING, 28],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 7,
+      name: '翼',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 28],
+        [PhysicsAttackType.HITTING, 28],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 8,
+      name: '尾',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 35],
+        [PhysicsAttackType.HITTING, 32],
+        [PhysicsAttackType.SHOTTING, 10]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 9,
+      name: '尾端1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 26],
+        [PhysicsAttackType.HITTING, 22],
+        [PhysicsAttackType.SHOTTING, 10]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 10,
+      name: '尾端2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 50],
+        [PhysicsAttackType.HITTING, 48],
+        [PhysicsAttackType.SHOTTING, 40]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    }
+  ]
+}
+
+const Gaismagorm: Monster = {
+  id: 23,
+  name: '冥渊龙',
+  parts: [
+    {
+      id: 1,
+      name: '头部',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 70],
+        [PhysicsAttackType.HITTING, 72],
+        [PhysicsAttackType.SHOTTING, 45]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 10],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 20],
+        [ElementType.DRAGON, 30]
+      ])
+    },
+    {
+      id: 2,
+      name: '颈部',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 40],
+        [PhysicsAttackType.HITTING, 42],
+        [PhysicsAttackType.SHOTTING, 24]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.THUNDER, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 3,
+      name: '背部',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 20],
+        [PhysicsAttackType.HITTING, 20],
+        [PhysicsAttackType.SHOTTING, 14]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.THUNDER, 5],
+        [ElementType.DRAGON, 10]
+      ])
+    },
+    {
+      id: 4,
+      name: '腹部',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 32],
+        [PhysicsAttackType.HITTING, 34],
+        [PhysicsAttackType.SHOTTING, 16]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.THUNDER, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 5,
+      name: '翼',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 43],
+        [PhysicsAttackType.HITTING, 43],
+        [PhysicsAttackType.SHOTTING, 28]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 6,
+      name: '前肢',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 32],
+        [PhysicsAttackType.HITTING, 32],
+        [PhysicsAttackType.SHOTTING, 20]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 10],
+        [ElementType.DRAGON, 20]
+      ])
+    },
+    {
+      id: 7,
+      name: '后肢',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 26],
+        [PhysicsAttackType.HITTING, 26],
+        [PhysicsAttackType.SHOTTING, 18]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 10],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 8,
+      name: '尾巴',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 32],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 16]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 10],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 9,
+      name: '尾巴尖',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 38],
+        [PhysicsAttackType.SHOTTING, 22]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.THUNDER, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    }
+  ]
+}
+
+const Amastu: Monster = {
+  id: 25,
+  name: '岚龙',
+  parts: [
+    {
+      id: 1,
+      name: '头部1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 55],
+        [PhysicsAttackType.HITTING, 65],
+        [PhysicsAttackType.SHOTTING, 45]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 20],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 10],
+        [ElementType.ICE, 15],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 2,
+      name: '头部2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 65],
+        [PhysicsAttackType.HITTING, 75],
+        [PhysicsAttackType.SHOTTING, 45]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 20],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 15],
+        [ElementType.THUNDER, 10],
+        [ElementType.DRAGON, 25]
+      ])
+    },
+    {
+      id: 3,
+      name: '前腿1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 45],
+        [PhysicsAttackType.SHOTTING, 15]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 20],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 10],
+        [ElementType.THUNDER, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 4,
+      name: '前腿2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 45],
+        [PhysicsAttackType.HITTING, 45],
+        [PhysicsAttackType.SHOTTING, 15]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 20],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 10],
+        [ElementType.THUNDER, 5],
+        [ElementType.DRAGON, 15]
+      ])
+    },
+    {
+      id: 5,
+      name: '腹部1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 40],
+        [PhysicsAttackType.HITTING, 40],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 0],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+
+    {
+      id: 6,
+      name: '腹部2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 40],
+        [PhysicsAttackType.HITTING, 40],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 0],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+    {
+      id: 7,
+      name: '尾巴1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 40],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 35]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 15],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.THUNDER, 0],
+        [ElementType.DRAGON, 10]
+      ])
+    },
+    {
+      id: 8,
+      name: '尾巴2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 40],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 35]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 15],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.THUNDER, 0],
+        [ElementType.DRAGON, 10]
+      ])
+    },
+    {
+      id: 9,
+      name: '背部1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 30],
+        [PhysicsAttackType.HITTING, 25],
+        [PhysicsAttackType.SHOTTING, 10]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+    {
+      id: 10,
+      name: '背部2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 30],
+        [PhysicsAttackType.HITTING, 25],
+        [PhysicsAttackType.SHOTTING, 10]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 5],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+    {
+      id: 11,
+      name: '颈部1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 35],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 0],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+    {
+      id: 12,
+      name: '颈部2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 35],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 5]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 0],
+        [ElementType.WATER, 0],
+        [ElementType.THUNDER, 0],
+        [ElementType.ICE, 0],
+        [ElementType.DRAGON, 5]
+      ])
+    },
+    {
+      id: 13,
+      name: '后腿1',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 25],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 25]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 25],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.THUNDER, 0],
+        [ElementType.DRAGON, 20]
+      ])
+    },
+    {
+      id: 14,
+      name: '后腿2',
+      hitRates: new Map([
+        [PhysicsAttackType.SLASHING, 25],
+        [PhysicsAttackType.HITTING, 30],
+        [PhysicsAttackType.SHOTTING, 25]
+      ]),
+      elementHitRates: new Map([
+        [ElementType.FIRE, 25],
+        [ElementType.WATER, 0],
+        [ElementType.ICE, 5],
+        [ElementType.DRAGON, 20]
+      ])
+    }
+  ]
+}
 // All monsters data --end--
 
 export const allMonstersMap = new Map<number, Monster>([
@@ -3971,7 +4506,9 @@ export const allMonstersMap = new Map<number, Monster>([
   [Tigrex.id, Tigrex],
   [TobiKadachi.id, TobiKadachi],
   [Zinogre.id, Zinogre],
-  [CrimsonGlowValstrax.id, CrimsonGlowValstrax]
+  [CrimsonGlowValstrax.id, CrimsonGlowValstrax],
+  [PrimordialMalzeno.id, PrimordialMalzeno],
+  [Gaismagorm.id, Gaismagorm]
 ])
 
 export const allMonsters: Array<Monster> = Array.from(allMonstersMap.values())
