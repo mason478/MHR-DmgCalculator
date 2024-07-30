@@ -40,7 +40,20 @@ function makeContext(): Context {
   }
 }
 
+const weaponFormRef = ref(null)
+
 function onCalculate() {
+  console.log('onCalculate', weaponFormRef.value.formData)
+  weaponFormRef.value.weaponForm.validate((valid: boolean) => {
+    if (valid) {
+      alert('submit!')
+    } else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+  let w = weaponFormRef.value.makeWeapon(weaponFormRef.value.formData)
+  console.log('maked a weapon', w)
   const ctx = makeContext()
   console.log('context', ctx)
   const phyDmgCalc = new physicsDamageCalculator(ctx)
@@ -61,7 +74,7 @@ function onCalculate() {
 
 <template>
   <br /><br />
-  <WeaponPanel @weapon="(weapon) => (weaponP = weapon)" />
+  <WeaponPanel @weapon="(weapon) => (weaponP = weapon)" ref="weaponFormRef" />
   <br /><br />
   <MonstersPanel @monster="(monster) => (monsterP = monster)" />
   <br /><br />
