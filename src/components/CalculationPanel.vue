@@ -17,8 +17,6 @@ import ItemsPanel from './ItemsPanel.vue'
 import OthersPanel from './OthersPanel.vue'
 
 const skillsP = ref<Array<Skill>>([])
-const weaponP = ref<Weapon>()
-const monsterP = ref<Monster>()
 const itemsP = ref<Array<Item>>()
 const othersP = ref<Array<otherFactor>>()
 
@@ -29,18 +27,23 @@ const expectedPhyDmg = ref<number>(0)
 const normalElementDmg = ref<number>(0)
 const criticalElementDmg = ref<number>(0)
 const expectedElementDmg = ref<number>(0)
+const weaponFormRef = ref(null)
+const monsterFormRef = ref(null)
 
 function makeContext(): Context {
+  // @ts-ignore
+  const weapon: Weapon = weaponFormRef.value.makeWeapon(weaponFormRef.value.formData)
+  // @ts-ignore
+  const monster: Monster = monsterFormRef.value.makeMonster()
+
   return {
-    weapon: weaponP.value!,
-    monster: monsterP.value!,
+    weapon: weapon!,
+    monster: monster,
     skills: skillsP.value,
     items: itemsP.value,
     others: othersP.value
   }
 }
-
-const weaponFormRef = ref(null)
 
 function onCalculate() {
   console.log('onCalculate', weaponFormRef.value.formData)
@@ -52,8 +55,6 @@ function onCalculate() {
       return false
     }
   })
-  let w = weaponFormRef.value.makeWeapon(weaponFormRef.value.formData)
-  console.log('maked a weapon', w)
   const ctx = makeContext()
   console.log('context', ctx)
   const phyDmgCalc = new physicsDamageCalculator(ctx)
@@ -74,9 +75,9 @@ function onCalculate() {
 
 <template>
   <br /><br />
-  <WeaponPanel @weapon="(weapon) => (weaponP = weapon)" ref="weaponFormRef" />
+  <WeaponPanel ref="weaponFormRef" />
   <br /><br />
-  <MonstersPanel @monster="(monster) => (monsterP = monster)" />
+  <MonstersPanel ref="monsterFormRef" />
   <br /><br />
   <SkillsPanel @skills="(skills) => (skillsP = skills)" />
   <br /><br />
