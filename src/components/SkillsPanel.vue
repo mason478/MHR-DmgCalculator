@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref, reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import 'element-plus/dist/index.css'
 import { type Skill, SkillLevel, type LevelValue, allSkills } from '../scripts/data/Skills'
 

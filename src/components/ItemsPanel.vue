@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import ItemsData from '../scripts/data/Items'
 import { type Item, ItemType, ItemLevel, type LevelValue } from '../scripts/data/Items'
 
@@ -13,6 +13,9 @@ const dangoLevel = ref<number>(ItemLevel.UNKNOWN)
 let items: Array<Item> = []
 
 const emitItems = defineEmits(['items'])
+
+const itemsForm = ref(null)
+const formData = reactive({})
 
 function onCheck(itemId: number, checked: boolean) {
   const idx = items.findIndex((i) => i.id == itemId)

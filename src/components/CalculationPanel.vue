@@ -16,7 +16,6 @@ import MonstersPanel from './MonstersPanel.vue'
 import ItemsPanel from './ItemsPanel.vue'
 import OthersPanel from './OthersPanel.vue'
 
-const skillsP = ref<Array<Skill>>([])
 const itemsP = ref<Array<Item>>()
 const othersP = ref<Array<otherFactor>>()
 
@@ -41,7 +40,7 @@ function makeContext(): Context {
   const skills: Array<Skill> = skillsFormRef.value.makeSkills()
 
   return {
-    weapon: weapon!,
+    weapon: weapon,
     monster: monster,
     skills: skills,
     items: itemsP.value,
@@ -50,7 +49,7 @@ function makeContext(): Context {
 }
 
 function onCalculate() {
-  console.log('onCalculate', weaponFormRef.value.formData)
+  // @ts-ignore
   weaponFormRef.value.weaponForm.validate()
   const ctx = makeContext()
   console.log('context', ctx)
