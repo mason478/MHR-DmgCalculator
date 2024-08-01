@@ -246,6 +246,7 @@ const CriticalBoost: Skill = {
 //     }
 //   ]
 
+const allSkills: Skill[] = [AttackBoost, CriticalEyes, CriticalBoost]
 export {
   Category as SkillCategory,
   Scope,
@@ -255,5 +256,6 @@ export {
   CriticalBoost,
   BASIC_CRITICAL_CORRECTION,
   BASIC_ELEMENT_CRITICAL_CORRECTION,
-  Level as SkillLevel
+  Level as SkillLevel,
+  allSkills
 }

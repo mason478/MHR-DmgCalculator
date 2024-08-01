@@ -33,24 +33,6 @@ defineExpose({
   formData,
   monsterForm
 })
-
-// var monster = structuredClone(monsterData.getMonsterById(monsterId.value))
-// monster.parts = monsterData.getMonsterPartsByMonsterId(monsterId.value)
-// const emitMonster = defineEmits(['monster'])
-//
-// emitMonster('monster', monster)
-// function onSelect() {
-// if (!monsterId.value) return
-//
-// monster = structuredClone(monsterData.getMonsterById(monsterId.value))
-// let parts = monsterData.getMonsterPartsByMonsterId(monsterId.value)
-// let p = parts.find((p) => p.id == monsterPartId.value)
-// if (p) {
-// monster.parts = [p]
-// }
-// monster.status = status.value
-// emitMonster('monster', monster)
-// }
 </script>
 
 <template>
@@ -60,7 +42,7 @@ defineExpose({
       <h1 class="header-title">怪物信息</h1>
     </div>
 
-    <el-form id="monsterForm" ref="monsterForm" :model="formData" label-position="top">
+    <el-form id="monsterForm" :ref="monsterForm" :model="formData" label-position="top">
       <el-form-item label="怪物" prop="monster">
         <el-select id="monster" v-model="formData.monsterId" placeholder="请选择狩猎的怪物">
           <el-option v-for="m in allMonsters" :key="m.id" :label="m.name" :value="m.id" />

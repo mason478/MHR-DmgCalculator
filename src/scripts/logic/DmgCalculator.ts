@@ -71,7 +71,7 @@ abstract class C {
     const skills = this.findSkills(SkillCategory.CRITICAL_RATE, Scope.PARTIAL)
 
     for (const skill of skills) {
-      for (const levelValue of skill.levelValue) {
+      for (const levelValue of skill.levelValues) {
         if (levelValue.calcMethod === CalcMethod.PLUS && levelValue.valueP != undefined) {
           criticalRate += levelValue.valueP
         }
@@ -104,7 +104,7 @@ class physicsDamageCalculator extends C {
   private calcSkillsMultiCorrection(skills: Array<Skill>): number {
     let total: number = 1
     for (const skill of skills) {
-      for (const levelValue of skill.levelValue) {
+      for (const levelValue of skill.levelValues) {
         if (
           (levelValue.calcMethod === CalcMethod.MULTI || levelValue.calcMethod == CalcMethod.MIX) &&
           levelValue.valueM != undefined
@@ -139,7 +139,7 @@ class physicsDamageCalculator extends C {
     //  skills that affect attack
     const attackSkills = this.findSkills(SkillCategory.ATTACK, Scope.PARTIAL)
     for (const skill of attackSkills) {
-      for (const levelValue of skill.levelValue) {
+      for (const levelValue of skill.levelValues) {
         if (
           (levelValue.calcMethod === CalcMethod.PLUS || levelValue.calcMethod === CalcMethod.MIX) &&
           levelValue.valueP != undefined
@@ -226,7 +226,7 @@ class physicsDamageCalculator extends C {
     let boost: number = 0
 
     if (skills.length != 0) {
-      boost = skills[0].levelValue[0].valueP ?? 0
+      boost = skills[0].levelValues[0].valueP ?? 0
     }
     return [
       BASIC_CRITICAL_CORRECTION + boost,
@@ -323,7 +323,7 @@ class elementDamageCalculator extends C {
     let boost: number = 0
 
     if (skills.length != 0) {
-      boost = skills[0].levelValue[0].valueP ?? 0
+      boost = skills[0].levelValues[0].valueP ?? 0
     }
     return [
       BASIC_ELEMENT_CRITICAL_CORRECTION + boost,

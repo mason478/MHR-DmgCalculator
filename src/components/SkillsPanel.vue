@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, reactive } from 'vue'
 import 'element-plus/dist/index.css'
-import {
-  AttackBoost,
-  type Skill,
-  CriticalEyes,
-  CriticalBoost,
-  SkillLevel,
-  type LevelValue
-} from '../scripts/data/Skills'
+import { type Skill, SkillLevel, type LevelValue, allSkills } from '../scripts/data/Skills'
 
-const attackBoostLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
-const criticalEyesLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
-const criticalBoostLv = ref<SkillLevel>(SkillLevel.UNKNOWN)
+interface SelectedSkill {
+  skill: Skill
+  lv: SkillLevel
+}
 
-const skillsLevels: Array<Ref> = [attackBoostLv, criticalEyesLv, criticalBoostLv]
-const skills: Array<Skill> = []
+interface FormData {
+  selectedSkills: Array<SelectedSkill>
+}
 
-const emitSkills = defineEmits(['skills'])
+const selectedSkillsDefault: Array<SelectedSkill> = []
+for (const skill of allSkills) {
+  selectedSkillsDefault.push({ skill: structuredClone(skill), lv: SkillLevel.UNKNOWN })
+}
+
+const skillsForm = ref(null)
+const skillsFormData = reactive<FormData>({
+  selectedSkills: selectedSkillsDefault
+})
 
 function findLevelValue(skill: Skill, level: SkillLevel): LevelValue | undefined {
   for (const levelValue of skill.levelValues) {
@@ -27,28 +30,20 @@ function findLevelValue(skill: Skill, level: SkillLevel): LevelValue | undefined
   }
 }
 
-function makeSkill(skill: Skill, level: SkillLevel): Skill {
-  let newSkill = structuredClone(skill)
-  const levelValue = findLevelValue(skill, level)
-
-  newSkill.levelValues = levelValue ? [levelValue] : []
-  return newSkill
-}
-
-function replaceOrAddSkill(skill: Skill, lv: SkillLevel) {
-  let sk = makeSkill(skill, lv)
-  const idx = skills.findIndex((s) => s.id == sk.id)
-  if (idx != -1) {
-    skills[idx] = sk
-  } else {
-    skills.push(sk)
+function makeSkills(): Array<Skill> {
+  let skills: Array<Skill> = []
+  for (const s of skillsFormData.selectedSkills) {
+    const levelValue = findLevelValue(s.skill, s.lv)
+    s.skill.levelValues = levelValue ? [levelValue] : []
+    skills.push(s.skill)
   }
+  return skills
 }
 
-function onSelect(skill: Skill, lv: SkillLevel) {
-  replaceOrAddSkill(skill, lv)
-  emitSkills('skills', skills)
-}
+defineExpose({
+  makeSkills,
+  skillsForm
+})
 </script>
 
 <template>
@@ -57,54 +52,20 @@ function onSelect(skill: Skill, lv: SkillLevel) {
       <img :src="`/icons/increased_attack.png`" class="header-icon" />
       <h1 class="header-title">技能</h1>
     </div>
-    <form id="skills">
-      <label for="attackBoostLv">攻击</label>
-      <el-select
-        id="attackBoostLv"
-        name="attackBoostLv"
-        v-model="attackBoostLv"
-        @change="onSelect(AttackBoost, attackBoostLv)"
-        placeholder="选择攻击技能"
-      >
-        <el-option
-          v-for="lv in AttackBoost.levelValues"
-          :key="lv.level"
-          :value="lv.level"
-          :label="lv.level == SkillLevel.UNKNOWN ? '无' : AttackBoost.name + 'Lv' + lv.level"
-        />
-      </el-select>
-
-      <label for="criticalEyesLv">看破</label>
-      <el-select
-        id="criticalEyesLv"
-        name="criticalEyesLv"
-        v-model="criticalEyesLv"
-        @change="onSelect(CriticalEyes, criticalEyesLv)"
-        placeholder="选择看破等级"
-      >
-        <el-option
-          v-for="lv in CriticalEyes.levelValues"
-          :key="lv.level"
-          :value="lv.level"
-          :label="lv.level == SkillLevel.UNKNOWN ? '无' : CriticalEyes.name + 'Lv' + lv.level"
-        />
-      </el-select>
-
-      <label>超会心</label>
-      <el-select
-        id="criticalBoostLv"
-        name="criticalBoostLv"
-        v-model="criticalBoostLv"
-        @change="onSelect(CriticalBoost, criticalBoostLv)"
-        placeholder="选择超会心等级"
-      >
-        <el-option
-          v-for="lv in CriticalBoost.levelValues"
-          :key="lv.level"
-          :value="lv.level"
-          :label="lv.level == SkillLevel.UNKNOWN ? '无' : CriticalBoost.name + 'Lv' + lv.level"
-        />
-      </el-select>
-    </form>
+    <el-form label-position="top" :ref="skillsForm" :model="skillsFormData">
+      <el-form-item v-for="skill in allSkills" :key="skill.id" :label="skill.name">
+        <el-select
+          placeholder="请选择"
+          v-model="skillsFormData.selectedSkills[allSkills.indexOf(skill)].lv"
+        >
+          <el-option
+            v-for="lv in skill.levelValues"
+            :key="lv.level"
+            :value="lv.level"
+            :label="lv.level == SkillLevel.UNKNOWN ? '无' : skill.name + 'Lv' + lv.level"
+          />
+        </el-select>
+      </el-form-item>
+    </el-form>
   </div>
 </template>

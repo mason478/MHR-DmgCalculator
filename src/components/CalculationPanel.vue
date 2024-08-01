@@ -27,19 +27,23 @@ const expectedPhyDmg = ref<number>(0)
 const normalElementDmg = ref<number>(0)
 const criticalElementDmg = ref<number>(0)
 const expectedElementDmg = ref<number>(0)
+
 const weaponFormRef = ref(null)
 const monsterFormRef = ref(null)
+const skillsFormRef = ref(null)
 
 function makeContext(): Context {
   // @ts-ignore
   const weapon: Weapon = weaponFormRef.value.makeWeapon(weaponFormRef.value.formData)
   // @ts-ignore
   const monster: Monster = monsterFormRef.value.makeMonster()
+  // @ts-ignore
+  const skills: Array<Skill> = skillsFormRef.value.makeSkills()
 
   return {
     weapon: weapon!,
     monster: monster,
-    skills: skillsP.value,
+    skills: skills,
     items: itemsP.value,
     others: othersP.value
   }
@@ -47,14 +51,7 @@ function makeContext(): Context {
 
 function onCalculate() {
   console.log('onCalculate', weaponFormRef.value.formData)
-  weaponFormRef.value.weaponForm.validate((valid: boolean) => {
-    if (valid) {
-      alert('submit!')
-    } else {
-      console.log('error submit!!')
-      return false
-    }
-  })
+  weaponFormRef.value.weaponForm.validate()
   const ctx = makeContext()
   console.log('context', ctx)
   const phyDmgCalc = new physicsDamageCalculator(ctx)
@@ -79,7 +76,7 @@ function onCalculate() {
   <br /><br />
   <MonstersPanel ref="monsterFormRef" />
   <br /><br />
-  <SkillsPanel @skills="(skills) => (skillsP = skills)" />
+  <SkillsPanel ref="skillsFormRef" />
   <br /><br />
   <ItemsPanel @items="(items) => (itemsP = items)" />
   <br /><br />
