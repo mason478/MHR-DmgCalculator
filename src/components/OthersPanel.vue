@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 import {
   getOtherFactorsById,
@@ -16,6 +16,9 @@ var otherFactors: Array<otherFactor> = [
   getOtherFactorsById(bowDistanceId.value),
   getOtherFactorsById(bowBottleId.value)
 ]
+
+const weaponForm = ref(null)
+const formData = reactive({})
 
 const emitOthers = defineEmits(['others'])
 

@@ -16,7 +16,6 @@ import MonstersPanel from './MonstersPanel.vue'
 import ItemsPanel from './ItemsPanel.vue'
 import OthersPanel from './OthersPanel.vue'
 
-const itemsP = ref<Array<Item>>()
 const othersP = ref<Array<otherFactor>>()
 
 const normalPhyDmg = ref<number>(0)
@@ -30,6 +29,7 @@ const expectedElementDmg = ref<number>(0)
 const weaponFormRef = ref(null)
 const monsterFormRef = ref(null)
 const skillsFormRef = ref(null)
+const itemsFormRef = ref(null)
 
 function makeContext(): Context {
   // @ts-ignore
@@ -38,12 +38,14 @@ function makeContext(): Context {
   const monster: Monster = monsterFormRef.value.makeMonster()
   // @ts-ignore
   const skills: Array<Skill> = skillsFormRef.value.makeSkills()
+  // @ts-ignore
+  const items: Array<Item> = itemsFormRef.value.makeItems()
 
   return {
     weapon: weapon,
     monster: monster,
     skills: skills,
-    items: itemsP.value,
+    items: items,
     others: othersP.value
   }
 }
@@ -77,7 +79,7 @@ function onCalculate() {
   <br /><br />
   <SkillsPanel ref="skillsFormRef" />
   <br /><br />
-  <ItemsPanel @items="(items) => (itemsP = items)" />
+  <ItemsPanel ref="itemsFormRef" />
   <br /><br />
   <OthersPanel @others="(others) => (othersP = others)" />
   <br /><br />

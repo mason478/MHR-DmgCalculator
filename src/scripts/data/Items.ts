@@ -60,7 +60,7 @@ const PowerCharm: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 6 }]
+  levelValues: [{ value: 6 }]
 }
 
 const PowerTalon: Item = {
@@ -69,7 +69,7 @@ const PowerTalon: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 9 }]
+  levelValues: [{ value: 9 }]
 }
 
 const MightSeed: Item = {
@@ -78,7 +78,7 @@ const MightSeed: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.EDIBILITY,
   calcMethod: CalcMethod.PLUS,
-  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0, alias: '无' }, { value: 10 }]
+  levelValues: [{ value: 10 }]
 }
 
 const DemonDrug: Item = {

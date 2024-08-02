@@ -152,7 +152,7 @@ class physicsDamageCalculator extends C {
     // calculate items that affect attack
     if (this.ctx.items != undefined) {
       for (const item of this.ctx.items) {
-        total += item.value
+        total += item.levelValues[0].value
       }
     }
 
@@ -244,6 +244,12 @@ class physicsDamageCalculator extends C {
     //and some other correction
     if (this.ctx.others != undefined) {
       for (const other of this.ctx.others) {
+        if (
+          other.exclusiveWeaponTypes != undefined &&
+          !other.exclusiveWeaponTypes.includes(weapon.weaponType)
+        ) {
+          continue
+        }
         total *= other.physicsCorrection
       }
     }

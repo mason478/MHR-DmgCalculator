@@ -53,7 +53,6 @@ function makeWeapon(formData: FormData): Weapon {
     throw new Error('weaponType is not selected')
   }
   const newWeapon = structuredClone(weaponData.getWeaponByType(formData.weaponType))
-  console.log('newWeapon', newWeapon)
 
   const motions = weaponData.getWeaponMotionsByWeaponType(formData.motionId)
   const motion = motions.find((m) => m.id == formData.motionId)

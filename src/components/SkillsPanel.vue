@@ -22,20 +22,28 @@ const skillsFormData = reactive<FormData>({
   selectedSkills: selectedSkillsDefault
 })
 
-function findLevelValue(skill: Skill, level: SkillLevel): LevelValue | undefined {
+function findLevelValue(skill: Skill, level: SkillLevel): LevelValue {
+  let result = undefined
   for (const levelValue of skill.levelValues) {
     if (levelValue.level == level) {
-      return levelValue
+      result = levelValue
+      break
     }
   }
+  if (result == undefined) {
+    throw new Error('Unknown skill level: ' + level)
+  }
+  return result
 }
 
 function makeSkills(): Array<Skill> {
   let skills: Array<Skill> = []
   for (const s of skillsFormData.selectedSkills) {
     const levelValue = findLevelValue(s.skill, s.lv)
-    s.skill.levelValues = levelValue ? [levelValue] : []
-    skills.push(s.skill)
+    if (levelValue?.level != SkillLevel.UNKNOWN) {
+      s.skill.levelValues = [levelValue]
+      skills.push(s.skill)
+    }
   }
   return skills
 }
