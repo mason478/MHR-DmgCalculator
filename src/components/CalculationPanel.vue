@@ -16,8 +16,6 @@ import MonstersPanel from './MonstersPanel.vue'
 import ItemsPanel from './ItemsPanel.vue'
 import OthersPanel from './OthersPanel.vue'
 
-const othersP = ref<Array<otherFactor>>()
-
 const normalPhyDmg = ref<number>(0)
 const criticalPhyDmg = ref<number>(0)
 const expectedPhyDmg = ref<number>(0)
@@ -30,6 +28,7 @@ const weaponFormRef = ref(null)
 const monsterFormRef = ref(null)
 const skillsFormRef = ref(null)
 const itemsFormRef = ref(null)
+const othersFormRef = ref(null)
 
 function makeContext(): Context {
   // @ts-ignore
@@ -40,13 +39,15 @@ function makeContext(): Context {
   const skills: Array<Skill> = skillsFormRef.value.makeSkills()
   // @ts-ignore
   const items: Array<Item> = itemsFormRef.value.makeItems()
+  // @ts-ignore
+  const others: Array<otherFactor> = othersFormRef.value.makeOtherFactors()
 
   return {
     weapon: weapon,
     monster: monster,
     skills: skills,
     items: items,
-    others: othersP.value
+    others: others
   }
 }
 
@@ -81,7 +82,7 @@ function onCalculate() {
   <br /><br />
   <ItemsPanel ref="itemsFormRef" />
   <br /><br />
-  <OthersPanel @others="(others) => (othersP = others)" />
+  <OthersPanel ref="othersFormRef" />
   <br /><br />
   <div class="inline-flex fixed-box">
     <h1>计算结果</h1>
