@@ -4,17 +4,24 @@ import { MonsterStatus, allMonsters, type Monster } from '@/scripts/data/Monster
 import monsterData from '@/scripts/data/Monsters'
 
 const monsterForm = ref(null)
+const otherValue = ref('')
+
+const CUSTOM_MONSTER_ID = -1
 
 interface FormData {
   monsterId: number
   status: MonsterStatus
   monsterPartId: number
+  customHitRates?: number
+  customElementHitRates?: number
 }
 
 const formData = reactive<FormData>({
   monsterId: 1,
   status: MonsterStatus.NORMAL,
-  monsterPartId: 1
+  monsterPartId: 1,
+  customHitRates: 0,
+  customElementHitRates: 0
 })
 
 function makeMonster(): Monster {
@@ -46,9 +53,14 @@ defineExpose({
       <el-form-item label="怪物" prop="monster">
         <el-select id="monster" v-model="formData.monsterId" placeholder="请选择狩猎的怪物">
           <el-option v-for="m in allMonsters" :key="m.id" :label="m.name" :value="m.id" />
+          <el-option :value="CUSTOM_MONSTER_ID" label="自定义">自定义</el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="怪物部位" prop="monsterPartId">
+      <el-form-item
+        label="怪物部位"
+        prop="monsterPartId"
+        v-if="formData.monsterId != CUSTOM_MONSTER_ID"
+      >
         <el-select v-model="formData.monsterPartId" placeholder="请选择怪物部位">
           <el-option
             v-for="mp in monsterData.getMonsterPartsByMonsterId(
@@ -59,6 +71,21 @@ defineExpose({
             :value="mp.id"
           />
         </el-select>
+      </el-form-item>
+
+      <el-form-item label="自定义部位肉质" v-if="formData.monsterId === CUSTOM_MONSTER_ID">
+        <el-input
+          v-model="formData.customHitRates"
+          placeholder="请输入部位肉质"
+          type="number"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="自定义部位属性肉质" v-if="formData.monsterId === CUSTOM_MONSTER_ID">
+        <el-input
+          v-model="formData.customElementHitRates"
+          placeholder="请输入部位属性肉质"
+          type="number"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="怪物状态" prop="status">
