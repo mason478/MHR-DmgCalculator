@@ -16,6 +16,7 @@ const weaponIconBaseUrl = '/icons/weapons/'
 const elementIconBaseUrl = '/icons/elements/'
 
 const weaponForm = ref(null)
+const CUSTOMIZED_MOTION_ID = -1
 
 interface FormData {
   weaponType: WeaponType | undefined
@@ -25,6 +26,7 @@ interface FormData {
   element: ElementType
   elementAttack: number
   criticalRate: number
+  customizedMotionValue: number
 }
 
 let formData = reactive<FormData>({
@@ -34,7 +36,8 @@ let formData = reactive<FormData>({
   rawAttack: 0,
   element: ElementType.UNKNOWN,
   elementAttack: 0,
-  criticalRate: 0
+  criticalRate: 0,
+  customizedMotionValue: 0
 })
 
 const sharpnessColormap = new Map<Sharpness, string>([
@@ -125,7 +128,17 @@ defineExpose({
             :label="m.name"
           >
           </el-option>
+          <el-option :value="CUSTOMIZED_MOTION_ID" label="自定义">自定义</el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="自定义武器动作值" v-if="formData.motionId == CUSTOMIZED_MOTION_ID">
+        <el-input
+          label="自定义动作值"
+          placeholder="请输入自定义动作值"
+          v-model.number="formData.customizedMotionValue"
+          type="number"
+          min="0"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="武器斩味（锋利度）" prop="sharpness">
