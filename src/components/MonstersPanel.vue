@@ -38,11 +38,11 @@ function makeCustomizedMonster(): Monster {
           [PhysicsAttackType.SHOTTING, formData.customizedHitRates]
         ]),
         elementHitRates: new Map([
-          [ElementType.FIRE, formData.customElementHitRates],
-          [ElementType.WATER, formData.customElementHitRates],
-          [ElementType.THUNDER, formData.customElementHitRates],
-          [ElementType.ICE, formData.customElementHitRates],
-          [ElementType.DRAGON, formData.customElementHitRates]
+          [ElementType.FIRE, formData.customizedElementHitRates],
+          [ElementType.WATER, formData.customizedElementHitRates],
+          [ElementType.THUNDER, formData.customizedElementHitRates],
+          [ElementType.ICE, formData.customizedElementHitRates],
+          [ElementType.DRAGON, formData.customizedElementHitRates]
         ])
       }
     ]

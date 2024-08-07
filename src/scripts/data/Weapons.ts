@@ -38,9 +38,6 @@ export interface WeaponMotion {
   // element damage correction of the motion
   elementCorrection?: number
   abnormalStatusCorrection?: number
-  // physic damage correction of the motion, optional
-  // TODO: should be deleted?
-  physicsCorrection?: number
   // extra physics damage correction, optional
   extraPhysicsCorrection?: number
 }

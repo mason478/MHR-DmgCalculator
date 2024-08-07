@@ -8,9 +8,10 @@ import {
   allWeaponTypes,
   allSharpness,
   Sharpness,
-  type Weapon
+  type Weapon,
+  type WeaponMotion
 } from '../scripts/data/Weapons'
-import { elementNamesMap, ElementType } from '../scripts/data/Common'
+import { elementNamesMap, ElementType, PhysicsAttackType } from '../scripts/data/Common'
 
 const weaponIconBaseUrl = '/icons/weapons/'
 const elementIconBaseUrl = '/icons/elements/'
@@ -51,18 +52,32 @@ const sharpnessColormap = new Map<Sharpness, string>([
   [Sharpness.PURPLE, '#CC99FF']
 ])
 
+function makeWeaponMotion(): WeaponMotion {
+  return {
+    id: CUSTOMIZED_MOTION_ID,
+    name: 'CustomizedMotion',
+    attackType: PhysicsAttackType.SLASHING,
+    motionValue: formData.customizedMotionValue,
+    elementCorrection: 1,
+    extraPhysicsCorrection: 1
+  }
+}
+
 function makeWeapon(formData: FormData): Weapon {
   if (formData.weaponType == undefined || formData.motionId == undefined) {
     throw new Error('weaponType is not selected')
   }
   const newWeapon = structuredClone(weaponData.getWeaponByType(formData.weaponType))
-
-  const motions = weaponData.getWeaponMotionsByWeaponType(formData.motionId)
-  const motion = motions.find((m) => m.id == formData.motionId)
-  if (motion == undefined) {
-    throw new Error('motion is not available')
+  if (formData.motionId == CUSTOMIZED_MOTION_ID) {
+    newWeapon.motions = [makeWeaponMotion()]
+  } else {
+    const motions = weaponData.getWeaponMotionsByWeaponType(formData.motionId)
+    const motion = motions.find((m) => m.id == formData.motionId)
+    if (motion == undefined) {
+      throw new Error('motion is not available')
+    }
+    newWeapon.motions = [motion]
   }
-  newWeapon.motions = [motion]
 
   newWeapon.sharpness = formData.sp
   newWeapon.physicsAttack = formData.rawAttack
