@@ -36,7 +36,9 @@ const enum CalcMethod {
 // skill influence's scope
 const enum Scope {
   UNKNOWN = 0,
+  // partial: influence correction1
   PARTIAL = 1,
+  // global: influence correction2
   GLOBAL = 2
   // valid for only specific weapon types
   // SPECIFIC_WEAPONS = 2,
@@ -86,6 +88,7 @@ export interface Skill {
   levelValues: Array<LevelValue>
   // if not null, the skill will be activated when the precondition is met
   preCondition?: Precondition
+  // if not null, the skill will be activated when the weapon type is in the array
   availableWeaponTypes?: Array<WeaponType>
 }
 
@@ -223,30 +226,196 @@ const CriticalBoost: Skill = {
   preCondition: Precondition.CRITICAL_ATTACK
 }
 
-// const Agitator: Skill = {
-//   id: 3,
-//   name: '挑战者',
-//   category: Category.ATTACK,
-//   attackType: AttackType.PHYSICS,
-//   scope: Scope.GLOBAL,
-//   levelValue: [
-//     {
-//       level: Level.LEVEL1,
-//       valueP: 3,
-//       calcMethod: CalcMethod.PLUS
-//     },
-//     {
-//       level: Level.LEVEL2,
-//       valueP: 6,
-//       calcMethod: CalcMethod.PLUS
-//     },
-//     {
-//       level: Level.LEVEL3,
-//       calcMethod: CalcMethod.PLUS,
-//     }
-//   ]
+// 挑战者，影响物理攻击
+const AgitatorAttack: Skill = {
+  id: 4,
+  name: '挑战者',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 4,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 8,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 12,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 16,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 20,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
 
-const allSkills: Skill[] = [AttackBoost, CriticalEyes, CriticalBoost]
+// 挑战者，影响会心
+const AgitatorCriticalRate: Skill = {
+  id: 5,
+  name: '挑战者',
+  category: Category.CRITICAL_RATE,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 3,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 5,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 7,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL4,
+      valueP: 10,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL5,
+      valueP: 15,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
+
+const PeakPerformance: Skill = {
+  id: 6,
+  name: '无伤',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 5,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 10,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 20,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
+
+const WeaknessExploit: Skill = {
+  id: 7,
+  name: '弱点特效',
+  category: Category.CRITICAL_RATE,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  preCondition: Precondition.HIT_RATE_ABOVE_40,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 15,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 30,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 50,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
+
+const LatentPower: Skill = {
+  id: 8,
+  name: '力量解放',
+  category: Category.CRITICAL_RATE,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 10,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 20,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 30,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL4,
+      valueP: 40,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL5,
+      valueP: 50,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
+
+const allSkills: Skill[] = [
+  AttackBoost,
+  CriticalEyes,
+  CriticalBoost,
+  PeakPerformance,
+  WeaknessExploit,
+  LatentPower
+]
 export {
   Category as SkillCategory,
   Scope,

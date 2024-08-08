@@ -36,3 +36,4 @@ based on [Vue.js](https://vuejs.org/) and [ElementUI](https://element.eleme.io/)
 - https://www.monsterhunter.com/rise/en/weapon/
 - https://ngabbs.com/read.php?tid=32574416&rand=388
 - https://monsterhunter.fandom.com/wiki/MHRise:_Monsters#Large_Monsters
+- https://mhrise.kiranico.com/
