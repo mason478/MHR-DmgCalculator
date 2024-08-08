@@ -52,43 +52,6 @@ defineExpose({
   makeItems
 })
 
-// function onCheck(itemId: number, checked: boolean) {
-// const idx = items.findIndex((i) => i.id == itemId)
-// console.log('onCheck', idx)
-//
-// if (!checked) {
-// if (idx != -1) {
-// if exists, remove
-// items.splice(idx, 1)
-// }
-// } else if (idx == -1) {
-// if not exists, add
-// const item = ItemsData.getItemById(itemId)
-// items.push(item)
-// }
-// emitItems('items', items)
-// }
-
-// function onSelect(itemId: number, itemLv: ItemLevel) {
-// console.log('onSelect', itemId, itemLv)
-// const idx = items.findIndex((i) => i.id == itemId)
-//
-// if (idx != -1) {
-// let newItem = structuredClone(items[idx])
-// const lvs = findLevelValue(newItem, itemLv)
-// newItem.levelValues = lvs ? [lvs] : []
-// replace
-// items[idx] = newItem
-// } else {
-// add
-// const newItem = structuredClone(ItemsData.getItemById(itemId))
-// const lvs = findLevelValue(newItem, itemLv)
-// newItem.levelValues = lvs ? [lvs] : []
-// items.push(newItem)
-// }
-// emitItems('items', items)
-// }
-
 function generateLevelLabel(
   item: Item,
   level: ItemLevel | undefined,
