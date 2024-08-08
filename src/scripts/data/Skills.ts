@@ -408,13 +408,75 @@ const LatentPower: Skill = {
   ]
 }
 
+const MaximumMight: Skill = {
+  id: 9,
+  name: '精神抖擞',
+  category: Category.CRITICAL_RATE,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 10,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 20,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 30,
+      calcMethod: CalcMethod.PLUS
+    }
+  ]
+}
+
+const CriticalElement: Skill = {
+  id: 10,
+  name: '会心击【属性】',
+  category: Category.ElEMENT_CRITICAL_ENFORCEMENT,
+  attackType: AttackType.ELEMENT,
+  scope: Scope.GLOBAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 1.15,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
 const allSkills: Skill[] = [
   AttackBoost,
   CriticalEyes,
   CriticalBoost,
   PeakPerformance,
   WeaknessExploit,
-  LatentPower
+  LatentPower,
+  MaximumMight,
+  CriticalElement
 ]
 export {
   Category as SkillCategory,
