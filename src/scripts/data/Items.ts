@@ -5,8 +5,6 @@ data source:
     2. https://gamecat.fun/index.php?title=%E6%8A%80%E8%83%BD%E4%B8%8E%E9%A5%B0%E5%93%81
 */
 
-import { throwError } from 'element-plus/es/utils/error.mjs'
-
 enum ItemLevel {
   UNKNOWN = 0,
   LV1 = 1,
@@ -97,7 +95,7 @@ const DemonDrug: Item = {
 
 const DangoBooster: Item = {
   id: 5,
-  name: '催眠薄荷大福',
+  name: '催眠薄荷大福（团子短期催眠术）',
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.DANGO,
   calcMethod: CalcMethod.PLUS,
@@ -116,7 +114,7 @@ const Petalace: Item = {
   effectMode: EffectMode.ATTACK_BOOST,
   itemType: ItemType.POSSESSION,
   calcMethod: CalcMethod.PLUS,
-  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0 }, { value: 20 }]
+  levelValues: [{ level: ItemLevel.UNKNOWN, value: 0 }]
 }
 
 // {item.id: item}

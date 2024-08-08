@@ -817,6 +817,16 @@ interface SharpnessAttributes {
   elementCorrection: number
 }
 
+// weapon types that have sharpness
+export const sharpnessAvailableWeaponTypes: Set<WeaponType> = new Set([
+  WeaponType.GREAT_SWORD,
+  WeaponType.LONG_SWORD,
+  WeaponType.SWORD_AND_SHIELD,
+  WeaponType.CHARGE_BLADE,
+  WeaponType.DUAL_BLADES,
+  WeaponType.SWITCH_AXE
+])
+
 const sharpnessAttributesMap = new Map<Sharpness, SharpnessAttributes>([
   [
     Sharpness.UNKNOWN,

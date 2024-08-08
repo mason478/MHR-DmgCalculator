@@ -9,7 +9,8 @@ import {
   allSharpness,
   Sharpness,
   type Weapon,
-  type WeaponMotion
+  type WeaponMotion,
+  sharpnessAvailableWeaponTypes
 } from '../scripts/data/Weapons'
 import { elementNamesMap, ElementType, PhysicsAttackType } from '../scripts/data/Common'
 
@@ -132,6 +133,7 @@ defineExpose({
         label="武器动作"
         prop="motionId"
         :rules="[{ required: true, message: '请选择一种武器动作' }]"
+        style="width: 900px"
       >
         <el-select name="motionId" v-model="formData.motionId" placeholder="请选择一种动作">
           <el-option
@@ -156,13 +158,14 @@ defineExpose({
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="武器斩味（锋利度）" prop="sharpness">
-        <el-select
-          name="sharpness"
-          v-model="formData.sp"
-          placeholder="请选择武器斩味（可选）"
-          style="width: 1000px"
-        >
+      <el-form-item
+        label="武器斩味（锋利度）"
+        prop="sharpness"
+        v-if="
+          formData.weaponType != undefined && sharpnessAvailableWeaponTypes.has(formData.weaponType)
+        "
+      >
+        <el-select name="sharpness" v-model="formData.sp" placeholder="请选择武器斩味（可选）">
           <el-option
             v-for="sp in allSharpness"
             :key="sp"
@@ -251,8 +254,8 @@ defineExpose({
           validate-event="true"
           placeholder="请输入武器会心率"
         >
-          <template #append>%</template> </el-input
-        ><br /><br />
+          <template #append>%</template>
+        </el-input>
       </el-form-item>
     </el-form>
   </div>

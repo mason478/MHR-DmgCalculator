@@ -9,7 +9,9 @@ const formData = reactive({
   hasPowerTalon: false,
   hasMightSeed: false,
   demonDrugLevel: ItemsData.DemonDrug.levelValues[0],
-  dangoLevel: ItemsData.DangoBooster.levelValues[0]
+  dangoLevel: ItemsData.DangoBooster.levelValues[0],
+  // petalace attack booster value
+  petalace: 0
 })
 
 function makeItems() {
@@ -34,6 +36,12 @@ function makeItems() {
     const dango = structuredClone(ItemsData.DangoBooster)
     dango.levelValues = [formData.dangoLevel]
     items.push(dango)
+  }
+
+  if (formData.petalace > 0) {
+    const p = structuredClone(ItemsData.Petalace)
+    p.levelValues = [{ level: ItemLevel.LV1, value: formData.petalace }]
+    items.push(p)
   }
 
   return items
@@ -134,6 +142,10 @@ function generateLevelLabel(
             :label="generateLevelLabel(ItemsData.DangoBooster, d.level, d.alias)"
           />
         </el-select>
+      </el-form-item>
+
+      <el-form-item prop="petalace" :label="ItemsData.Petalace.name">
+        <el-input v-model.number="formData.petalace" type="number" min="0" />
       </el-form-item>
     </el-form>
   </div>
