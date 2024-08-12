@@ -468,6 +468,49 @@ const CriticalElement: Skill = {
   ]
 }
 
+const FireAttack: Skill = {
+  id: 11,
+  name: '火属性攻击强化',
+  category: Category.ATTACK,
+  attackType: AttackType.ELEMENT,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueP: 0,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL1,
+      valueP: 2,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL2,
+      valueP: 3,
+      calcMethod: CalcMethod.PLUS
+    },
+    {
+      level: Level.LEVEL3,
+      valueP: 4,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MIX
+    },
+    {
+      level: Level.LEVEL4,
+      valueP: 4,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MIX
+    },
+    {
+      level: Level.LEVEL5,
+      valueP: 4,
+      valueM: 1.2,
+      calcMethod: CalcMethod.MIX
+    }
+  ]
+}
+
 const allSkills: Skill[] = [
   AttackBoost,
   CriticalEyes,
@@ -476,7 +519,8 @@ const allSkills: Skill[] = [
   WeaknessExploit,
   LatentPower,
   MaximumMight,
-  CriticalElement
+  CriticalElement,
+  FireAttack
 ]
 export {
   Category as SkillCategory,
