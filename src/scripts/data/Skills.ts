@@ -468,9 +468,9 @@ const CriticalElement: Skill = {
   ]
 }
 
-const FireAttack: Skill = {
+const ElementAttack: Skill = {
   id: 11,
-  name: '火属性攻击强化',
+  name: '属性攻击强化(火/水/冰/雷/龙)',
   category: Category.ATTACK,
   attackType: AttackType.ELEMENT,
   scope: Scope.PARTIAL,
@@ -511,6 +511,127 @@ const FireAttack: Skill = {
   ]
 }
 
+const NormalRapidUp: Skill = {
+  id: 12,
+  name: '通常弹・连射箭强化',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueM: 0,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueM: 1.2,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
+const PierceUp: Skill = {
+  id: 13,
+  name: '貫通弾・貫通矢強化',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueM: 0,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueM: 1.2,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
+// 散弹・扩散箭强化
+const SpreadUp: Skill = {
+  id: 14,
+  name: '散弹・扩散箭强化',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueM: 0,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueM: 1.2,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
+const RapidFireUp: Skill = {
+  id: 15,
+  name: '速射强化',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueM: 0,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueM: 1.2,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
 const allSkills: Skill[] = [
   AttackBoost,
   CriticalEyes,
@@ -520,7 +641,11 @@ const allSkills: Skill[] = [
   LatentPower,
   MaximumMight,
   CriticalElement,
-  FireAttack
+  ElementAttack,
+  SpreadUp,
+  PierceUp,
+  NormalRapidUp,
+  RapidFireUp
 ]
 export {
   Category as SkillCategory,
