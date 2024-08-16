@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import 'element-plus/dist/index.css'
-import { type Skill, SkillLevel, type LevelValue, allSkills } from '../scripts/data/Skills'
+import {
+  type Skill,
+  SkillLevel,
+  type LevelValue,
+  allSkills,
+  getSkillById
+} from '../scripts/data/Skills'
 
 interface SelectedSkill {
   skill: Skill
@@ -22,24 +28,25 @@ const skillsFormData = reactive<FormData>({
   selectedSkills: selectedSkillsDefault
 })
 
-function findLevelValue(skill: Skill, level: SkillLevel): LevelValue {
+function findLevelValue(skillId: number, level: SkillLevel): LevelValue {
   let result = undefined
-  for (const levelValue of skill.levelValues) {
-    if (levelValue.level == level) {
+  let skill = getSkillById(skillId)
+  for (var levelValue of skill.levelValues) {
+    if (levelValue.level === level) {
       result = levelValue
       break
     }
   }
   if (result == undefined) {
-    throw new Error('Unknown skill level: ' + level)
+    throw new Error('Unknown skill level: ' + level + skill.name)
   }
   return result
 }
 
 function makeSkills(): Array<Skill> {
   let skills: Array<Skill> = []
-  for (const s of skillsFormData.selectedSkills) {
-    const levelValue = findLevelValue(s.skill, s.lv)
+  for (var s of skillsFormData.selectedSkills) {
+    var levelValue = findLevelValue(s.skill.id, s.lv)
     if (levelValue?.level != SkillLevel.UNKNOWN) {
       s.skill.levelValues = [levelValue]
       skills.push(s.skill)

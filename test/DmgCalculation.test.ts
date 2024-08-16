@@ -65,7 +65,7 @@ const skill1: Skill = {
   category: SkillCategory.ATTACK,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
-  levelValue: [
+  levelValues: [
     {
       level: SkillLevel.LEVEL4,
       calcMethod: CalcMethod.MIX,
@@ -81,7 +81,7 @@ const skill2: Skill = {
   category: SkillCategory.CRITICAL_RATE,
   attackType: AttackType.PHYSICS,
   scope: Scope.PARTIAL,
-  levelValue: [
+  levelValues: [
     {
       level: SkillLevel.LEVEL4,
       calcMethod: CalcMethod.PLUS,

@@ -123,25 +123,25 @@ const AttackBoost: Skill = {
       level: Level.LEVEL4,
       calcMethod: CalcMethod.MIX,
       valueP: 7,
-      valueM: 0.05
+      valueM: 1.05
     },
     {
       level: Level.LEVEL5,
       calcMethod: CalcMethod.MIX,
       valueP: 8,
-      valueM: 0.06
+      valueM: 1.06
     },
     {
       level: Level.LEVEL6,
       calcMethod: CalcMethod.MIX,
       valueP: 9,
-      valueM: 0.08
+      valueM: 1.08
     },
     {
       level: Level.LEVEL7,
       calcMethod: CalcMethod.MIX,
       valueP: 10,
-      valueM: 0.1
+      valueM: 1.1
     }
   ]
 }
@@ -372,6 +372,7 @@ const WeaknessExploit: Skill = {
 const LatentPower: Skill = {
   id: 8,
   name: '力量解放',
+  attackType: AttackType.PHYSICS,
   category: Category.CRITICAL_RATE,
   scope: Scope.PARTIAL,
   levelValues: [
@@ -520,7 +521,7 @@ const NormalRapidUp: Skill = {
   levelValues: [
     {
       level: Level.UNKNOWN,
-      valueM: 0,
+      valueM: 1,
       calcMethod: CalcMethod.MULTI
     },
     {
@@ -550,7 +551,7 @@ const PierceUp: Skill = {
   levelValues: [
     {
       level: Level.UNKNOWN,
-      valueM: 0,
+      valueM: 1,
       calcMethod: CalcMethod.MULTI
     },
     {
@@ -581,7 +582,7 @@ const SpreadUp: Skill = {
   levelValues: [
     {
       level: Level.UNKNOWN,
-      valueM: 0,
+      valueM: 1,
       calcMethod: CalcMethod.MULTI
     },
     {
@@ -611,7 +612,7 @@ const RapidFireUp: Skill = {
   levelValues: [
     {
       level: Level.UNKNOWN,
-      valueM: 0,
+      valueM: 1,
       calcMethod: CalcMethod.MULTI
     },
     {
@@ -632,6 +633,46 @@ const RapidFireUp: Skill = {
   ]
 }
 
+const Heroics: Skill = {
+  id: 16,
+  name: '火事场力',
+  category: Category.ATTACK,
+  attackType: AttackType.PHYSICS,
+  scope: Scope.PARTIAL,
+  levelValues: [
+    {
+      level: Level.UNKNOWN,
+      valueM: 1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL1,
+      valueM: 1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL2,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL3,
+      valueM: 1.05,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL4,
+      valueM: 1.1,
+      calcMethod: CalcMethod.MULTI
+    },
+    {
+      level: Level.LEVEL5,
+      valueM: 1.3,
+      calcMethod: CalcMethod.MULTI
+    }
+  ]
+}
+
 const allSkills: Skill[] = [
   AttackBoost,
   CriticalEyes,
@@ -645,8 +686,14 @@ const allSkills: Skill[] = [
   SpreadUp,
   PierceUp,
   NormalRapidUp,
-  RapidFireUp
+  RapidFireUp,
+  Heroics
 ]
+
+function getSkillById(id: number): Skill {
+  return allSkills.find((skill) => skill.id === id) as Skill
+}
+
 export {
   Category as SkillCategory,
   Scope,
@@ -657,5 +704,7 @@ export {
   BASIC_CRITICAL_CORRECTION,
   BASIC_ELEMENT_CRITICAL_CORRECTION,
   Level as SkillLevel,
-  allSkills
+  allSkills,
+  Precondition,
+  getSkillById
 }

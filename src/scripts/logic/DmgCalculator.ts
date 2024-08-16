@@ -22,7 +22,8 @@ import {
   Scope,
   SkillCategory,
   BASIC_CRITICAL_CORRECTION,
-  BASIC_ELEMENT_CRITICAL_CORRECTION
+  BASIC_ELEMENT_CRITICAL_CORRECTION,
+  Precondition
 } from '../data/Skills'
 import { type Item } from '../data/Items'
 import { type otherFactor } from '../data/Others'
@@ -66,11 +67,29 @@ abstract class C {
     return criticalRate
   }
 
+  private checkSkillPrecondition(skill: Skill): boolean {
+    //for (const levelValue of skill.levelValues)
+    if (skill.preCondition == undefined) {
+      return true
+    }
+    if (skill.preCondition === Precondition.HIT_RATE_ABOVE_40) {
+      if (this.getMonsterHitRate(this.ctx.monster.parts[0].id) >= 40) {
+        return true
+      } else {
+        return false
+      }
+    }
+    return true
+  }
+
   calcCriticalRate(): number {
     let criticalRate = this.getWeaponCriticalRate()
     const skills = this.findSkills(SkillCategory.CRITICAL_RATE, Scope.PARTIAL)
 
     for (const skill of skills) {
+      if (!this.checkSkillPrecondition(skill)) {
+        continue
+      }
       for (const levelValue of skill.levelValues) {
         if (levelValue.calcMethod === CalcMethod.PLUS && levelValue.valueP != undefined) {
           criticalRate += levelValue.valueP
@@ -109,7 +128,7 @@ class physicsDamageCalculator extends C {
           (levelValue.calcMethod === CalcMethod.MULTI || levelValue.calcMethod == CalcMethod.MIX) &&
           levelValue.valueM != undefined
         ) {
-          total += levelValue.valueM
+          total *= levelValue.valueM
         }
       }
     }
@@ -166,7 +185,6 @@ class physicsDamageCalculator extends C {
    * @return Physics attack power
    */
   calcAttack(): number {
-    // TODO: check preCondition
     const raw = this.ctx.weapon.physicsAttack ?? 0
     const m1 = this.calcMultiCorrection1()
     const m2 = this.calcMultiCorrection2()
