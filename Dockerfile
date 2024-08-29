@@ -1,10 +1,6 @@
-FROM node:18-alpine As builder
+FROM wangjiehaha/mhr_calc:builder0.1 AS builder
 
 WORKDIR /tmp
-
-COPY package*.json ./
-
-RUN npm install
 
 COPY . .
 

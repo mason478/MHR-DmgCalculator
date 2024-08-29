@@ -11,7 +11,7 @@ import {
   SkillLevel,
   CalcMethod
 } from '../src/scripts/data/Skills'
-//import { Petalace, PowerCharm } from '../src/scripts/data/Items'
+import { ItemLevel } from '../src/scripts/data/Items'
 import items from '../src/scripts/data/Items'
 import exp from 'constants'
 
@@ -91,6 +91,8 @@ const skill2: Skill = {
 }
 
 const item1 = items.Petalace
+item1.levelValues = [{ level: ItemLevel.LV1, value: 20 }]
+
 const item2 = items.PowerCharm
 
 describe('Test weapon1 damage', () => {
@@ -104,7 +106,8 @@ describe('Test weapon1 damage', () => {
   const c = new physicsDamageCalculator(context1)
 
   test('calculate attack', () => {
-    let expectedAttack = (weapon1.physicsAttack ?? 0) + item1.value + item2.value
+    let expectedAttack =
+      (weapon1.physicsAttack ?? 0) + item1.levelValues[0].value + item2.levelValues[0].value
     expect(c.calcAttack()).toEqual(expectedAttack)
   })
 

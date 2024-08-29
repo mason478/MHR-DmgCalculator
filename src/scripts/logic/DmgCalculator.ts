@@ -41,10 +41,6 @@ let R: [number, number, number]
 abstract class C {
   protected ctx: Context
   constructor(context: Context) {
-    // if ((context.skills.length) > 1) {
-    // throw new Error('Too many skills!')
-    // }
-    // TODO: check ids && level, 不允许重复
     this.ctx = context
   }
 
