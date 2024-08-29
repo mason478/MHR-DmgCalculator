@@ -16,7 +16,7 @@ based on [Vue.js](https://vuejs.org/) and [ElementUI](https://element.eleme.io/)
 
 ## 在线页面
 
-github pages在线使用：
+github pages在线使用：https://mason478.github.io/MHR-DmgCalculator/
 
 ## 本地部署
 
