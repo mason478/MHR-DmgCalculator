@@ -133,7 +133,6 @@ defineExpose({
         label="武器动作"
         prop="motionId"
         :rules="[{ required: true, message: '请选择一种武器动作' }]"
-        style="width: 900px"
       >
         <el-select name="motionId" v-model="formData.motionId" placeholder="请选择一种动作">
           <el-option
