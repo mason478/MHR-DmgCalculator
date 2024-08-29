@@ -12,7 +12,11 @@ based on [Vue.js](https://vuejs.org/) and [ElementUI](https://element.eleme.io/)
 
 ## 使用界面
 
+![Image](https://github.com/mason478/MHR-DmgCal/blob/master/imgs/page.png)
+
 ## 在线页面
+
+github pages在线使用：
 
 ## 本地部署
 
