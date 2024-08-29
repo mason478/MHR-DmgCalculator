@@ -13,3 +13,4 @@ RUN  npm run build
 FROM nginx:1.27.0-alpine
 
 COPY --from=builder /tmp/dist /usr/share/nginx/html
+
